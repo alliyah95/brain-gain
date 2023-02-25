@@ -18,7 +18,7 @@ connection.once("open", () => {
 });
 
 // setup routes
-const userRoutes = require("./routes/user");
+const userRoutes = require("./api/user");
 app.use("/", userRoutes);
 
 app.listen(PORT, () => {
