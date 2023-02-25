@@ -59,6 +59,12 @@ const loginUser = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
 
+    if (!username || !password) {
+        return res
+            .status(401)
+            .json({ message: "Incorrect username or password" });
+    }
+
     if (!user) {
         return res.status(401).json({ message: "User does not exist" });
     }
