@@ -55,4 +55,27 @@ const registerUser = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { registerUser };
+const loginUser = asyncHandler(async (req, res) => {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+
+    if (!user) {
+        return res.status(401).json({ message: "User does not exist" });
+    }
+
+    const correctPassword = await bcrypt.compare(password, user.password);
+    if (!correctPassword) {
+        return res
+            .status(401)
+            .json({ message: "Incorrect username or password" });
+    }
+
+    const token = authUtilities.generateJsonToken(user.id);
+    res.json({
+        message: "Login successful",
+        token,
+        user: { id: user.id, name: user.name, username: user.username },
+    });
+});
+
+module.exports = { registerUser, loginUser };
