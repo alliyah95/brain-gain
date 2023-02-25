@@ -2,10 +2,12 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const validators = require("../utils/validators");
 const authUtilities = require("../utils/auth");
+const asyncHandler = require("express-async-handler");
 
-module.exports.registerUser = async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     const { username, password, confirmedPassword, name } = req.body;
 
+    // user input validation
     if (!username || !password || !name) {
         return res.status(422).json({
             message: "Please provide all required information",
@@ -28,24 +30,24 @@ module.exports.registerUser = async (req, res) => {
         return res.status(422).json({ message: "Passwords do not match" });
     }
 
-    try {
-        const salt = await bcrypt.genSalt(12);
-        const hashedPassword = await bcrypt.hash(password, salt);
+    // password hashing
+    const salt = await bcrypt.genSalt(12);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = await User({
-            username,
-            password: hashedPassword,
-            name,
-        });
+    // user registration
+    const newUser = await User({
+        username,
+        password: hashedPassword,
+        name,
+    });
 
-        await newUser.save();
+    await newUser.save();
+    const authToken = authUtilities.generateJsonToken(newUser.id);
 
-        const authToken = authUtilities.generateJsonToken(newUser.id);
-        res.status(201).json({
-            message: "User successfully registered!",
-            token: authToken,
-        });
-    } catch (err) {
-        return res.status(500).json({ message: "Internal server error" });
-    }
-};
+    res.status(201).json({
+        message: "User successfully registered!",
+        token: authToken,
+    });
+});
+
+module.exports = { registerUser };
