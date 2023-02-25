@@ -7,11 +7,16 @@ const asyncHandler = require("express-async-handler");
 const registerUser = asyncHandler(async (req, res) => {
     const { username, password, confirmedPassword, name } = req.body;
 
-    // user input validation
     if (!username || !password || !name) {
         return res.status(422).json({
             message: "Please provide all required information",
         });
+    }
+
+    const foundUser = await User.findOne({ username });
+
+    if (foundUser) {
+        return res.status(409).json({ message: "Username is already in use" });
     }
 
     if (!validators.validateUsername(username)) {
