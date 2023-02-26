@@ -32,4 +32,30 @@ const createQuiz = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Quiz successfully created!" });
 });
 
-module.exports = { createQuiz };
+const getQuizzes = asyncHandler(async (req, res) => {
+    // const { id } = req.user;
+
+    // TODO: change the hard coded id to req.user.id after frontend is built
+    const quizSets = await QuizSet.find({
+        createdBy: "63fa13eb5e29dff5067d0000",
+    });
+
+    let filteredQuizSets = [];
+
+    if (quizSets) {
+        filteredQuizSets = quizSets.map((quiz) => {
+            const numQuestions = quiz.questions.length;
+            return {
+                id: quiz.id,
+                displayId: quiz.displayId,
+                title: quiz.title,
+                description: quiz.description,
+                numQuestions,
+            };
+        });
+    }
+
+    res.status(201).json({ filteredQuizSets });
+});
+
+module.exports = { createQuiz, getQuizzes };
