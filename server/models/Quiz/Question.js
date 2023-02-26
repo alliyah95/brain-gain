@@ -18,14 +18,23 @@ const questionSchema = new Schema({
         required: function () {
             return this.type === "multiple choice";
         },
-        validate: [
-            validators.validateOptions,
-            "Please provide at least 2 options",
-        ],
+        validate: {
+            validator: function (options) {
+                if (this.type === "multiple choice") {
+                    return validators.validateOptions(options);
+                }
+                return true;
+            },
+            message: "Please provide at least 2 options",
+        },
     },
     answer: {
         type: Schema.Types.Mixed,
-        required: [true, "Please input the correct answer"],
+        required: [true, "Please provide the correct answer for the question"],
+    },
+    quizSet: {
+        type: Schema.Types.ObjectId,
+        ref: "QuizSet",
     },
 });
 
