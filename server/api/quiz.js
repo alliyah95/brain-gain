@@ -1,0 +1,6 @@
+const express = require("express");
+const router = express.Router({ mergeParams: true });
+const quizController = require("../controllers/quiz");
+
+router.post("/create_quiz", quizController.createQuiz);
+module.exports = router;
