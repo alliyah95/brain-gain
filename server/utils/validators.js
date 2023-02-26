@@ -12,4 +12,13 @@ const validateUsername = (username) => {
     return /^[A-Za-z][A-Za-z0-9_]{5,29}$/.test(username);
 };
 
-module.exports = { validateName, validatePassword, validateUsername };
+const validateOptions = (options) => {
+    return options && options.length >= 2;
+};
+
+module.exports = {
+    validateName,
+    validatePassword,
+    validateUsername,
+    validateOptions,
+};
