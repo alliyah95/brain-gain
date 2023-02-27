@@ -87,6 +87,30 @@ const getQuizzes = asyncHandler(async (req, res) => {
     res.status(201).json({ filteredQuizSets });
 });
 
+const deleteQuiz = asyncHandler(async (req, res) => {
+    const { id } = req.body;
+
+    // modify code for authorization
+    // if (req.user.id !== quiz.createdBy) {
+    //     return res.status(401).json({ message: "Unauthorized" });
+    // }
+
+    const quiz = await QuizSet.findById(id);
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    const deletedQuiz = await QuizSet.findByIdAndDelete(id);
+    if (!deletedQuiz) {
+        return res.status(500).json({ message: "Failed to delete quiz" });
+    }
+
+    await Question.deleteMany({ quizSet: id });
+    // await AttemptHistory.deleteMany({ quizId: id });
+
+    res.status(201).json({ message: "Quiz successfully deleted" });
+});
+
 const addQuestion = asyncHandler(async (req, res) => {
     const { quizSetId, description, type, options, answer } = req.body;
 
@@ -127,4 +151,10 @@ const addQuestion = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Question successfully added!" });
 });
 
-module.exports = { createQuiz, getQuizzes, addQuestion, updateQuiz };
+module.exports = {
+    createQuiz,
+    getQuizzes,
+    addQuestion,
+    updateQuiz,
+    deleteQuiz,
+};
