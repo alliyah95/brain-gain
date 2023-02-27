@@ -28,6 +28,40 @@ const createQuiz = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Quiz successfully created!" });
 });
 
+const updateQuiz = asyncHandler(async (req, res) => {
+    const { id, title, description } = req.body;
+
+    const validationError = validators.validateQuizUpdateValues({ id, title });
+    if (validationError) {
+        return res.status(400).json({ message: validationError });
+    }
+
+    const quiz = await QuizSet.findById(id);
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    const updatedFields = {};
+    if (title) {
+        updatedFields.title = title;
+    }
+
+    if (description || description === "") {
+        updatedFields.description = description;
+    }
+
+    const updatedQuiz = await QuizSet.findOneAndUpdate(
+        { _id: id },
+        { $set: updatedFields },
+        { new: true }
+    );
+
+    res.status(200).json({
+        message: "Quiz updated successfully",
+        quiz: updatedQuiz,
+    });
+});
+
 const getQuizzes = asyncHandler(async (req, res) => {
     // const { id } = req.user;
 
@@ -93,4 +127,4 @@ const addQuestion = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Question successfully added!" });
 });
 
-module.exports = { createQuiz, getQuizzes, addQuestion };
+module.exports = { createQuiz, getQuizzes, addQuestion, updateQuiz };

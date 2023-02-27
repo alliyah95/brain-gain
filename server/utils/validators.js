@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const validateName = (name) => {
     // accepts letters, spaces, hyphen, and an apostrophe
     return /^[ a-zA-Z\-\’]+$/.test(name);
@@ -65,6 +67,18 @@ const validateQuiz = ({ title, createdBy }) => {
     return null;
 };
 
+const validateQuizUpdateValues = ({ id, title }) => {
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+        return "Invalid quiz ID";
+    }
+
+    if (!title) {
+        return "Quiz title cannot be empty";
+    }
+
+    return null;
+};
+
 const validateQuestion = ({ description, type, options, answer }) => {
     if (!description) {
         return "Description cannot be empty";
@@ -103,4 +117,5 @@ module.exports = {
     validateOptions,
     validateQuestion,
     validateQuiz,
+    validateQuizUpdateValues,
 };
