@@ -12,8 +12,57 @@ const validateUsername = (username) => {
     return /^[A-Za-z][A-Za-z0-9_]{5,29}$/.test(username);
 };
 
+const validateUser = async ({
+    username,
+    password,
+    confirmedPassword,
+    name,
+}) => {
+    if (!username || !password || !confirmedPassword || !name) {
+        return "Please provide all required information";
+    }
+
+    if (!validateUsername(username)) {
+        return "Invalid username";
+    }
+
+    if (!validatePassword(password)) {
+        return "Invalid password";
+    }
+
+    if (!validateName(name)) {
+        return "Invalid name";
+    }
+
+    if (password !== confirmedPassword) {
+        return "Passwords do not match";
+    }
+
+    return null;
+};
+
+const validateCredentials = ({ username, password }) => {
+    if (!username || !password) {
+        return "Incorrect username or password";
+    }
+
+    return null;
+};
+
 const validateOptions = (options, type) => {
     return options && options.length >= 2;
+};
+
+const validateQuiz = ({ title, createdBy }) => {
+    if (!title) {
+        return "Title cannot be empty";
+    }
+
+    if (!createdBy) {
+        return "Quiz creator cannot be empty";
+    }
+
+    return null;
 };
 
 const validateQuestion = ({ description, type, options, answer }) => {
@@ -49,6 +98,9 @@ module.exports = {
     validateName,
     validatePassword,
     validateUsername,
+    validateUser,
+    validateCredentials,
     validateOptions,
     validateQuestion,
+    validateQuiz,
 };

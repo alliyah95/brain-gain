@@ -7,14 +7,9 @@ const createQuiz = asyncHandler(async (req, res) => {
     const { title, createdBy } = req.body;
     let { description } = req.body;
 
-    if (!title) {
-        return res.status(400).json({ message: "Title cannot be empty" });
-    }
-
-    if (!createdBy) {
-        return res
-            .status(400)
-            .json({ message: "Quiz creator cannot be empty" });
+    const validationError = validators.validateQuiz({ title, createdBy });
+    if (validationError) {
+        return res.status(400).json({ message: validationError });
     }
 
     if (!description) {
@@ -42,7 +37,6 @@ const getQuizzes = asyncHandler(async (req, res) => {
     });
 
     let filteredQuizSets = [];
-
     if (quizSets) {
         filteredQuizSets = quizSets.map((quiz) => {
             const numQuestions = quiz.questions.length;

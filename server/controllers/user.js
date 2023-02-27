@@ -7,32 +7,20 @@ const asyncHandler = require("express-async-handler");
 const registerUser = asyncHandler(async (req, res) => {
     const { username, password, confirmedPassword, name } = req.body;
 
-    if (!username || !password || !name) {
-        return res.status(422).json({
-            message: "Please provide all required information",
-        });
+    const validationError = await validators.validateUser({
+        username,
+        password,
+        confirmedPassword,
+        name,
+    });
+
+    if (validationError) {
+        return res.status(400).json({ message: validationError });
     }
 
     const foundUser = await User.findOne({ username });
-
     if (foundUser) {
-        return res.status(409).json({ message: "Username is already in use" });
-    }
-
-    if (!validators.validateUsername(username)) {
-        return res.status(422).json({ message: "Invalid username" });
-    }
-
-    if (!validators.validatePassword(password)) {
-        return res.status(422).json({ message: "Invalid password" });
-    }
-
-    if (!validators.validateName(name)) {
-        return res.status(422).json({ message: "Invalid name" });
-    }
-
-    if (password !== confirmedPassword) {
-        return res.status(422).json({ message: "Passwords do not match" });
+        return res.status(400).json({ message: "Username is already in use" });
     }
 
     // password hashing
@@ -57,14 +45,19 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
 
-    if (!username || !password) {
+    const validationError = validators.validateCredentials({
+        username,
+        password,
+    });
+
+    if (validationError) {
         return res
             .status(401)
             .json({ message: "Incorrect username or password" });
     }
 
+    const user = await User.findOne({ username });
     if (!user) {
         return res.status(401).json({ message: "User does not exist" });
     }
