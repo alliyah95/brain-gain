@@ -87,6 +87,17 @@ const getQuizzes = asyncHandler(async (req, res) => {
     res.status(201).json({ filteredQuizSets });
 });
 
+const getQuiz = asyncHandler(async (req, res) => {
+    const { displayId } = req.body;
+
+    const quiz = await QuizSet.findOne({ displayId });
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    res.status(200).json({ message: "Quiz successfully retrieved", quiz });
+});
+
 const deleteQuiz = asyncHandler(async (req, res) => {
     const { id } = req.body;
 
@@ -154,7 +165,8 @@ const addQuestion = asyncHandler(async (req, res) => {
 module.exports = {
     createQuiz,
     getQuizzes,
-    addQuestion,
+    getQuiz,
     updateQuiz,
     deleteQuiz,
+    addQuestion,
 };
