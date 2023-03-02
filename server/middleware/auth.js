@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const QuizSet = require("../models/Quiz/QuizSet");
 
 const isLoggedIn = async (req, res, next) => {
@@ -21,7 +22,11 @@ const isLoggedIn = async (req, res, next) => {
 };
 
 const isQuizOwner = async (req, res, next) => {
-    const quizId = req.params.quizId;
+    const { quizId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(quizId)) {
+        return res.status(400).json({ message: "Invalid quiz ID" });
+    }
     const quiz = await QuizSet.findById(quizId);
 
     if (!quiz) {

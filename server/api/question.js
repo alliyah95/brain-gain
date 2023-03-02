@@ -15,5 +15,10 @@ router.patch(
     isQuizOwner,
     questionController.editQuestion
 );
-
+router.delete(
+    "/delete_question/:quizId/:questionId",
+    isLoggedIn,
+    isQuizOwner,
+    questionController.deleteQuestion
+);
 module.exports = router;

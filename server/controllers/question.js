@@ -84,4 +84,31 @@ const editQuestion = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Question successfully updated!" });
 });
 
-module.exports = { addQuestion, editQuestion };
+const deleteQuestion = asyncHandler(async (req, res) => {
+    const { quizId, questionId } = req.params;
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+        return res.status(404).json({ message: "Question not found!" });
+    }
+
+    const quizSet = await QuizSet.findById(quizId);
+    if (!quizSet) {
+        return res.status(404).json({ message: "Quiz set not found" });
+    }
+
+    const deletedQuestion = await Question.findByIdAndDelete(questionId);
+    if (!deletedQuestion) {
+        return res.status(500).json({ message: "Failed to delete quiz" });
+    }
+
+    const index = quizSet.questions.indexOf(questionId);
+    if (index !== -1) {
+        quizSet.questions.splice(index, 1);
+        await quizSet.save();
+    }
+
+    res.status(200).json({ message: "Question successfully deleted" });
+});
+
+module.exports = { addQuestion, editQuestion, deleteQuestion };
