@@ -4,10 +4,11 @@ const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
 
 const createQuiz = asyncHandler(async (req, res) => {
-    const { title, createdBy } = req.body;
+    const creator = req.user;
+    const { title } = req.body;
     let { description } = req.body;
 
-    const validationError = validators.validateQuiz({ title, createdBy });
+    const validationError = validators.validateQuiz({ title, creator });
     if (validationError) {
         return res.status(400).json({ message: validationError });
     }
@@ -19,7 +20,7 @@ const createQuiz = asyncHandler(async (req, res) => {
     const newQuizSet = await QuizSet({
         title,
         description,
-        createdBy,
+        createdBy: creator,
         questions: [],
         attempts: [],
     });
@@ -63,9 +64,9 @@ const updateQuiz = asyncHandler(async (req, res) => {
 });
 
 const getQuizzes = asyncHandler(async (req, res) => {
-    const { id } = req.user;
+    const user = req.user;
     const quizSets = await QuizSet.find({
-        createdBy: id,
+        createdBy: user,
     });
 
     let filteredQuizSets = [];
@@ -88,7 +89,7 @@ const getQuizzes = asyncHandler(async (req, res) => {
 const getQuiz = asyncHandler(async (req, res) => {
     const { displayId } = req.body;
 
-    const quiz = await QuizSet.findOne({ displayId });
+    const quiz = await QuizSet.findOne({ displayId }).populate("questions");
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
@@ -98,11 +99,6 @@ const getQuiz = asyncHandler(async (req, res) => {
 
 const deleteQuiz = asyncHandler(async (req, res) => {
     const { id } = req.body;
-
-    // modify code for authorization
-    // if (req.user.id !== quiz.createdBy) {
-    //     return res.status(401).json({ message: "Unauthorized" });
-    // }
 
     const quiz = await QuizSet.findById(id);
     if (!quiz) {
