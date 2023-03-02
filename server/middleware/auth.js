@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const QuizSet = require("../models/Quiz/QuizSet");
 
 const isLoggedIn = async (req, res, next) => {
     try {
@@ -19,4 +20,20 @@ const isLoggedIn = async (req, res, next) => {
     }
 };
 
-module.exports = { isLoggedIn };
+const isQuizOwner = async (req, res, next) => {
+    const quizId = req.params.quizId;
+    const quiz = await QuizSet.findById(quizId);
+
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found!" });
+    }
+
+    if (quiz.createdBy.toString() !== req.user) {
+        return res
+            .status(401)
+            .json({ message: "Not authorized to access this quiz" });
+    }
+
+    next();
+};
+module.exports = { isLoggedIn, isQuizOwner };
