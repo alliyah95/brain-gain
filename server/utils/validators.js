@@ -55,12 +55,12 @@ const validateOptions = (options, type) => {
     return options && options.length >= 2;
 };
 
-const validateQuiz = ({ title, createdBy }) => {
+const validateQuiz = ({ title, creator }) => {
     if (!title) {
         return "Title cannot be empty";
     }
 
-    if (!createdBy) {
+    if (!creator) {
         return "Quiz creator cannot be empty";
     }
 
