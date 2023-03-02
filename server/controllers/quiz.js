@@ -63,11 +63,9 @@ const updateQuiz = asyncHandler(async (req, res) => {
 });
 
 const getQuizzes = asyncHandler(async (req, res) => {
-    // const { id } = req.user;
-
-    // TODO: change the hard coded id to req.user.id after frontend is built
+    const { id } = req.user;
     const quizSets = await QuizSet.find({
-        createdBy: "63fa13eb5e29dff5067d0000",
+        createdBy: id,
     });
 
     let filteredQuizSets = [];
