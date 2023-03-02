@@ -30,14 +30,18 @@ const createQuiz = asyncHandler(async (req, res) => {
 });
 
 const updateQuiz = asyncHandler(async (req, res) => {
-    const { id, title, description } = req.body;
+    const { quizId } = req.params;
+    const { title, description } = req.body;
 
-    const validationError = validators.validateQuizUpdateValues({ id, title });
+    const validationError = validators.validateQuizUpdateValues({
+        quizId,
+        title,
+    });
     if (validationError) {
         return res.status(400).json({ message: validationError });
     }
 
-    const quiz = await QuizSet.findById(id);
+    const quiz = await QuizSet.findById(quizId);
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
@@ -52,7 +56,7 @@ const updateQuiz = asyncHandler(async (req, res) => {
     }
 
     const updatedQuiz = await QuizSet.findOneAndUpdate(
-        { _id: id },
+        { _id: quizId },
         { $set: updatedFields },
         { new: true }
     );
@@ -87,9 +91,9 @@ const getQuizzes = asyncHandler(async (req, res) => {
 });
 
 const getQuiz = asyncHandler(async (req, res) => {
-    const { displayId } = req.body;
+    const { quizId } = req.params;
 
-    const quiz = await QuizSet.findOne({ displayId }).populate("questions");
+    const quiz = await QuizSet.findById(quizId).populate("questions");
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
@@ -98,26 +102,27 @@ const getQuiz = asyncHandler(async (req, res) => {
 });
 
 const deleteQuiz = asyncHandler(async (req, res) => {
-    const { id } = req.body;
+    const { quizId } = req.params;
 
-    const quiz = await QuizSet.findById(id);
+    const quiz = await QuizSet.findById(quizId);
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
 
-    const deletedQuiz = await QuizSet.findByIdAndDelete(id);
+    const deletedQuiz = await QuizSet.findByIdAndDelete(quizId);
     if (!deletedQuiz) {
         return res.status(500).json({ message: "Failed to delete quiz" });
     }
 
-    await Question.deleteMany({ quizSet: id });
+    await Question.deleteMany({ quizSet: quizId });
     // await AttemptHistory.deleteMany({ quizId: id });
 
     res.status(201).json({ message: "Quiz successfully deleted" });
 });
 
 const addQuestion = asyncHandler(async (req, res) => {
-    const { quizSetId, description, type, options, answer } = req.body;
+    const { quizId } = req.params;
+    const { description, type, options, answer } = req.body;
 
     const validationError = validators.validateQuestion({
         description,
@@ -130,13 +135,13 @@ const addQuestion = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: validationError });
     }
 
-    const quizSet = await QuizSet.findById(quizSetId);
+    const quizSet = await QuizSet.findById(quizId);
 
     if (!quizSet) {
         return res.status(400).json({ message: "Cannot find quiz set!" });
     }
 
-    const questionData = { description, type, answer, quizSet: quizSetId };
+    const questionData = { description, type, answer, quizSet: quizId };
 
     if (type === "multiple choice") {
         questionData.options = options;

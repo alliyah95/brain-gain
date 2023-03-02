@@ -67,8 +67,8 @@ const validateQuiz = ({ title, creator }) => {
     return null;
 };
 
-const validateQuizUpdateValues = ({ id, title }) => {
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+const validateQuizUpdateValues = ({ quizId, title }) => {
+    if (!quizId || !mongoose.Types.ObjectId.isValid(quizId)) {
         return "Invalid quiz ID";
     }
 
