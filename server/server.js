@@ -20,8 +20,11 @@ connection.once("open", () => {
 // setup routes
 const userRoutes = require("./api/user");
 const quizRoutes = require("./api/quiz");
-app.use("/", userRoutes);
-app.use("/", quizRoutes);
+const questionRoutes = require("./api/question");
+
+app.use("/api", userRoutes);
+app.use("/api", quizRoutes);
+app.use("/api", questionRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

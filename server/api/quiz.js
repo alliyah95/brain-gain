@@ -5,12 +5,6 @@ const { isLoggedIn, isQuizOwner } = require("../middleware/auth");
 
 router.post("/create_quiz", isLoggedIn, quizController.createQuiz);
 router.get("/quiz_sets", isLoggedIn, quizController.getQuizzes);
-router.post(
-    "/add_question/:quizId",
-    isLoggedIn,
-    isQuizOwner,
-    quizController.addQuestion
-);
 router.patch(
     "/update_quiz/:quizId",
     isLoggedIn,
