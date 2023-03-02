@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
+const asyncHandler = require("express-async-handler");
 const QuizSet = require("../models/Quiz/QuizSet");
 
 const isLoggedIn = async (req, res, next) => {
@@ -21,14 +22,14 @@ const isLoggedIn = async (req, res, next) => {
     }
 };
 
-const isQuizOwner = async (req, res, next) => {
+const isQuizOwner = asyncHandler(async (req, res, next) => {
     const { quizId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(quizId)) {
         return res.status(400).json({ message: "Invalid quiz ID" });
     }
-    const quiz = await QuizSet.findById(quizId);
 
+    const quiz = await QuizSet.findById(quizId);
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found!" });
     }
@@ -40,5 +41,5 @@ const isQuizOwner = async (req, res, next) => {
     }
 
     next();
-};
+});
 module.exports = { isLoggedIn, isQuizOwner };
