@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const quizController = require("../controllers/quiz");
 const questionController = require("../controllers/question");
 const { isLoggedIn, isQuizOwner } = require("../middleware/auth");
 
@@ -9,6 +8,12 @@ router.post(
     isLoggedIn,
     isQuizOwner,
     questionController.addQuestion
+);
+router.patch(
+    "/edit_question/:quizId/:questionId",
+    isLoggedIn,
+    isQuizOwner,
+    questionController.editQuestion
 );
 
 module.exports = router;
