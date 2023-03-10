@@ -31,9 +31,8 @@ const RegistrationForm = () => {
 
             <button className="btn w-full mb-3">Create account</button>
             <p className="text-center">
-                Already have an account?
+                Already have an account?{" "}
                 <a className="link" href="/login">
-                    {" "}
                     Sign in
                 </a>
             </p>
