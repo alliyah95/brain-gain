@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    a {
+        @apply cursor-pointer;
+    }
+    body {
+        @apply text-muted-brown text-base;
+    }
+    img {
+        @apply max-w-full;
+    }
+    header {
+        @apply py-4 md:py-6 lg:py-8 md:border-b-[1px] md:border-b-brown md:border-opacity-50 md:mb-5;
+    }
+    nav {
+        @apply flex justify-between items-center;
+    }
+
+    nav h2 {
+        @apply text-3xl md:text-4xl lg:text-5xl font-bold;
+    }
+    main {
+        @apply w-[90%] mx-auto;
+    }
+    input[type="radio"] {
+        @apply appearance-none cursor-pointer w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-transparent border border-brown-darker checked:bg-brown-darker mr-1;
+    }
+}
+@layer utilities {
+    .link {
+        @apply font-semibold cursor-pointer lg:hover:underline;
+    }
+    .container {
+        @apply w-[92%] md:w-[90%] max-w-full mx-auto;
+    }
+    .auth-container {
+        @apply flex flex-col lg:flex-row min-h-screen lg:min-h-0 lg:h-[90vh] justify-between lg:w-[90%] lg:mx-auto lg:items-center;
+    }
+    .auth-form-container {
+        @apply w-[85%] mx-auto mt-12 lg:mt-0 lg:w-[50%] 2xl:px-[140px];
+    }
+}
+
+@layer components {
+    .btn {
+        @apply text-white bg-brown py-2 px-8 lg:px-10 h-auto rounded-lg hover:bg-brown-darker active:bg-brown-darker cursor-pointer;
+    }
+    .line-input {
+        @apply w-full bg-transparent border-brown border-b-[1px] outline-none pb-2 placeholder-muted-brown text-brown;
+    }
+    .preview-card {
+        @apply bg-brown p-5 rounded-md hover:bg-brown-darker active:bg-brown-darker;
+    }
+    .preview-card-light {
+        @apply bg-light-brown hover:bg-light-brown-h active:bg-light-brown-h p-5 rounded-md;
+    }
+}
