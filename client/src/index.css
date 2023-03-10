@@ -40,7 +40,7 @@
         @apply flex flex-col lg:flex-row min-h-screen lg:min-h-0 lg:h-[90vh] justify-between lg:w-[90%] lg:mx-auto lg:items-center;
     }
     .auth-form-container {
-        @apply w-[85%] mx-auto mt-12 lg:mt-0 lg:w-[50%] 2xl:px-[140px];
+        @apply w-[85%] mx-auto mt-12 lg:mt-0 lg:w-[50%] 2xl:px-[140px] mb-8;
     }
 }
 
