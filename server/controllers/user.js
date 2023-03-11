@@ -52,9 +52,7 @@ const loginUser = asyncHandler(async (req, res) => {
     });
 
     if (validationError) {
-        return res
-            .status(401)
-            .json({ message: "Incorrect username or password" });
+        return res.status(401).json({ message: validationError });
     }
 
     const user = await User.findOne({ username });
