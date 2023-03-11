@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
 
-const Auth = () => {
+const AuthenticationPage = () => {
     const location = useLocation();
 
     const [form, header, subtitle] =
@@ -18,6 +18,7 @@ const Auth = () => {
                   "Sign up",
                   "Please provide the needed information.",
               ];
+
     return (
         <div className="auth-container">
             <div className="auth-form-container">
@@ -41,4 +42,4 @@ const Auth = () => {
     );
 };
 
-export default Auth;
+export default AuthenticationPage;
