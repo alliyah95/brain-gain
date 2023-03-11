@@ -40,6 +40,11 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({
         message: "User successfully registered!",
         token: authToken,
+        user: {
+            id: newUser.id,
+            name: newUser.name,
+            username: newUser.username,
+        },
     });
 });
 

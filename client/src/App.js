@@ -4,6 +4,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import AuthenticationPage from "./pages/Auth";
 import { action as loginAction } from "./components/Auth/LoginForm";
+import { action as registerAction } from "./components/Auth/RegistrationForm";
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,11 @@ const router = createBrowserRouter([
                 element: <AuthenticationPage />,
                 action: loginAction,
             },
-            { path: "/signup", element: <AuthenticationPage /> },
+            {
+                path: "/signup",
+                element: <AuthenticationPage />,
+                action: registerAction,
+            },
         ],
     },
 ]);
