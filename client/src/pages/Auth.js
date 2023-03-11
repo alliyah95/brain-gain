@@ -28,7 +28,6 @@ const AuthenticationPage = () => {
                     </h2>
                     <p>{subtitle}</p>
                 </div>
-
                 {form}
             </div>
             <div className="lg:w-[50%]">

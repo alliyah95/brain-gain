@@ -1,34 +1,45 @@
-import React from "react";
-import { Form, json, redirect } from "react-router-dom";
+import React, { useContext } from "react";
+import { Form, json, redirect, useActionData } from "react-router-dom";
+import NotificationContext from "../../store/toast";
 
 const LoginForm = () => {
-    return (
-        <Form method="post">
-            <div className="space-y-5 mb-8">
-                <input
-                    type="text"
-                    className="line-input"
-                    placeholder="Username"
-                    name="username"
-                    required
-                />
-                <input
-                    type="password"
-                    className="line-input"
-                    placeholder="Password"
-                    name="password"
-                    required
-                />
-            </div>
+    const data = useActionData();
+    const notifCtx = useContext(NotificationContext);
 
-            <button className="btn w-full mb-3">Sign in</button>
-            <p className="text-center">
-                Don't have an account?{" "}
-                <a className="link" href="/signup">
-                    Sign up
-                </a>
-            </p>
-        </Form>
+    if (data && data.message) {
+        notifCtx.onNotify(data.message);
+        data.message = "";
+    }
+
+    return (
+        <>
+            <Form method="post">
+                <div className="space-y-5 mb-8">
+                    <input
+                        type="text"
+                        className="line-input"
+                        placeholder="Username"
+                        name="username"
+                        required
+                    />
+                    <input
+                        type="password"
+                        className="line-input"
+                        placeholder="Password"
+                        name="password"
+                        required
+                    />
+                </div>
+
+                <button className="btn w-full mb-3">Sign in</button>
+                <p className="text-center">
+                    Don't have an account?{" "}
+                    <a className="link" href="/signup">
+                        Sign up
+                    </a>
+                </p>
+            </Form>
+        </>
     );
 };
 
@@ -49,6 +60,10 @@ export const action = async ({ request }) => {
             "Content-Type": "application/json",
         },
     });
+
+    if (response.status === 401) {
+        return response;
+    }
 
     if (!response.ok) {
         const error = await response.json();
