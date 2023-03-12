@@ -25,7 +25,7 @@ const isLoggedIn = async (req, res, next) => {
 
 const isAlreadyLoggedIn = async (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        const token = req.headers.authorization.split(" ")[1];
 
         if (!token) {
             return next();
@@ -39,6 +39,7 @@ const isAlreadyLoggedIn = async (req, res, next) => {
 
         return res.status(401).json({ message: "You are already logged in!" });
     } catch (err) {
+        console.log(err);
         return next();
     }
 };
