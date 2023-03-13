@@ -23,27 +23,6 @@ const isLoggedIn = async (req, res, next) => {
     }
 };
 
-const isAlreadyLoggedIn = async (req, res, next) => {
-    try {
-        const token = req.headers.authorization.split(" ")[1];
-
-        if (!token) {
-            return next();
-        }
-
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decodedToken.user);
-        if (!user) {
-            return next();
-        }
-
-        return res.status(401).json({ message: "You are already logged in!" });
-    } catch (err) {
-        console.log(err);
-        return next();
-    }
-};
-
 const isQuizOwner = asyncHandler(async (req, res, next) => {
     const { quizId } = req.params;
 
@@ -65,4 +44,4 @@ const isQuizOwner = asyncHandler(async (req, res, next) => {
     next();
 });
 
-module.exports = { isLoggedIn, isAlreadyLoggedIn, isQuizOwner };
+module.exports = { isLoggedIn, isQuizOwner };
