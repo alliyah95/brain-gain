@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, json, redirect, useActionData } from "react-router-dom";
+import { Form, Link, json, redirect, useActionData } from "react-router-dom";
 import NotificationContext from "../../store/toast";
 
 const LoginForm = () => {
@@ -34,9 +34,9 @@ const LoginForm = () => {
                 <button className="btn w-full mb-3">Sign in</button>
                 <p className="text-center">
                     Don't have an account?{" "}
-                    <a className="link" href="/signup">
+                    <Link className="link" to="/signup">
                         Sign up
-                    </a>
+                    </Link>
                 </p>
             </Form>
         </>
