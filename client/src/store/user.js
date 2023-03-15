@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import User from "../../../server/models/User";
+import { getAuthToken } from "../util/auth";
 
 const UserContext = createContext({
     user: null,
@@ -19,11 +20,8 @@ const UserContextProvider = (props) => {
     };
 
     const tokenHandler = () => {
-        const currentToken = localStorage.getItem("token");
-
-        if (currentToken) {
-            setToken(currentToken);
-        }
+        const testToken = getAuthToken();
+        setToken(testToken);
     };
 
     return (
