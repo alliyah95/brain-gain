@@ -29,7 +29,7 @@ export function tokenLoader() {
 
 export function authChecker() {
     if (!getAuthToken()) {
-        return redirect("/signin");
+        return redirect("/login");
     }
 
     return null;
