@@ -5,12 +5,15 @@ import Home from "./pages/Home";
 import AuthenticationPage from "./pages/Auth";
 import { action as loginAction } from "./components/Auth/LoginForm";
 import { action as registerAction } from "./components/Auth/RegistrationForm";
+import { tokenLoader, authChecker } from "./util/auth";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
         errorElement: <ErrorPage />,
+        id: "root",
+        loader: tokenLoader,
         children: [
             { index: true, element: <Home /> },
             {
