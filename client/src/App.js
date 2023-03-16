@@ -6,6 +6,7 @@ import AuthenticationPage from "./pages/Auth";
 import { action as loginAction } from "./components/Auth/LoginForm";
 import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
+import { action as logoutAction } from "./pages/Logout";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
                 path: "/signup",
                 element: <AuthenticationPage />,
                 action: registerAction,
+            },
+            {
+                path: "logout",
+                action: logoutAction,
             },
         ],
     },

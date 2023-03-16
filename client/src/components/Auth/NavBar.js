@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useLocation, useRouteLoaderData } from "react-router-dom";
 
 const NavBar = () => {
     const location = useLocation();
@@ -28,6 +28,12 @@ const NavBar = () => {
                 <Link className="btn" to={path}>
                     {btnName}
                 </Link>
+            )}
+
+            {token && (
+                <Form action="/logout" method="POST">
+                    <button className="btn">Logout</button>
+                </Form>
             )}
         </nav>
     );
