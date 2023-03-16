@@ -42,6 +42,9 @@
     .auth-form-container {
         @apply w-[95%] mx-auto mt-12 lg:mt-0 lg:w-[50%] 2xl:px-[140px] mb-8;
     }
+    .form-title {
+        @apply font-bold text-2xl lg:text-3xl text-brown;
+    }
 }
 
 @layer components {
