@@ -4,6 +4,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import AuthenticationPage from "./pages/Auth";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
+import QuizzesPage from "./pages/Quiz/QuizzesPage";
 import { action as loginAction } from "./components/Auth/LoginForm";
 import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
         id: "root",
         loader: tokenLoader,
         children: [
-            { index: true, element: <Home />, loader: authChecker },
+            {
+                index: true,
+                element: <Home />,
+                loader: authChecker,
+            },
             {
                 path: "/login",
                 element: <AuthenticationPage />,
@@ -32,6 +37,7 @@ const router = createBrowserRouter([
             {
                 path: "logout",
                 action: logoutAction,
+                loader: authChecker,
             },
             {
                 path: "/",
@@ -41,6 +47,10 @@ const router = createBrowserRouter([
                         path: "create_quiz",
                         element: <CreateQuizPage />,
                         action: createQuizAction,
+                    },
+                    {
+                        path: "home",
+                        element: <QuizzesPage />,
                     },
                 ],
             },
