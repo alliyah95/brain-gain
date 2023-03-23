@@ -11,7 +11,7 @@ const QuizDetailPage = () => {
                 <h3 className="text-3xl lg:text-4xl font-bold text-brown">
                     {quizData.title}
                 </h3>
-                <Link>
+                <Link to={`/quiz/${quizData.displayId}/edit`}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="currentColor"

@@ -30,18 +30,19 @@ const createQuiz = asyncHandler(async (req, res) => {
 });
 
 const updateQuiz = asyncHandler(async (req, res) => {
-    const { quizId } = req.params;
+    const { quizDisplayId } = req.params;
     const { title, description } = req.body;
 
     const validationError = validators.validateQuizUpdateValues({
-        quizId,
+        quizDisplayId,
         title,
     });
+
     if (validationError) {
         return res.status(400).json({ message: validationError });
     }
 
-    const quiz = await QuizSet.findById(quizId);
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId });
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
@@ -56,7 +57,7 @@ const updateQuiz = asyncHandler(async (req, res) => {
     }
 
     const updatedQuiz = await QuizSet.findOneAndUpdate(
-        { _id: quizId },
+        { _id: quiz.id },
         { $set: updatedFields },
         { new: true }
     );
