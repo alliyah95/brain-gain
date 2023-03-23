@@ -3,7 +3,7 @@ import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
-import QuizzesPage from "./pages/Quiz/QuizzesPage";
+import QuizzesPage, { loader as quizzesLoader } from "./pages/Quiz/QuizzesPage";
 import { action as loginAction } from "./components/Auth/LoginForm";
 import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
@@ -49,8 +49,9 @@ const router = createBrowserRouter([
                         action: createQuizAction,
                     },
                     {
-                        path: "home",
+                        path: "quizzes",
                         element: <QuizzesPage />,
+                        loader: quizzesLoader,
                     },
                 ],
             },
