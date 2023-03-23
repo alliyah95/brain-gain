@@ -26,7 +26,7 @@ const QuizzesPage = () => {
                     quizSets.map((quiz) => {
                         return (
                             <li key={quiz.id}>
-                                <Link>
+                                <Link to={`/quiz/${quiz.displayId}`}>
                                     <div className="preview-card">
                                         <div className="space-x-2">
                                             <span className="font-semibold text-light-brown">

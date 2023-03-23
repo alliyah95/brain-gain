@@ -24,13 +24,9 @@ const isLoggedIn = async (req, res, next) => {
 };
 
 const isQuizOwner = asyncHandler(async (req, res, next) => {
-    const { quizId } = req.params;
+    const { quizDisplayId } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(quizId)) {
-        return res.status(400).json({ message: "Invalid quiz ID" });
-    }
-
-    const quiz = await QuizSet.findById(quizId);
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId });
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found!" });
     }

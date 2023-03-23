@@ -17,6 +17,11 @@ router.delete(
     isQuizOwner,
     quizController.deleteQuiz
 );
-router.get("/quiz/:quizId", isLoggedIn, isQuizOwner, quizController.getQuiz);
+router.get(
+    "/quiz/:quizDisplayId",
+    isLoggedIn,
+    isQuizOwner,
+    quizController.getQuiz
+);
 
 module.exports = router;

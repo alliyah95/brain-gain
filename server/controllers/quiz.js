@@ -91,9 +91,12 @@ const getQuizzes = asyncHandler(async (req, res) => {
 });
 
 const getQuiz = asyncHandler(async (req, res) => {
-    const { quizId } = req.params;
+    const { quizDisplayId } = req.params;
 
-    const quiz = await QuizSet.findById(quizId).populate("questions");
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId }).populate(
+        "questions"
+    );
+
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
