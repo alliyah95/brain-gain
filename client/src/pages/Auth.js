@@ -1,11 +1,26 @@
-import React from "react";
-import { useLocation, redirect } from "react-router-dom";
-import { tokenLoader } from "../util/auth";
+import React, { useEffect, useState } from "react";
+import { useLocation, useRouteLoaderData, useNavigate } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
 
 const AuthenticationPage = () => {
     const location = useLocation();
+    const token = useRouteLoaderData("root");
+    const navigate = useNavigate();
+    const [render, setRender] = useState(false);
+
+    useEffect(() => {
+        if (token) {
+            setRender(false);
+            navigate("/");
+        } else {
+            setRender(true);
+        }
+    }, [token, navigate]);
+
+    if (!render) {
+        return <></>;
+    }
 
     const [form, header, subtitle] =
         location.pathname === "/login"
@@ -40,16 +55,6 @@ const AuthenticationPage = () => {
             </div>
         </div>
     );
-};
-
-export const authLoader = () => {
-    const tokenInStorage = tokenLoader();
-
-    if (tokenInStorage !== null || tokenInStorage !== "EXPIRED") {
-        return redirect("/");
-    }
-
-    return null;
 };
 
 export default AuthenticationPage;

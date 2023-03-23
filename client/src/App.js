@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
-import { authLoader } from "./pages/Auth";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import QuizzesPage from "./pages/Quiz/QuizzesPage";
 import { action as loginAction } from "./components/Auth/LoginForm";
@@ -29,13 +28,11 @@ const router = createBrowserRouter([
                 path: "/login",
                 element: <AuthenticationPage />,
                 action: loginAction,
-                loader: authLoader,
             },
             {
                 path: "/signup",
                 element: <AuthenticationPage />,
                 action: registerAction,
-                loader: authLoader,
             },
             {
                 path: "logout",
