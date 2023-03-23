@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Link, json, redirect, useActionData } from "react-router-dom";
+import { Form, Link, json, useActionData, redirect } from "react-router-dom";
 import NotificationContext from "../../store/toast";
 
 const LoginForm = () => {
@@ -72,6 +72,8 @@ export const action = async ({ request }) => {
 
     const resData = await response.json();
     const token = resData.token;
+    const user = resData.user;
+    localStorage.setItem("user", JSON.stringify(user));
 
     localStorage.setItem("token", token);
     const expiration = new Date();
