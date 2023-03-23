@@ -9,10 +9,11 @@ import { action as loginAction } from "./components/Auth/LoginForm";
 import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
 import { action as logoutAction } from "./pages/Logout";
-import { action as createQuizAction } from "./components/Quiz/CreateQuizForm";
+import { action as createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import QuizDetailPage, {
     loader as quizDetailLoader,
 } from "./pages/Quiz/QuizDetailPage";
+import EditQuizPage from "./pages/Quiz/EditQuizPage";
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
                         element: <QuizDetailPage />,
                         loader: quizDetailLoader,
                     },
+
                 ],
             },
         ],
