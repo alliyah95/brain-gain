@@ -30,7 +30,7 @@ const QuizDetailPage = () => {
             <div className="space-y-4 mt-2">
                 <p>{quizData.description}</p>
                 {quizData.questions.length === 0 && (
-                    <p class="text-yellow">
+                    <p className="text-yellow">
                         There are currently no questions in this quiz...
                     </p>
                 )}
@@ -56,11 +56,11 @@ const QuizDetailPage = () => {
                         return (
                             <li>
                                 <Link>
-                                    <div class="preview-card-light">
-                                        <p class="font-semibold">
+                                    <div className="preview-card-light">
+                                        <p className="font-semibold">
                                             {question.description}
                                         </p>
-                                        <p class="text-muted-brown">
+                                        <p className="text-muted-brown">
                                             Correct answer: {question.answer}
                                         </p>
                                     </div>
