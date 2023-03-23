@@ -1,5 +1,6 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, redirect } from "react-router-dom";
+import { tokenLoader } from "../util/auth";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
 
@@ -39,6 +40,16 @@ const AuthenticationPage = () => {
             </div>
         </div>
     );
+};
+
+export const authLoader = () => {
+    const tokenInStorage = tokenLoader();
+
+    if (tokenInStorage !== null || tokenInStorage !== "EXPIRED") {
+        return redirect("/");
+    }
+
+    return null;
 };
 
 export default AuthenticationPage;

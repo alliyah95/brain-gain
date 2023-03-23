@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
-import AuthenticationPage from "./pages/Auth";
+import { authLoader } from "./pages/Auth";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import QuizzesPage from "./pages/Quiz/QuizzesPage";
 import { action as loginAction } from "./components/Auth/LoginForm";
@@ -10,6 +10,7 @@ import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
 import { action as logoutAction } from "./pages/Logout";
 import { action as createQuizAction } from "./components/Quiz/CreateQuizForm";
+import AuthenticationPage from "./pages/Auth";
 
 const router = createBrowserRouter([
     {
@@ -28,11 +29,13 @@ const router = createBrowserRouter([
                 path: "/login",
                 element: <AuthenticationPage />,
                 action: loginAction,
+                loader: authLoader,
             },
             {
                 path: "/signup",
                 element: <AuthenticationPage />,
                 action: registerAction,
+                loader: authLoader,
             },
             {
                 path: "logout",
