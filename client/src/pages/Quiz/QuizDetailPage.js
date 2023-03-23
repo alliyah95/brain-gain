@@ -57,7 +57,7 @@ const QuizDetailPage = () => {
                 <ul className="my-8 space-y-4">
                     {quizData.questions.map((question) => {
                         return (
-                            <li>
+                            <li key={question._id}>
                                 <Link>
                                     <div className="preview-card-light">
                                         <p className="font-semibold">
