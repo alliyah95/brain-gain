@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import EditQuizForm from "../../components/Quiz/EditQuizForm";
 import { getAuthToken } from "../../util/auth";
-import { json, redirect } from "react-router-dom";
+import { json, redirect, useActionData } from "react-router-dom";
+import NotificationContext from "../../store/toast";
 
 const EditQuizPage = () => {
+    const data = useActionData();
+    const notifCtx = useContext(NotificationContext);
+
+    if (data && data.message) {
+        notifCtx.onNotify(data.message);
+        data.message = "";
+    }
+
     return <EditQuizForm />;
 };
 
