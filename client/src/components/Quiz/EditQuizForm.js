@@ -8,7 +8,7 @@ const EditQuizForm = () => {
         <Form
             action=""
             method="PATCH"
-            className="max-w-[1200px] mx-auto bg-light-brown p-8 xl:p-12 rounded-md mt-4 lg:mt-10"
+            className="max-w-[1200px] mx-auto bg-light-brown p-5 xl:p-8  rounded-md mt-4 lg:mt-10"
         >
             <h3 className="form-title">Edit quiz</h3>
             <div className="space-y-5 mt-4 mb-10 xl:mt-10 xl:mb-16">
