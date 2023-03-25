@@ -38,6 +38,12 @@ export default function Example() {
         );
     }, []);
 
+    const navbarCollapseHandler = () => {
+        if (window.innerWidth < 960) {
+            setOpenNav(false);
+        }
+    };
+
     const navList = (
         <ul className="mb-4 mt-2 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-light-brown lg:gap-3">
             <Typography as="li" variant="small" className="p-1 font-normal">
@@ -46,6 +52,7 @@ export default function Example() {
                     className={({ isActive }) =>
                         isActive ? "active-nav-link" : ""
                     }
+                    onClick={navbarCollapseHandler}
                 >
                     Dashboard
                 </NavLink>
@@ -56,6 +63,7 @@ export default function Example() {
                     className={({ isActive }) =>
                         isActive ? "active-nav-link" : ""
                     }
+                    onClick={navbarCollapseHandler}
                 >
                     My Quizzes
                 </NavLink>
@@ -66,6 +74,7 @@ export default function Example() {
                     className={({ isActive }) =>
                         isActive ? "active-nav-link" : ""
                     }
+                    onClick={navbarCollapseHandler}
                 >
                     Create a new quiz
                 </NavLink>
