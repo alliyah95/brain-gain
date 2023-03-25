@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import NavBar from "../components/Auth/NavBar";
+import NavBar from "../components/UI/NavBar";
 import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
