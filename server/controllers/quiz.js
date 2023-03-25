@@ -26,7 +26,10 @@ const createQuiz = asyncHandler(async (req, res) => {
     });
 
     await newQuizSet.save();
-    res.status(201).json({ message: "Quiz successfully created!" });
+    res.status(201).json({
+        message: "Quiz successfully created!",
+        quiz: newQuizSet,
+    });
 });
 
 const updateQuiz = asyncHandler(async (req, res) => {

@@ -25,7 +25,7 @@ const CreateQuizForm = () => {
             </div>
             <div className="flex flex-col text-center gap-y-3 lg:flex-row-reverse lg:gap-y-0 lg:gap-x-5 lg:items-center">
                 <button className="btn w-full lg:w-auto">Create set</button>
-                <Link className="link" to="/">
+                <Link className="link" to="/quizzes">
                     Cancel
                 </Link>
             </div>

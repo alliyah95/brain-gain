@@ -45,5 +45,7 @@ export const action = async ({ request }) => {
         throw json({ message: error.message }, { status: response.status });
     }
 
-    return redirect("/");
+    const resData = await response.json();
+
+    return redirect(`/quiz/${resData.quiz.displayId}`);
 };
