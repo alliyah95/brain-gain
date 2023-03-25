@@ -82,5 +82,14 @@ export const action = async ({ request, params }) => {
         throw json({ message: error.message }, { status: response.status });
     }
 
+    const resData = await response.json();
+    const token = resData.token;
+    const user = resData.user;
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 1);
+    localStorage.setItem("expiration", expiration.toISOString());
+
     return redirect("/");
 };
