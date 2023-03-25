@@ -20,19 +20,24 @@ const validateUser = async ({
     confirmedPassword,
     name,
 }) => {
-    if (!username || !password || !confirmedPassword || !name) {
+    if (
+        !username.trim() ||
+        !password.trim() ||
+        !confirmedPassword.trim() ||
+        !name.trim()
+    ) {
         return "Please provide all required information";
     }
 
-    if (!validateUsername(username)) {
+    if (!validateUsername(username.trim())) {
         return "Invalid username";
     }
 
-    if (!validatePassword(password)) {
+    if (!validatePassword(password.trim())) {
         return "Invalid password";
     }
 
-    if (!validateName(name)) {
+    if (!validateName(name.trim())) {
         return "Invalid name";
     }
 
@@ -44,7 +49,7 @@ const validateUser = async ({
 };
 
 const validateCredentials = ({ username, password }) => {
-    if (!username || !password) {
+    if (!username.trim() || !password) {
         return "Incorrect username or password";
     }
 
@@ -56,11 +61,11 @@ const validateOptions = (options, type) => {
 };
 
 const validateQuiz = ({ title, creator }) => {
-    if (!title) {
+    if (!title.trim()) {
         return "Title cannot be empty";
     }
 
-    if (!creator) {
+    if (!creator.trim()) {
         return "Quiz creator cannot be empty";
     }
 
@@ -68,11 +73,11 @@ const validateQuiz = ({ title, creator }) => {
 };
 
 const validateQuizUpdateValues = ({ quizDisplayId, title }) => {
-    if (!quizDisplayId) {
+    if (!quizDisplayId.trim()) {
         return "Invalid quiz ID";
     }
 
-    if (!title) {
+    if (!title.trim()) {
         return "Quiz title cannot be empty";
     }
 
@@ -80,11 +85,11 @@ const validateQuizUpdateValues = ({ quizDisplayId, title }) => {
 };
 
 const validateQuestion = ({ description, type, options, answer }) => {
-    if (!description) {
+    if (!description.trim()) {
         return "Description cannot be empty";
     }
 
-    if (!type) {
+    if (!type.trim()) {
         return "Please choose the type of the question";
     }
 
@@ -101,7 +106,7 @@ const validateQuestion = ({ description, type, options, answer }) => {
             return "Invalid question type";
     }
 
-    if (!answer) {
+    if (!answer.trim()) {
         return "Please provide the correct answer for the question";
     }
 
