@@ -1,14 +1,46 @@
-import React from "react";
-import { Link, json, useLoaderData } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
+import {
+    Link,
+    json,
+    useLoaderData,
+    redirect,
+    useActionData,
+    useParams,
+    useNavigate,
+} from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
+import NotificationContext from "../../store/toast";
 
 const QuizDetailPage = () => {
     const quizData = useLoaderData();
+    const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
+    const [newQuestion, setNewQuestion] = useState(false);
+    const notifCtx = useContext(NotificationContext);
+    const data = useActionData();
+    const navigate = useNavigate();
+    const { displayId } = useParams();
+
+    if (data && data.message) {
+        notifCtx.onNotify(data.message);
+        data.message = "";
+        navigate(`/quiz/${displayId}`);
+    }
+
+    const newQuestionFormHandler = () => {
+        setNewQuestion(true);
+        setShowAddQuestionBtn(false);
+    };
+
+    const cancelAddQuestionHandler = () => {
+        setNewQuestion(false);
+        setShowAddQuestionBtn(true);
+    };
 
     return (
         <div>
             <div className="flex items-center gap-x-3">
-                <h3 className="text-3xl lg:text-4xl font-bold text-brown flex">
+                <h3 className="text-3xl lg:text-4xl font-bold text-brown flex break-all">
                     {quizData.title}
                     <span className="mt-3 lg: ml-4 flex ">
                         {" "}
@@ -34,25 +66,33 @@ const QuizDetailPage = () => {
                 <p>{quizData.description}</p>
                 {quizData.questions.length === 0 && (
                     <p className="text-yellow">
-                        There are currently no questions in this quiz...
+                        There are currently no questions in this
+                        quizsdfsfdsfsgsgfdgdgdgdgddfgdgsgdgsgdgdg...
                     </p>
                 )}
 
-                <Link className="btn inline-flex items-center gap-x-2">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-plus text-white"
-                        viewBox="0 0 16 16"
+                {showAddQuestionBtn && (
+                    <button
+                        className="btn inline-flex items-center gap-x-2"
+                        onClick={newQuestionFormHandler}
                     >
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg>
-                    Add a question
-                </Link>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-plus text-white"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                        Add a question
+                    </button>
+                )}
             </div>
-
+            {newQuestion && (
+                <NewQuestionForm onCancel={cancelAddQuestionHandler} />
+            )}
             {quizData.questions && (
                 <ul className="my-8 space-y-4">
                     {quizData.questions.map((question) => {
@@ -99,4 +139,51 @@ export const loader = async ({ request, params }) => {
 
     const data = await response.json();
     return data.quiz;
+};
+
+export const action = async ({ request, params }) => {
+    const QUESTION_TYPES = [
+        "true or false",
+        "multiple choice",
+        "identification",
+    ];
+
+    const token = getAuthToken();
+    const quizDisplayId = params.displayId;
+
+    const rawData = await request.formData();
+    const questionData = {
+        type: rawData.get("type"),
+        description: rawData.get("description"),
+    };
+
+    if (!QUESTION_TYPES.includes(questionData.type)) {
+        return json({ message: "Invalid question type" }, { status: 400 });
+    }
+
+    if (questionData.type === "true or false") {
+        if (!["true", "false"].includes(rawData.get("correctAnswerTF"))) {
+            return json({ message: "Invalid correct answer" }, { status: 400 });
+        }
+        questionData.answer = rawData.get("correctAnswerTF");
+    }
+
+    const response = await fetch(
+        "http://localhost:8080/api/add_question/" + quizDisplayId,
+        {
+            method: "POST",
+            body: JSON.stringify(questionData),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+        }
+    );
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw json({ message: error.message }, { status: response.status });
+    }
+
+    return redirect(`/quiz/${quizDisplayId}`);
 };

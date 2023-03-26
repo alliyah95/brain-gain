@@ -4,7 +4,7 @@ const questionController = require("../controllers/question");
 const { isLoggedIn, isQuizOwner } = require("../middleware/auth");
 
 router.post(
-    "/add_question/:quizId",
+    "/add_question/:quizDisplayId",
     isLoggedIn,
     isQuizOwner,
     questionController.addQuestion

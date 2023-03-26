@@ -4,7 +4,7 @@ const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
 
 const addQuestion = asyncHandler(async (req, res) => {
-    const { quizId } = req.params;
+    const { quizDisplayId } = req.params;
     const { description, type, options, answer } = req.body;
 
     const validationError = validators.validateQuestion({
@@ -18,13 +18,13 @@ const addQuestion = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: validationError });
     }
 
-    const quizSet = await QuizSet.findById(quizId);
+    const quizSet = await QuizSet.findOne({ displayId: quizDisplayId });
 
     if (!quizSet) {
         return res.status(400).json({ message: "Cannot find quiz set!" });
     }
 
-    const questionData = { description, type, answer, quizSet: quizId };
+    const questionData = { description, type, answer, quizSet: quizSet.id };
 
     if (type === "multiple choice") {
         questionData.options = options;
