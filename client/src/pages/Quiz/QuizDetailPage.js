@@ -104,7 +104,8 @@ const QuizDetailPage = () => {
                                             {question.description}
                                         </p>
                                         <p className="text-muted-brown">
-                                            Correct answer: {question.answer}
+                                            Correct answer:{" "}
+                                            {question.answer.toString()}
                                         </p>
                                     </div>
                                 </Link>
