@@ -32,7 +32,7 @@ const addQuestion = asyncHandler(async (req, res) => {
 
     if (type === "true or false") {
         questionData.options = [true, false];
-        questionData.answer = Boolean(answer);
+        questionData.answer = JSON.parse(answer);
     }
 
     const newQuestion = await Question(questionData);
