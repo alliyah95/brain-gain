@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useRouteLoaderData, useNavigate } from "react-router-dom";
+import {
+    useLocation,
+    useRouteLoaderData,
+    useNavigate,
+    useActionData,
+} from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
+import { toast } from "react-toastify";
 
 const AuthenticationPage = () => {
     const location = useLocation();
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
     const [render, setRender] = useState(false);
+    const data = useActionData();
 
     useEffect(() => {
         if (token) {
@@ -20,6 +27,11 @@ const AuthenticationPage = () => {
 
     if (!render) {
         return <></>;
+    }
+
+    if (data && data.message) {
+        toast.error(data.message);
+        data.message = "";
     }
 
     const [form, header, subtitle] =

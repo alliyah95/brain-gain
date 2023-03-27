@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
 import {
     Link,
@@ -10,19 +10,18 @@ import {
     useNavigate,
 } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import NotificationContext from "../../store/toast";
+import { toast } from "react-toastify";
 
 const QuizDetailPage = () => {
     const quizData = useLoaderData();
     const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
     const [newQuestion, setNewQuestion] = useState(false);
-    const notifCtx = useContext(NotificationContext);
     const data = useActionData();
     const navigate = useNavigate();
     const { displayId } = useParams();
 
     if (data && data.message) {
-        notifCtx.onNotify(data.message);
+        toast.error(data.message);
         data.message = "";
         navigate(`/quiz/${displayId}`);
     }
@@ -66,8 +65,7 @@ const QuizDetailPage = () => {
                 <p>{quizData.description}</p>
                 {quizData.questions.length === 0 && (
                     <p className="text-yellow">
-                        There are currently no questions in this
-                        quizsdfsfdsfsgsgfdgdgdgdgddfgdgsgdgsgdgdg...
+                        There are currently no questions in this quiz
                     </p>
                 )}
 

@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
 import CreateQuizForm from "../../components/Quiz/CreateQuizForm";
 import { json, redirect, useActionData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import NotificationContext from "../../store/toast";
+import { toast } from "react-toastify";
 
 const CreateQuizPage = () => {
     const data = useActionData();
-    const notifCtx = useContext(NotificationContext);
 
     if (data && data.message) {
-        notifCtx.onNotify(data.message);
+        toast.error(data.message);
         data.message = "";
     }
 

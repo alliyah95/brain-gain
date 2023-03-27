@@ -1,16 +1,6 @@
-import React, { useContext } from "react";
-import { Link, Form, json, redirect, useActionData } from "react-router-dom";
-import NotificationContext from "../../store/toast";
+import { Link, Form, json, redirect } from "react-router-dom";
 
 const RegistrationForm = () => {
-    const notifCtx = useContext(NotificationContext);
-    const data = useActionData();
-
-    if (data && data.message) {
-        notifCtx.onNotify(data.message);
-        data.message = "";
-    }
-
     return (
         <Form action="" method="post">
             <div className="space-y-5 mb-8">

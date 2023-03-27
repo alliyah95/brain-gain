@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { NotificationContextProvider } from "./store/toast";
 import { UserContextProvider } from "./store/user";
 import { ThemeProvider } from "@material-tailwind/react";
 
@@ -11,9 +10,7 @@ root.render(
     <>
         <ThemeProvider>
             <UserContextProvider>
-                <NotificationContextProvider>
-                    <App />
-                </NotificationContextProvider>
+                <App />
             </UserContextProvider>
         </ThemeProvider>
     </>
