@@ -193,5 +193,6 @@ export const action = async ({ request, params }) => {
         throw json({ message: error.message }, { status: response.status });
     }
 
+    window.location.reload();
     return redirect(`/quiz/${quizDisplayId}`);
 };
