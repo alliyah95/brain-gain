@@ -64,8 +64,9 @@ const QuizDetailPage = () => {
             <div className="space-y-4 mt-2">
                 <p>{quizData.description}</p>
                 {quizData.questions.length === 0 && (
-                    <p className="text-yellow">
+                    <p className="text-yellow break-all">
                         There are currently no questions in this quiz
+                        sdskjfhskjfhskfjhsiufywiufyieuywifuywiuywifuyiweuyfwieu
                     </p>
                 )}
 
