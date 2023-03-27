@@ -159,6 +159,13 @@ export const action = async ({ request, params }) => {
     };
 
     if (!QUESTION_TYPES.includes(questionData.type)) {
+        if (questionData.type === null) {
+            return json(
+                { message: "Please select a question type" },
+                { status: 400 }
+            );
+        }
+
         return json({ message: "Invalid question type" }, { status: 400 });
     }
 
