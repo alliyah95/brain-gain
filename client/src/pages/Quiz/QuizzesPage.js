@@ -5,7 +5,7 @@ const QuizzesPage = () => {
     const quizSets = useLoaderData();
 
     return (
-        <div className="md:bg-light-brown md:p-5 md:rounded-md xl:p-8">
+        <div className="md:bg-light-brown md:bg-opacity-80 md:p-5 md:rounded-md xl:p-8">
             <ul className="flex flex-row gap-4 border-b-[1px] border-b-brown py-2 mb-4 lg:text-lg font-semibold">
                 <li>
                     <Link>Quiz Sets</Link>

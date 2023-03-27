@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
+import Particles from "react-particles";
+import { loadFull } from "tsparticles";
+import particlesOptions from "../util/particles.json";
 import NavBar from "../components/UI/NavBar";
 import Footer from "../components/UI/Footer";
 import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
@@ -9,6 +12,9 @@ import { getTokenDuration } from "../util/auth";
 const Root = () => {
     const submit = useSubmit();
     const token = useLoaderData();
+    const particlesInit = useCallback((main) => {
+        loadFull(main);
+    }, []);
 
     useEffect(() => {
         if (!token) {
@@ -28,6 +34,7 @@ const Root = () => {
 
     return (
         <>
+            <Particles options={particlesOptions} init={particlesInit} />
             <header>
                 <NavBar />
             </header>

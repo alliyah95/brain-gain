@@ -51,6 +51,16 @@
     .active-nav-link {
         @apply text-yellow;
     }
+    #tsparticles {
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
 }
 
 @layer components {
@@ -70,6 +80,6 @@
         @apply bg-brown p-5 rounded-md hover:bg-brown-darker active:bg-brown-darker;
     }
     .preview-card-light {
-        @apply bg-light-brown hover:bg-light-brown-h active:bg-light-brown-h p-5 rounded-md;
+        @apply bg-light-brown hover:bg-light-brown-h active:bg-light-brown-h p-5 rounded-md bg-opacity-80;
     }
 }
