@@ -26,6 +26,14 @@ const QuizDetailPage = () => {
         navigate(`/quiz/${displayId}`);
     }
 
+    if (data && data.success) {
+        toast.success("Question successfully added!");
+        data.success = "";
+        navigate(`/quiz/${displayId}`);
+        setShowAddQuestionBtn(true);
+        setNewQuestion(false);
+    }
+
     const newQuestionFormHandler = () => {
         setNewQuestion(true);
         setShowAddQuestionBtn(false);
@@ -191,6 +199,5 @@ export const action = async ({ request, params }) => {
         throw json({ message: error.message }, { status: response.status });
     }
 
-    window.location.reload();
-    return redirect(`/quiz/${quizDisplayId}`);
+    return json({ success: "Question successfully added!" }, { status: 201 });
 };
