@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const validateName = (name) => {
     // accepts letters, spaces, hyphen, and an apostrophe
     return /^[ a-zA-Z\-\’]+$/.test(name);
@@ -85,11 +83,11 @@ const validateQuizUpdateValues = ({ quizDisplayId, title }) => {
 };
 
 const validateQuestion = ({ description, type, options, answer }) => {
-    if (!description.trim()) {
+    if (description.trim().length === 0) {
         return "Description cannot be empty";
     }
 
-    if (!type.trim()) {
+    if (type.trim().length === 0) {
         return "Please choose the type of the question";
     }
 
@@ -106,7 +104,7 @@ const validateQuestion = ({ description, type, options, answer }) => {
             return "Invalid question type";
     }
 
-    if (!answer.trim()) {
+    if (answer.trim().length === 0) {
         return "Please provide the correct answer for the question";
     }
 

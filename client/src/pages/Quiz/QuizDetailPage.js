@@ -175,6 +175,13 @@ export const action = async ({ request, params }) => {
         return json({ message: "Invalid question type" }, { status: 400 });
     }
 
+    if (questionData.description.trim().length === 0) {
+        return json(
+            { message: "Question description cannot be empty" },
+            { status: 400 }
+        );
+    }
+
     if (questionData.type === "true or false") {
         if (!["true", "false"].includes(rawData.get("correctAnswerTF"))) {
             return json({ message: "Invalid correct answer" }, { status: 400 });
