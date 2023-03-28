@@ -19,7 +19,7 @@ const NewQuestionForm = (props) => {
         <Form
             action={`/quiz/${displayId}/new_question`}
             method="POST"
-            className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker"
+            className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
         >
             <h3 className="font-bold text-2xl lg:text-3xl mb-4">
                 New Question
@@ -32,7 +32,7 @@ const NewQuestionForm = (props) => {
                 <select
                     name="type"
                     id="type"
-                    className="text-sm cursor-pointer appearance-none bg-brown-darker text-white py-2 px-3 pr-7 rounded-md focus:border focus:border-yellow focus:ring-yellow"
+                    className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
                     value={questionType}
                     onChange={questionTypeHandler}
                 >
@@ -49,7 +49,7 @@ const NewQuestionForm = (props) => {
                         width="13"
                         height="13"
                         fill="currentColor"
-                        className="bi bi-caret-down-fill text-white"
+                        className="bi bi-caret-down-fill text-light-brown"
                         viewBox="0 0 16 16"
                     >
                         <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />

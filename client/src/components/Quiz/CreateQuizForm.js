@@ -6,7 +6,7 @@ const CreateQuizForm = () => {
         <Form
             action=""
             method="POST"
-            className="max-w-[1200px] mx-auto bg-light-brown p-5 xl:p-8  rounded-md mt-4 lg:mt-10"
+            className="max-w-[1200px] mx-auto bg-light-brown p-5 xl:p-8  rounded-md mt-4 lg:mt-10 bg-opacity-80"
         >
             <h3 className="form-title">Create a new quiz set</h3>
             <div className="space-y-5 mt-4 mb-10 xl:mt-10 xl:mb-16">
