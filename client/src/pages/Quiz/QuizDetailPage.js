@@ -66,7 +66,6 @@ const QuizDetailPage = () => {
                 {quizData.questions.length === 0 && (
                     <p className="text-yellow break-all">
                         There are currently no questions in this quiz
-                        sdskjfhskjfhskfjhsiufywiufyieuywifuywiuywifuyiweuyfwieu
                     </p>
                 )}
 
