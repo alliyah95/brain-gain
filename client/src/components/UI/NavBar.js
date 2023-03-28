@@ -14,7 +14,7 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 
-export default function Example() {
+export default function Example({ tokenProp }) {
     const [openNav, setOpenNav] = useState(false);
     const location = useLocation();
     const [path, setPath] = useState();
@@ -115,14 +115,14 @@ export default function Example() {
                     </Typography>
                     <div className="flex items-center gap-4">
                         <div className=" hidden lg:block">
-                            {token && navList}
+                            {(token || tokenProp) && navList}
                         </div>
-                        {!token && (
+                        {!token && !tokenProp && (
                             <Link className="btn btn--link" to={path}>
                                 {btnName}
                             </Link>
                         )}
-                        {token && (
+                        {(token || tokenProp) && (
                             <IconButton
                                 variant="text"
                                 className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -163,7 +163,9 @@ export default function Example() {
                         )}
                     </div>
                 </div>
-                <MobileNav open={openNav}>{token && navList}</MobileNav>
+                <MobileNav open={openNav}>
+                    {(token || tokenProp) && navList}
+                </MobileNav>
             </Navbar>
         </>
     );
