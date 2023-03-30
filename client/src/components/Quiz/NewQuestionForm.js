@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { useLoaderData, useRouteLoaderData, json } from "react-router-dom";
+import { useLoaderData, useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import OptionInput from "./OptionInput";
 
 const NewQuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState("");
     const [questionType, setQuestionType] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
-    const [choices, setChoices] = useState([]);
     const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
+    const [choices, setChoices] = useState([
+        {
+            id: 1,
+            value: "",
+        },
+        {
+            id: 2,
+            value: "",
+        },
+    ]);
 
     const displayId = quizData.displayId;
 
@@ -24,8 +34,37 @@ const NewQuestionForm = (props) => {
         setCorrectAnswer(evt.target.value);
     };
 
+    const choiceHandler = (evt) => {
+        const index = evt.target.id;
+        setChoices((choice) => {
+            const tempChoices = choice.slice();
+            tempChoices[index - 1].value = evt.target.value;
+            return tempChoices;
+        });
+    };
+
+    const newChoiceHandler = (evt) => {
+        setChoices((choice) => {
+            return [
+                ...choice,
+                {
+                    value: "",
+                },
+            ];
+        });
+    };
+
+    const deleteChoiceHandler = (index) => {
+        setChoices((choice) => {
+            const tempChoices = [...choice];
+            tempChoices.splice(index, 1);
+            return tempChoices;
+        });
+    };
+
     const newQuestionHandler = async (evt) => {
         evt.preventDefault();
+        const questionData = {};
 
         const QUESTION_TYPES = [
             "true or false",
@@ -41,24 +80,48 @@ const NewQuestionForm = (props) => {
             }
             return;
         }
+        questionData.type = questionType;
 
         if (questionDescription.trim().length === 0) {
             toast.error("Question cannot be empty!");
             return;
         }
+        questionData.description = questionDescription;
 
         if (questionType === "true or false") {
             if (!["true", "false"].includes(correctAnswer)) {
                 toast.error("Invalid correct answer");
                 return;
             }
-        }
+        } else if (questionType === "multiple choice") {
+            if (choices.length < 2) {
+                toast.error("Please provide at least 2 choices.");
+                return;
+            } else {
+                let filteredChoices = choices.filter(
+                    (choice) => choice.value.trim() !== ""
+                );
+                let answerInChoices = filteredChoices.find(
+                    (choice) => choice.value === correctAnswer
+                );
 
-        const questionData = {
-            type: questionType,
-            description: questionDescription,
-            answer: correctAnswer,
-        };
+                if (answerInChoices) {
+                    toast.error("Correct answer cannot be in choices.");
+                    return;
+                }
+
+                if (filteredChoices.length < 2) {
+                    toast.error("Please provide at least 2 choices.");
+                    return;
+                } else {
+                    const choiceValues = filteredChoices.map(
+                        (choice) => choice.value
+                    );
+                    questionData.options = choiceValues;
+                }
+            }
+        }
+        questionData.answer = correctAnswer;
 
         const response = await fetch(
             "http://localhost:8080/api/add_question/" + displayId,
@@ -131,7 +194,7 @@ const NewQuestionForm = (props) => {
             <input
                 type="text"
                 placeholder="Question"
-                className="line-input text-sm mt-4 mb-2"
+                className="line-input text-sm md:text-mt-4 mb-2"
                 onChange={descriptionHandler}
                 value={questionDescription}
             />
@@ -141,7 +204,7 @@ const NewQuestionForm = (props) => {
                     type="text"
                     placeholder="Correct answer"
                     className="line-input text-sm mt-2 mb-6"
-                    value={questionType}
+                    onChange={answerHandler}
                 />
             )}
 
@@ -176,33 +239,26 @@ const NewQuestionForm = (props) => {
                     <div className="space-y-3">
                         <p className="font-semibold">Choices</p>
                         <ul className="space-y-3">
-                            <li>
-                                <input
-                                    type="text"
-                                    name="choice"
-                                    placeholder="Choice 1"
-                                    className="line-input text-sm"
-                                />
-                            </li>
-                            <li>
-                                <input
-                                    type="text"
-                                    name="choice"
-                                    placeholder="Choice 2"
-                                    className="line-input text-sm"
-                                />
-                            </li>
-                            <li>
-                                <input
-                                    type="text"
-                                    name="choice"
-                                    placeholder="Choice 3"
-                                    className="line-input text-sm"
-                                />
-                            </li>
+                            {choices.map((choice, index) => {
+                                return (
+                                    <li key={index}>
+                                        <OptionInput
+                                            id={index + 1}
+                                            type="Choice"
+                                            value={choice.value}
+                                            handler={choiceHandler}
+                                            deleteHandler={deleteChoiceHandler}
+                                        />
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
-                    <button className="underline font-bold my-4">
+                    <button
+                        type="button"
+                        className="underline font-bold my-4"
+                        onClick={newChoiceHandler}
+                    >
                         Add another choice
                     </button>
                 </>
