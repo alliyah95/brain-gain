@@ -74,7 +74,7 @@
         @apply text-sm bg-light-brown text-brown hover:bg-light-brown-h font-bold uppercase px-5 py-1;
     }
     .line-input {
-        @apply w-full bg-transparent border-brown border-b-[1px] outline-none pb-2 placeholder-muted-brown text-brown;
+        @apply w-full bg-transparent border-brown border-b-[1px] outline-none pb-2 placeholder-muted-brown text-brown placeholder-opacity-75 focus:placeholder-opacity-0;
     }
     .preview-card {
         @apply bg-brown p-5 rounded-md hover:bg-brown-darker active:bg-brown-darker;
