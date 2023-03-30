@@ -1,47 +1,16 @@
 import { useState } from "react";
 import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
-import {
-    Link,
-    json,
-    useLoaderData,
-    redirect,
-    useActionData,
-    useParams,
-    useNavigate,
-} from "react-router-dom";
+import { Link, json, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import { toast } from "react-toastify";
 
 const QuizDetailPage = () => {
     const quizData = useLoaderData();
     const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
     const [newQuestion, setNewQuestion] = useState(false);
-    const data = useActionData();
-    const navigate = useNavigate();
-    const { displayId } = useParams();
 
-    if (data && data.message) {
-        toast.error(data.message);
-        data.message = "";
-        navigate(`/quiz/${displayId}`);
-    }
-
-    if (data && data.success) {
-        toast.success("Question successfully added!");
-        data.success = "";
-        navigate(`/quiz/${displayId}`);
-        setShowAddQuestionBtn(true);
-        setNewQuestion(false);
-    }
-
-    const newQuestionFormHandler = () => {
-        setNewQuestion(true);
-        setShowAddQuestionBtn(false);
-    };
-
-    const cancelAddQuestionHandler = () => {
-        setNewQuestion(false);
-        setShowAddQuestionBtn(true);
+    const questionFormVisibilityHandler = () => {
+        setNewQuestion(!newQuestion);
+        setShowAddQuestionBtn(!showAddQuestionBtn);
     };
 
     return (
@@ -80,7 +49,7 @@ const QuizDetailPage = () => {
                 {showAddQuestionBtn && (
                     <button
                         className="btn inline-flex items-center gap-x-2"
-                        onClick={newQuestionFormHandler}
+                        onClick={questionFormVisibilityHandler}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +66,7 @@ const QuizDetailPage = () => {
                 )}
             </div>
             {newQuestion && (
-                <NewQuestionForm onCancel={cancelAddQuestionHandler} />
+                <NewQuestionForm onToggleForm={questionFormVisibilityHandler} />
             )}
             {quizData.questions && (
                 <ul className="my-8 space-y-4">
@@ -146,65 +115,4 @@ export const loader = async ({ request, params }) => {
 
     const data = await response.json();
     return data.quiz;
-};
-
-export const action = async ({ request, params }) => {
-    const QUESTION_TYPES = [
-        "true or false",
-        "multiple choice",
-        "identification",
-    ];
-
-    const token = getAuthToken();
-    const quizDisplayId = params.displayId;
-
-    const rawData = await request.formData();
-    const questionData = {
-        type: rawData.get("type"),
-        description: rawData.get("description"),
-    };
-
-    if (!QUESTION_TYPES.includes(questionData.type)) {
-        if (questionData.type === null) {
-            return json(
-                { message: "Please select a question type" },
-                { status: 400 }
-            );
-        }
-
-        return json({ message: "Invalid question type" }, { status: 400 });
-    }
-
-    if (questionData.description.trim().length === 0) {
-        return json(
-            { message: "Question description cannot be empty" },
-            { status: 400 }
-        );
-    }
-
-    if (questionData.type === "true or false") {
-        if (!["true", "false"].includes(rawData.get("correctAnswerTF"))) {
-            return json({ message: "Invalid correct answer" }, { status: 400 });
-        }
-        questionData.answer = rawData.get("correctAnswerTF");
-    }
-
-    const response = await fetch(
-        "http://localhost:8080/api/add_question/" + quizDisplayId,
-        {
-            method: "POST",
-            body: JSON.stringify(questionData),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-        }
-    );
-
-    if (!response.ok) {
-        const error = await response.json();
-        throw json({ message: error.message }, { status: response.status });
-    }
-
-    return json({ success: "Question successfully added!" }, { status: 201 });
 };

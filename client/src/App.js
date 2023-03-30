@@ -12,7 +12,6 @@ import { action as logoutAction } from "./pages/Logout";
 import { action as createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import QuizDetailPage, {
     loader as quizDetailLoader,
-    action as newQuestionAction,
 } from "./pages/Quiz/QuizDetailPage";
 import EditQuizPage, {
     action as editQuizAction,
@@ -64,17 +63,12 @@ const router = createBrowserRouter([
                         path: "quiz/:displayId",
                         element: <QuizDetailPage />,
                         loader: quizDetailLoader,
-                        action: newQuestionAction,
                     },
                     {
                         path: "quiz/:displayId/edit",
                         element: <EditQuizPage />,
                         loader: quizDetailLoader,
                         action: editQuizAction,
-                    },
-                    {
-                        path: "quiz/:displayId/new_question",
-                        action: newQuestionAction,
                     },
                 ],
             },

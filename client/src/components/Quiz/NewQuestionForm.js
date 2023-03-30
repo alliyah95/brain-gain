@@ -1,24 +1,97 @@
 import { useState } from "react";
-import { Form, useLoaderData } from "react-router-dom";
+import { useLoaderData, useRouteLoaderData, json } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const NewQuestionForm = (props) => {
+    const [questionDescription, setQuestionDescription] = useState("");
     const [questionType, setQuestionType] = useState("");
+    const [correctAnswer, setCorrectAnswer] = useState("");
+    const [choices, setChoices] = useState([]);
     const quizData = useLoaderData();
+    const token = useRouteLoaderData("root");
 
     const displayId = quizData.displayId;
 
-    const questionTypeHandler = (event) => {
-        setQuestionType(event.target.value);
+    const descriptionHandler = (evt) => {
+        setQuestionDescription(evt.target.value);
+    };
+
+    const questionTypeHandler = (evt) => {
+        setQuestionType(evt.target.value);
+    };
+
+    const answerHandler = (evt) => {
+        setCorrectAnswer(evt.target.value);
+    };
+
+    const newQuestionHandler = async (evt) => {
+        evt.preventDefault();
+
+        const QUESTION_TYPES = [
+            "true or false",
+            "multiple choice",
+            "identification",
+        ];
+
+        if (!QUESTION_TYPES.includes(questionType)) {
+            if (questionType === null) {
+                toast.error("Please select a question type.");
+            } else {
+                toast.error("Invalid question type!");
+            }
+            return;
+        }
+
+        if (questionDescription.trim().length === 0) {
+            toast.error("Question cannot be empty!");
+            return;
+        }
+
+        if (questionType === "true or false") {
+            if (!["true", "false"].includes(correctAnswer)) {
+                toast.error("Invalid correct answer");
+                return;
+            }
+        }
+
+        const questionData = {
+            type: questionType,
+            description: questionDescription,
+            answer: correctAnswer,
+        };
+
+        const response = await fetch(
+            "http://localhost:8080/api/add_question/" + displayId,
+            {
+                method: "POST",
+                body: JSON.stringify(questionData),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+
+        if (!response.ok) {
+            const error = await response.json();
+            toast.error(error.message);
+            return;
+        }
+
+        toast.success("Question successfully added!");
+        setQuestionDescription("");
+        setQuestionType("");
+        setCorrectAnswer("");
+        props.onToggleForm();
     };
 
     const cancelAddHandler = () => {
-        props.onCancel();
+        props.onToggleForm();
     };
 
     return (
-        <Form
-            action={`/quiz/${displayId}/new_question`}
-            method="POST"
+        <form
+            onSubmit={newQuestionHandler}
             className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
         >
             <h3 className="font-bold text-2xl lg:text-3xl mb-4">
@@ -30,8 +103,6 @@ const NewQuestionForm = (props) => {
             </label>
             <div className="relative inline-flex">
                 <select
-                    name="type"
-                    id="type"
                     className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
                     value={questionType}
                     onChange={questionTypeHandler}
@@ -59,17 +130,18 @@ const NewQuestionForm = (props) => {
 
             <input
                 type="text"
-                name="description"
                 placeholder="Question"
                 className="line-input text-sm mt-4 mb-2"
+                onChange={descriptionHandler}
+                value={questionDescription}
             />
 
             {questionType && questionType !== "true or false" && (
                 <input
                     type="text"
-                    name="correctAnswer"
                     placeholder="Correct answer"
                     className="line-input text-sm mt-2 mb-6"
+                    value={questionType}
                 />
             )}
 
@@ -80,20 +152,18 @@ const NewQuestionForm = (props) => {
                         <li>
                             <input
                                 type="radio"
-                                name="correctAnswerTF"
-                                id="true"
                                 className="radio-btn"
                                 value="true"
+                                onChange={answerHandler}
                             />
                             <label htmlFor="true">True</label>
                         </li>
                         <li>
                             <input
                                 type="radio"
-                                name="correctAnswerTF"
-                                id="false"
                                 value="false"
                                 className="radio-btn"
+                                onChange={answerHandler}
                             />
                             <label htmlFor="false">False</label>
                         </li>
@@ -183,7 +253,7 @@ const NewQuestionForm = (props) => {
                 </button>
                 <button className="btn">Add question</button>
             </div>
-        </Form>
+        </form>
     );
 };
 
