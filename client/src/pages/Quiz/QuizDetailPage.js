@@ -1,17 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
-import { Link, json, useLoaderData } from "react-router-dom";
+import { Link, json, useRouteLoaderData, useParams } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 
 const QuizDetailPage = () => {
-    const quizData = useLoaderData();
+    const token = useRouteLoaderData("root");
+    const [quizData, setQuizData] = useState(null);
+    const [newQuestionAdded, setNewQuestionAdded] = useState(false);
     const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
     const [newQuestion, setNewQuestion] = useState(false);
+    const { displayId } = useParams();
 
+    const fetchQuizData = async () => {
+        const response = await fetch(
+            "http://localhost:8080/api/quiz/" + displayId,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+
+        if (!response.ok) {
+            throw json(
+                { message: "Could not fetch quiz set" },
+                { status: 500 }
+            );
+        }
+
+        const data = await response.json();
+        setQuizData(data.quiz);
+        setNewQuestionAdded(false);
+    };
+
+    useEffect(() => {
+        if (newQuestionAdded) {
+            fetchQuizData();
+        }
+    }, [newQuestionAdded]);
+
+    useEffect(() => {
+        if (!quizData) {
+            fetchQuizData();
+        }
+    }, [quizData]);
+
+    const newQuestionHandler = () => {
+        setNewQuestionAdded(true);
+    };
     const questionFormVisibilityHandler = () => {
         setNewQuestion(!newQuestion);
         setShowAddQuestionBtn(!showAddQuestionBtn);
     };
+
+    // TODO: WORK ON THE LOADING STATE
+    if (quizData === null) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
@@ -66,7 +112,10 @@ const QuizDetailPage = () => {
                 )}
             </div>
             {newQuestion && (
-                <NewQuestionForm onToggleForm={questionFormVisibilityHandler} />
+                <NewQuestionForm
+                    onToggleForm={questionFormVisibilityHandler}
+                    onAddQuestion={newQuestionHandler}
+                />
             )}
             {quizData.questions && (
                 <ul className="my-8 space-y-4">
