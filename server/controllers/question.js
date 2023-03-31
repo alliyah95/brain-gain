@@ -26,7 +26,7 @@ const addQuestion = asyncHandler(async (req, res) => {
 
     const questionData = { description, type, answer, quizSet: quizSet.id };
 
-    if (type === "multiple choice") {
+    if (type === "multiple choice" || (type === "identification" && options)) {
         questionData.options = options;
     }
 

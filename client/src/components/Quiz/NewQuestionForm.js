@@ -9,7 +9,7 @@ const NewQuestionForm = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState("");
     const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
-    const [choices, setChoices] = useState([
+    const initialState = [
         {
             id: 1,
             value: "",
@@ -18,7 +18,9 @@ const NewQuestionForm = (props) => {
             id: 2,
             value: "",
         },
-    ]);
+    ];
+    const [choices, setChoices] = useState(initialState);
+    const [possibleAnswers, setPossibleAnswers] = useState([""]);
 
     const displayId = quizData.displayId;
 
@@ -32,6 +34,34 @@ const NewQuestionForm = (props) => {
 
     const answerHandler = (evt) => {
         setCorrectAnswer(evt.target.value);
+    };
+
+    const possibleAnswerHandler = (evt) => {
+        const index = evt.target.id;
+        setPossibleAnswers((possibleAnswer) => {
+            const tempPossibleAnswers = possibleAnswer.slice();
+            tempPossibleAnswers[index - 1] = evt.target.value;
+            return tempPossibleAnswers;
+        });
+    };
+
+    const newPossibleAnswerHandler = (evt) => {
+        setPossibleAnswers((possibleAnswer) => {
+            return [
+                ...possibleAnswer,
+                {
+                    value: "",
+                },
+            ];
+        });
+    };
+
+    const deletePossibleAnswerHandler = (index) => {
+        setPossibleAnswers((possibleAnswer) => {
+            const tempPossibleAnswers = [...possibleAnswer];
+            tempPossibleAnswers.splice(index, 1);
+            return tempPossibleAnswers;
+        });
     };
 
     const choiceHandler = (evt) => {
@@ -64,6 +94,7 @@ const NewQuestionForm = (props) => {
 
     const newQuestionHandler = async (evt) => {
         evt.preventDefault();
+
         const questionData = {};
 
         const QUESTION_TYPES = [
@@ -120,6 +151,16 @@ const NewQuestionForm = (props) => {
                     questionData.options = choiceValues;
                 }
             }
+        } else if (questionType === "identification") {
+            if (possibleAnswers.length > 0) {
+                const filteredPossibleAnswers = possibleAnswers.filter(
+                    (posAns) => posAns.trim() !== ""
+                );
+
+                if (filteredPossibleAnswers) {
+                    questionData.options = filteredPossibleAnswers;
+                }
+            }
         }
         questionData.answer = correctAnswer;
 
@@ -142,10 +183,8 @@ const NewQuestionForm = (props) => {
         }
 
         toast.success("Question successfully added!");
-        setQuestionDescription("");
-        setQuestionType("");
-        setCorrectAnswer("");
         props.onToggleForm();
+        props.onAddQuestion();
     };
 
     const cancelAddHandler = () => {
@@ -268,32 +307,27 @@ const NewQuestionForm = (props) => {
                 <div className="space-y-3">
                     <p className="font-semibold">Possible answers</p>
                     <ul className="space-y-3">
-                        <li>
-                            <input
-                                type="text"
-                                name="possibleAnswer"
-                                placeholder="Possible answer 1"
-                                className="line-input text-sm"
-                            />
-                        </li>
-                        <li>
-                            <input
-                                type="text"
-                                name="possibleAnswer"
-                                placeholder="Possible answer 2"
-                                className="line-input text-sm"
-                            />
-                        </li>
-                        <li>
-                            <input
-                                type="text"
-                                name="possibleAnswer"
-                                placeholder="Possible answer 3"
-                                className="line-input text-sm"
-                            />
-                        </li>
+                        {possibleAnswers.map((possibleAnswer, index) => {
+                            return (
+                                <li key={index}>
+                                    <OptionInput
+                                        id={index + 1}
+                                        type="Possible answer"
+                                        value={possibleAnswer}
+                                        handler={possibleAnswerHandler}
+                                        deleteHandler={
+                                            deletePossibleAnswerHandler
+                                        }
+                                    />
+                                </li>
+                            );
+                        })}
                     </ul>
-                    <button className="underline font-bold my-4">
+                    <button
+                        type="button"
+                        className="underline font-bold my-4"
+                        onClick={newPossibleAnswerHandler}
+                    >
                         Add another answer
                     </button>
                 </div>
