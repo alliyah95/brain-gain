@@ -115,6 +115,7 @@ const QuizDetailPage = () => {
                 <NewQuestionForm
                     onToggleForm={questionFormVisibilityHandler}
                     onAddQuestion={newQuestionHandler}
+                    displayId={displayId}
                 />
             )}
             {quizData.questions && (

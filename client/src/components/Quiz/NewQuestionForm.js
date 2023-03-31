@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import OptionInput from "./OptionInput";
 
@@ -7,7 +7,6 @@ const NewQuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState("");
     const [questionType, setQuestionType] = useState("");
     const [correctAnswer, setCorrectAnswer] = useState("");
-    const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
     const initialState = [
         {
@@ -21,8 +20,6 @@ const NewQuestionForm = (props) => {
     ];
     const [choices, setChoices] = useState(initialState);
     const [possibleAnswers, setPossibleAnswers] = useState([""]);
-
-    const displayId = quizData.displayId;
 
     const descriptionHandler = (evt) => {
         setQuestionDescription(evt.target.value);
@@ -165,7 +162,7 @@ const NewQuestionForm = (props) => {
         questionData.answer = correctAnswer;
 
         const response = await fetch(
-            "http://localhost:8080/api/add_question/" + displayId,
+            "http://localhost:8080/api/add_question/" + props.displayId,
             {
                 method: "POST",
                 body: JSON.stringify(questionData),
