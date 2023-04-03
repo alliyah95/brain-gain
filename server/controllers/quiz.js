@@ -109,19 +109,21 @@ const getQuiz = asyncHandler(async (req, res) => {
 });
 
 const deleteQuiz = asyncHandler(async (req, res) => {
-    const { quizId } = req.params;
+    const { quizDisplayId } = req.params;
 
-    const quiz = await QuizSet.findById(quizId);
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId });
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
     }
 
-    const deletedQuiz = await QuizSet.findByIdAndDelete(quizId);
+    const deletedQuiz = await QuizSet.findOneAndDelete({
+        displayId: quizDisplayId,
+    });
     if (!deletedQuiz) {
         return res.status(500).json({ message: "Failed to delete quiz" });
     }
 
-    await Question.deleteMany({ quizSet: quizId });
+    await Question.deleteMany({ quizSet: quiz.id });
     // await AttemptHistory.deleteMany({ quizId: id });
 
     res.status(201).json({ message: "Quiz successfully deleted" });

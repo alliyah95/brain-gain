@@ -12,7 +12,7 @@ router.patch(
     quizController.updateQuiz
 );
 router.delete(
-    "/delete_quiz/:quizId",
+    "/delete_quiz/:quizDisplayId",
     isLoggedIn,
     isQuizOwner,
     quizController.deleteQuiz

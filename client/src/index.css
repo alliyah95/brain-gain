@@ -68,7 +68,7 @@
         @apply text-light-brown bg-brown py-2 px-8 lg:px-10 h-auto rounded-lg hover:bg-brown-darker  cursor-pointer;
     }
     .btn--light {
-        @apply bg-light-brown;
+        @apply bg-light-brown text-brown;
     }
     .btn--link {
         @apply text-sm bg-light-brown text-brown hover:bg-light-brown-h font-bold uppercase px-5 py-1;
