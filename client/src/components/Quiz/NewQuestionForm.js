@@ -157,7 +157,7 @@ const NewQuestionForm = (props) => {
         }
         questionData.answer = correctAnswer;
         const response = await fetch(
-            "http://localhost:8080/api/add_questions/" + props.displayId,
+            "http://localhost:8080/api/add_question/" + props.displayId,
             {
                 method: "POST",
                 body: JSON.stringify(questionData),
