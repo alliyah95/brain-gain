@@ -4,11 +4,11 @@ import { json, redirect, useActionData } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditQuizPage = () => {
-    const data = useActionData();
+    const error = useActionData();
 
-    if (data && data.message) {
-        toast.error(data.message);
-        data.message = "";
+    if (error && error.message) {
+        toast.error(error.message);
+        error.message = "";
     }
 
     return <EditQuizForm />;
@@ -38,12 +38,22 @@ export const action = async ({ request, params }) => {
         }
     );
 
-    if (response.status === 400 || response.status === 404) {
+    if (response.status === 400) {
         return response;
     }
 
+    if (response.status === 404) {
+        throw json({ message: "Quiz not found!" }, { status: 400 });
+    }
+
     if (!response.ok) {
-        throw json({ message: "Cannot edit quiz set!" }, { status: 500 });
+        throw json(
+            {
+                message:
+                    "There has been an internal server error. We'll try to fix it ASAP...",
+            },
+            { status: 500 }
+        );
     }
 
     return redirect(`/quiz/${quizDisplayId}`);

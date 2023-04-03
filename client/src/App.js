@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage noNavBar={false} />,
         id: "root",
         loader: tokenLoader,
         children: [
@@ -48,6 +48,7 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 loader: authChecker,
+                errorElement: <ErrorPage noNavBar={true} />,
                 children: [
                     {
                         path: "create_quiz",
@@ -70,6 +71,9 @@ const router = createBrowserRouter([
                         action: editQuizAction,
                     },
                 ],
+            },
+            {
+                path: "*",
             },
         ],
     },

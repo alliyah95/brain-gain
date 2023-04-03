@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRouteLoaderData, json } from "react-router-dom";
 import { toast } from "react-toastify";
 import OptionInput from "./OptionInput";
 
@@ -138,8 +138,8 @@ const NewQuestionForm = (props) => {
                     return;
                 }
 
-                if (filteredChoices.length < 2) {
-                    toast.error("Please provide at least 2 choices.");
+                if (filteredChoices.length < 1) {
+                    toast.error("Please provide at least 1 choice.");
                     return;
                 } else {
                     const choiceValues = filteredChoices.map(
@@ -160,9 +160,8 @@ const NewQuestionForm = (props) => {
             }
         }
         questionData.answer = correctAnswer;
-
         const response = await fetch(
-            "http://localhost:8080/api/add_question/" + props.displayId,
+            "http://localhost:8080/api/add_questions/" + props.displayId,
             {
                 method: "POST",
                 body: JSON.stringify(questionData),
@@ -174,9 +173,13 @@ const NewQuestionForm = (props) => {
         );
 
         if (!response.ok) {
-            const error = await response.json();
-            toast.error(error.message);
-            return;
+            throw json(
+                {
+                    message:
+                        "There has been an internal server error. We'll try to fix it ASAP...",
+                },
+                { status: 500 }
+            );
         }
 
         toast.success("Question successfully added!");

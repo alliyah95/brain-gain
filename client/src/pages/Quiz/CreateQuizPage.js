@@ -4,11 +4,11 @@ import { getAuthToken } from "../../util/auth";
 import { toast } from "react-toastify";
 
 const CreateQuizPage = () => {
-    const data = useActionData();
+    const error = useActionData();
 
-    if (data && data.message) {
-        toast.error(data.message);
-        data.message = "";
+    if (error && error.message) {
+        toast.error(error.message);
+        error.message = "";
     }
 
     return <CreateQuizForm />;
@@ -39,8 +39,15 @@ export const action = async ({ request }) => {
     }
 
     if (!response.ok) {
-        const error = await response.json();
-        throw json({ message: error.message }, { status: response.status });
+        if (!response.ok) {
+            throw json(
+                {
+                    message:
+                        "There has been an internal server error. We'll try to fix it ASAP...",
+                },
+                { status: 500 }
+            );
+        }
     }
 
     const resData = await response.json();

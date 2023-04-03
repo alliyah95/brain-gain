@@ -54,10 +54,6 @@ const validateCredentials = ({ username, password }) => {
     return null;
 };
 
-const validateOptions = (options, type) => {
-    return options && options.length >= 2;
-};
-
 const validateQuiz = ({ title, creator }) => {
     if (!title.trim()) {
         return "Title cannot be empty";
@@ -76,7 +72,7 @@ const validateQuizUpdateValues = ({ quizDisplayId, title }) => {
     }
 
     if (!title.trim()) {
-        return "Quiz title cannot be empty";
+        return "Title cannot be empty";
     }
 
     return null;
@@ -93,8 +89,8 @@ const validateQuestion = ({ description, type, options, answer }) => {
 
     switch (type) {
         case "multiple choice":
-            if (!options || options.length < 2) {
-                return "Please provide at least 2 options";
+            if (!options || options.length < 1) {
+                return "Please provide at least 1 option";
             }
             break;
         case "true or false":
@@ -117,7 +113,6 @@ module.exports = {
     validateUsername,
     validateUser,
     validateCredentials,
-    validateOptions,
     validateQuestion,
     validateQuiz,
     validateQuizUpdateValues,

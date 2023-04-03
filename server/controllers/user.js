@@ -20,7 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const foundUser = await User.findOne({ username });
     if (foundUser) {
-        return res.status(400).json({ message: "Username is already in use" });
+        return res.status(400).json({ message: "Username is already in use!" });
     }
 
     // password hashing

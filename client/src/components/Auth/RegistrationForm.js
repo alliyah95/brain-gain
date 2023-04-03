@@ -68,8 +68,13 @@ export const action = async ({ request, params }) => {
     }
 
     if (!response.ok) {
-        const error = await response.json();
-        throw json({ message: error.message }, { status: response.status });
+        throw json(
+            {
+                message:
+                    "There has been an internal server error. We'll try to fix it ASAP...",
+            },
+            { status: 500 }
+        );
     }
 
     const resData = await response.json();

@@ -14,7 +14,7 @@ const AuthenticationPage = () => {
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
     const [render, setRender] = useState(false);
-    const data = useActionData();
+    const error = useActionData();
 
     useEffect(() => {
         if (token) {
@@ -29,9 +29,9 @@ const AuthenticationPage = () => {
         return <></>;
     }
 
-    if (data && data.message) {
-        toast.error(data.message);
-        data.message = "";
+    if (error && error.message) {
+        toast.error(error.message);
+        error.message = "";
     }
 
     const [form, header, subtitle] =
