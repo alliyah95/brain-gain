@@ -13,10 +13,6 @@ const NewQuestionForm = (props) => {
             id: 1,
             value: "",
         },
-        {
-            id: 2,
-            value: "",
-        },
     ];
     const [choices, setChoices] = useState(initialState);
     const [possibleAnswers, setPossibleAnswers] = useState([""]);
@@ -122,8 +118,8 @@ const NewQuestionForm = (props) => {
                 return;
             }
         } else if (questionType === "multiple choice") {
-            if (choices.length < 2) {
-                toast.error("Please provide at least 2 choices.");
+            if (choices.length < 1) {
+                toast.error("Please provide at least 1 choice");
                 return;
             } else {
                 let filteredChoices = choices.filter(
@@ -134,12 +130,12 @@ const NewQuestionForm = (props) => {
                 );
 
                 if (answerInChoices) {
-                    toast.error("Correct answer cannot be in choices.");
+                    toast.error("Correct answer cannot be in other choices.");
                     return;
                 }
 
                 if (filteredChoices.length < 1) {
-                    toast.error("Please provide at least 1 choice.");
+                    toast.error("Please provide at least 1 choice");
                     return;
                 } else {
                     const choiceValues = filteredChoices.map(
