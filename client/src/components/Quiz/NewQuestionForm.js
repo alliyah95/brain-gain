@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useRouteLoaderData, json } from "react-router-dom";
 import { toast } from "react-toastify";
 import OptionInput from "./OptionInput";
+import TrueOrFalse from "../Question/TrueOrFalse";
+import MultipleChoice from "../Question/MultipleChoice";
+import Identification from "../Question/Identification";
 
 const NewQuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState("");
@@ -118,6 +121,10 @@ const NewQuestionForm = (props) => {
                 return;
             }
         } else if (questionType === "multiple choice") {
+            if (!correctAnswer.trim()) {
+                toast.error("Please provide the correct answer.");
+                return;
+            }
             if (choices.length < 1) {
                 toast.error("Please provide at least 1 choice");
                 return;
@@ -145,6 +152,10 @@ const NewQuestionForm = (props) => {
                 }
             }
         } else if (questionType === "identification") {
+            if (!correctAnswer.trim()) {
+                toast.error("Please provide the correct answer.");
+                return;
+            }
             if (possibleAnswers.length > 0) {
                 const filteredPossibleAnswers = possibleAnswers.filter(
                     (posAns) => posAns.trim() !== ""
@@ -244,89 +255,25 @@ const NewQuestionForm = (props) => {
             )}
 
             {questionType && questionType === "true or false" && (
-                <div className="space-y-3">
-                    <p className="font-semibold">Correct Answer</p>
-                    <ul className="space-y-1">
-                        <li>
-                            <input
-                                type="radio"
-                                className="radio-btn"
-                                value="true"
-                                onChange={answerHandler}
-                            />
-                            <label htmlFor="true">True</label>
-                        </li>
-                        <li>
-                            <input
-                                type="radio"
-                                value="false"
-                                className="radio-btn"
-                                onChange={answerHandler}
-                            />
-                            <label htmlFor="false">False</label>
-                        </li>
-                    </ul>
-                </div>
+                <TrueOrFalse answerHandler={answerHandler} />
             )}
 
             {questionType && questionType === "multiple choice" && (
-                <>
-                    <div className="space-y-3">
-                        <p className="font-semibold">Choices</p>
-                        <ul className="space-y-3">
-                            {choices.map((choice, index) => {
-                                return (
-                                    <li key={index}>
-                                        <OptionInput
-                                            id={index + 1}
-                                            type="Choice"
-                                            value={choice.value}
-                                            handler={choiceHandler}
-                                            deleteHandler={deleteChoiceHandler}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                    <button
-                        type="button"
-                        className="underline font-bold my-4"
-                        onClick={newChoiceHandler}
-                    >
-                        Add another choice
-                    </button>
-                </>
+                <MultipleChoice
+                    choices={choices}
+                    newChoiceHandler={newChoiceHandler}
+                    choiceHandler={choiceHandler}
+                    deleteChoiceHandler={deleteChoiceHandler}
+                />
             )}
 
             {questionType && questionType === "identification" && (
-                <div className="space-y-3">
-                    <p className="font-semibold">Possible answers</p>
-                    <ul className="space-y-3">
-                        {possibleAnswers.map((possibleAnswer, index) => {
-                            return (
-                                <li key={index}>
-                                    <OptionInput
-                                        id={index + 1}
-                                        type="Possible answer"
-                                        value={possibleAnswer}
-                                        handler={possibleAnswerHandler}
-                                        deleteHandler={
-                                            deletePossibleAnswerHandler
-                                        }
-                                    />
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <button
-                        type="button"
-                        className="underline font-bold my-4"
-                        onClick={newPossibleAnswerHandler}
-                    >
-                        Add another answer
-                    </button>
-                </div>
+                <Identification
+                    possibleAnswers={possibleAnswers}
+                    possibleAnswerHandler={possibleAnswerHandler}
+                    deletePossibleAnswerHandler={deletePossibleAnswerHandler}
+                    newPossibleAnswerHandler={newPossibleAnswerHandler}
+                />
             )}
 
             <div className="space-x-3 lg:space-x-4 xl:space-x-6 text-end mt-5">
