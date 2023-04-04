@@ -3,6 +3,12 @@ const router = express.Router({ mergeParams: true });
 const questionController = require("../controllers/question");
 const { isLoggedIn, isQuizOwner } = require("../middleware/auth");
 
+router.get(
+    "/get_question/:quizDisplayId/:questionId",
+    isLoggedIn,
+    isQuizOwner,
+    questionController.getQuestion
+);
 router.post(
     "/add_question/:quizDisplayId",
     isLoggedIn,
