@@ -21,11 +21,11 @@ const questionSchema = new Schema({
         validate: {
             validator: function (options) {
                 if (this.type === "multiple choice") {
-                    return validators.validateOptions(options);
+                    return options && options.length >= 1;
                 }
                 return true;
             },
-            message: "Please provide at least 2 options",
+            message: "Please provide at least 1 option",
         },
     },
     answer: {
