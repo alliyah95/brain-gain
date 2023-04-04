@@ -72,9 +72,6 @@ const router = createBrowserRouter([
                     },
                 ],
             },
-            {
-                path: "*",
-            },
         ],
     },
 ]);

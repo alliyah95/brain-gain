@@ -9,10 +9,13 @@ const ErrorPage = ({ noNavBar }) => {
     const token = getAuthToken();
     const navigate = useNavigate();
 
+    console.log(error);
     let message = "";
     if (error instanceof TypeError) {
         message =
             "There has been an internal server error. We'll try to fix it ASAP...";
+    } else if (error.status === 404 && error.data.includes("route")) {
+        message = "Page not found.";
     } else {
         message = error.data.message;
     }
