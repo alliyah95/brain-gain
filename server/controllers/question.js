@@ -44,6 +44,21 @@ const addQuestion = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Question successfully added!" });
 });
 
+const getQuestion = asyncHandler(async (req, res) => {
+    const { quizDisplayId, questionId } = req.params;
+
+    const question = await Question.findById(questionId);
+
+    if (!question) {
+        return res.status(404).json({ message: "Question not found" });
+    }
+
+    res.status(200).json({
+        message: "Question successfully retrieved",
+        question,
+    });
+});
+
 const editQuestion = asyncHandler(async (req, res) => {
     const { questionId } = req.params;
     const { description, type, options, answer } = req.body;
@@ -73,11 +88,11 @@ const editQuestion = asyncHandler(async (req, res) => {
     question.type = type;
     question.answer = answer;
 
-    if (type === "multiple choice") {
-        question.options = options;
+    if (type === "multiple choice" || type === "identification") {
+        question.options = options || [];
     } else if (type === "true or false") {
         question.options = [true, false];
-        question.answer = Boolean(answer);
+        question.answer = JSON.parse(answer);
     }
 
     await question.save();
@@ -111,4 +126,4 @@ const deleteQuestion = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Question successfully deleted" });
 });
 
-module.exports = { addQuestion, editQuestion, deleteQuestion };
+module.exports = { addQuestion, getQuestion, editQuestion, deleteQuestion };

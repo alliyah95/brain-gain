@@ -1,21 +1,32 @@
 import { useState } from "react";
-import { useRouteLoaderData, json } from "react-router-dom";
+import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import OptionInput from "./OptionInput";
+import TrueOrFalse from "../Question/TrueOrFalse";
+import MultipleChoice from "../Question/MultipleChoice";
+import Identification from "../Question/Identification";
+import { getOptionsInitialState } from "../../util/question";
 
 const NewQuestionForm = (props) => {
-    const [questionDescription, setQuestionDescription] = useState("");
-    const [questionType, setQuestionType] = useState("");
-    const [correctAnswer, setCorrectAnswer] = useState("");
+    const [questionDescription, setQuestionDescription] = useState(
+        (props.questionData && props.questionData.description) || ""
+    );
+    const [questionType, setQuestionType] = useState(
+        (props.questionData && props.questionData.type) || ""
+    );
+    const [correctAnswer, setCorrectAnswer] = useState(
+        (props.questionData && props.questionData.answer.toString()) || ""
+    );
+
+    const [choices, setChoices] = useState(() => {
+        return getOptionsInitialState(props);
+    });
+    const [possibleAnswers, setPossibleAnswers] = useState(() => {
+        return getOptionsInitialState(props);
+    });
+
     const token = useRouteLoaderData("root");
-    const initialState = [
-        {
-            id: 1,
-            value: "",
-        },
-    ];
-    const [choices, setChoices] = useState(initialState);
-    const [possibleAnswers, setPossibleAnswers] = useState([""]);
+    const navigate = useNavigate();
 
     const descriptionHandler = (evt) => {
         setQuestionDescription(evt.target.value);
@@ -33,7 +44,7 @@ const NewQuestionForm = (props) => {
         const index = evt.target.id;
         setPossibleAnswers((possibleAnswer) => {
             const tempPossibleAnswers = possibleAnswer.slice();
-            tempPossibleAnswers[index - 1] = evt.target.value;
+            tempPossibleAnswers[index - 1].value = evt.target.value;
             return tempPossibleAnswers;
         });
     };
@@ -118,6 +129,10 @@ const NewQuestionForm = (props) => {
                 return;
             }
         } else if (questionType === "multiple choice") {
+            if (!correctAnswer.trim()) {
+                toast.error("Please provide the correct answer.");
+                return;
+            }
             if (choices.length < 1) {
                 toast.error("Please provide at least 1 choice");
                 return;
@@ -145,28 +160,37 @@ const NewQuestionForm = (props) => {
                 }
             }
         } else if (questionType === "identification") {
+            if (!correctAnswer.trim()) {
+                toast.error("Please provide the correct answer.");
+                return;
+            }
             if (possibleAnswers.length > 0) {
                 const filteredPossibleAnswers = possibleAnswers.filter(
-                    (posAns) => posAns.trim() !== ""
+                    (posAns) => posAns.value.trim() !== ""
                 );
 
                 if (filteredPossibleAnswers) {
-                    questionData.options = filteredPossibleAnswers;
+                    questionData.options = filteredPossibleAnswers.map(
+                        (answer) => answer.value
+                    );
                 }
             }
         }
         questionData.answer = correctAnswer;
-        const response = await fetch(
-            "http://localhost:8080/api/add_question/" + props.displayId,
-            {
-                method: "POST",
-                body: JSON.stringify(questionData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token,
-                },
-            }
-        );
+
+        const api =
+            props.method === "POST"
+                ? `add_question/${props.displayId}`
+                : `edit_question/${props.displayId}/${props.questionData._id}`;
+
+        const response = await fetch(`http://localhost:8080/api/${api}`, {
+            method: props.method,
+            body: JSON.stringify(questionData),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+        });
 
         if (!response.ok) {
             throw json(
@@ -178,9 +202,14 @@ const NewQuestionForm = (props) => {
             );
         }
 
-        toast.success("Question successfully added!");
-        props.onToggleForm();
-        props.onAddQuestion();
+        if (props.method === "PATCH") {
+            toast.success("Question successfully updated!");
+            navigate(`/quiz/${props.displayId}`);
+        } else {
+            toast.success("Question successfully added!");
+            props.onToggleForm();
+            props.onAddQuestion();
+        }
     };
 
     const cancelAddHandler = () => {
@@ -202,7 +231,9 @@ const NewQuestionForm = (props) => {
             <div className="relative inline-flex">
                 <select
                     className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
-                    value={questionType}
+                    defaultValue={
+                        props.questionData ? props.questionData.type : ""
+                    }
                     onChange={questionTypeHandler}
                 >
                     <option value="" disabled>
@@ -231,102 +262,60 @@ const NewQuestionForm = (props) => {
                 placeholder="Question"
                 className="line-input text-sm md:text-mt-4 mb-2"
                 onChange={descriptionHandler}
-                value={questionDescription}
+                defaultValue={
+                    props.method === "PATCH"
+                        ? props.questionData.description
+                        : ""
+                }
             />
 
-            {questionType && questionType !== "true or false" && (
+            {((questionType && questionType !== "true or false") ||
+                (props.method === "PATCH" &&
+                    questionType !== "true or false")) && (
                 <input
                     type="text"
                     placeholder="Correct answer"
                     className="line-input text-sm mt-2 mb-6"
                     onChange={answerHandler}
+                    defaultValue={
+                        props.method === "PATCH"
+                            ? props.questionData.answer
+                            : ""
+                    }
                 />
             )}
 
-            {questionType && questionType === "true or false" && (
-                <div className="space-y-3">
-                    <p className="font-semibold">Correct Answer</p>
-                    <ul className="space-y-1">
-                        <li>
-                            <input
-                                type="radio"
-                                className="radio-btn"
-                                value="true"
-                                onChange={answerHandler}
-                            />
-                            <label htmlFor="true">True</label>
-                        </li>
-                        <li>
-                            <input
-                                type="radio"
-                                value="false"
-                                className="radio-btn"
-                                onChange={answerHandler}
-                            />
-                            <label htmlFor="false">False</label>
-                        </li>
-                    </ul>
-                </div>
+            {((questionType && questionType === "true or false") ||
+                (props.method === "PATCH" &&
+                    questionType === "true or false")) && (
+                <TrueOrFalse
+                    answerHandler={answerHandler}
+                    correctAnswer={
+                        props.questionData ? props.questionData.answer : ""
+                    }
+                />
             )}
 
-            {questionType && questionType === "multiple choice" && (
-                <>
-                    <div className="space-y-3">
-                        <p className="font-semibold">Choices</p>
-                        <ul className="space-y-3">
-                            {choices.map((choice, index) => {
-                                return (
-                                    <li key={index}>
-                                        <OptionInput
-                                            id={index + 1}
-                                            type="Choice"
-                                            value={choice.value}
-                                            handler={choiceHandler}
-                                            deleteHandler={deleteChoiceHandler}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                    <button
-                        type="button"
-                        className="underline font-bold my-4"
-                        onClick={newChoiceHandler}
-                    >
-                        Add another choice
-                    </button>
-                </>
+            {((questionType && questionType === "multiple choice") ||
+                (props.method === "PATCH" &&
+                    questionType === "multiple choice")) && (
+                <MultipleChoice
+                    choices={choices}
+                    newChoiceHandler={newChoiceHandler}
+                    choiceHandler={choiceHandler}
+                    deleteChoiceHandler={deleteChoiceHandler}
+                />
             )}
 
-            {questionType && questionType === "identification" && (
-                <div className="space-y-3">
-                    <p className="font-semibold">Possible answers</p>
-                    <ul className="space-y-3">
-                        {possibleAnswers.map((possibleAnswer, index) => {
-                            return (
-                                <li key={index}>
-                                    <OptionInput
-                                        id={index + 1}
-                                        type="Possible answer"
-                                        value={possibleAnswer}
-                                        handler={possibleAnswerHandler}
-                                        deleteHandler={
-                                            deletePossibleAnswerHandler
-                                        }
-                                    />
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <button
-                        type="button"
-                        className="underline font-bold my-4"
-                        onClick={newPossibleAnswerHandler}
-                    >
-                        Add another answer
-                    </button>
-                </div>
+            {((questionType && questionType === "identification") ||
+                (props.method === "PATCH" &&
+                    questionType === "identification")) && (
+                <Identification
+                    possibleAnswers={possibleAnswers}
+                    possibleAnswerHandler={possibleAnswerHandler}
+                    deletePossibleAnswerHandler={deletePossibleAnswerHandler}
+                    newPossibleAnswerHandler={newPossibleAnswerHandler}
+                />
             )}
 
             <div className="space-x-3 lg:space-x-4 xl:space-x-6 text-end mt-5">
