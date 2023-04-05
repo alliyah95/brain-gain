@@ -5,7 +5,7 @@ import OptionInput from "./OptionInput";
 import TrueOrFalse from "../Question/TrueOrFalse";
 import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
-import { formatChoices } from "../../util/question";
+import { getOptionsInitialState } from "../../util/question";
 
 const NewQuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState(
@@ -18,34 +18,11 @@ const NewQuestionForm = (props) => {
         (props.questionData && props.questionData.answer.toString()) || ""
     );
 
-    const optionsInitialState = [
-        {
-            id: 1,
-            value: "",
-        },
-    ];
-
     const [choices, setChoices] = useState(() => {
-        if (
-            props.questionData &&
-            props.questionData.options &&
-            props.questionData.type !== "true or false"
-        ) {
-            return formatChoices(props.questionData.options);
-        } else {
-            return optionsInitialState;
-        }
+        return getOptionsInitialState(props);
     });
     const [possibleAnswers, setPossibleAnswers] = useState(() => {
-        if (
-            props.questionData &&
-            props.questionData.options &&
-            props.questionData.type !== "true or false"
-        ) {
-            return formatChoices(props.questionData.options);
-        } else {
-            return optionsInitialState;
-        }
+        return getOptionsInitialState(props);
     });
 
     const token = useRouteLoaderData("root");
@@ -67,7 +44,7 @@ const NewQuestionForm = (props) => {
         const index = evt.target.id;
         setPossibleAnswers((possibleAnswer) => {
             const tempPossibleAnswers = possibleAnswer.slice();
-            tempPossibleAnswers[index - 1] = evt.target.value;
+            tempPossibleAnswers[index - 1].value = evt.target.value;
             return tempPossibleAnswers;
         });
     };
@@ -193,7 +170,9 @@ const NewQuestionForm = (props) => {
                 );
 
                 if (filteredPossibleAnswers) {
-                    questionData.options = filteredPossibleAnswers;
+                    questionData.options = filteredPossibleAnswers.map(
+                        (answer) => answer.value
+                    );
                 }
             }
         }

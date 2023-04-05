@@ -5,7 +5,7 @@ import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
 
 const EditQuestionPage = () => {
     const { question, quizDisplayId } = useLoaderData();
-    console.log(question);
+
     return (
         <div>
             <NewQuestionForm
