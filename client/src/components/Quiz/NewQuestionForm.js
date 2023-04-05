@@ -24,7 +24,9 @@ const NewQuestionForm = (props) => {
         },
     ];
     const [choices, setChoices] = useState(initialState);
-    const [possibleAnswers, setPossibleAnswers] = useState([""]);
+    const [possibleAnswers, setPossibleAnswers] = useState(
+        (props.questionData && props.questionData.options) || [""]
+    );
     const navigate = useNavigate();
 
     const descriptionHandler = (evt) => {
@@ -308,11 +310,7 @@ const NewQuestionForm = (props) => {
                 (props.method === "PATCH" &&
                     props.questionData.type === "identification")) && (
                 <Identification
-                    possibleAnswers={
-                        props.method === "PATCH"
-                            ? props.questionData.options
-                            : possibleAnswers
-                    }
+                    possibleAnswers={possibleAnswers}
                     possibleAnswerHandler={possibleAnswerHandler}
                     deletePossibleAnswerHandler={deletePossibleAnswerHandler}
                     newPossibleAnswerHandler={newPossibleAnswerHandler}

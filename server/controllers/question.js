@@ -88,8 +88,8 @@ const editQuestion = asyncHandler(async (req, res) => {
     question.type = type;
     question.answer = answer;
 
-    if (type === "multiple choice") {
-        question.options = options;
+    if (type === "multiple choice" || type === "identification") {
+        question.options = options || [];
     } else if (type === "true or false") {
         question.options = [true, false];
         question.answer = JSON.parse(answer);
