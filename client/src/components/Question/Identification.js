@@ -11,19 +11,20 @@ const Identification = ({
         <div className="space-y-3">
             <p className="font-semibold">Possible answers</p>
             <ul className="space-y-3">
-                {possibleAnswers.map((possibleAnswer, index) => {
-                    return (
-                        <li key={index}>
-                            <OptionInput
-                                id={index + 1}
-                                type="Possible answer"
-                                value={possibleAnswer}
-                                handler={possibleAnswerHandler}
-                                deleteHandler={deletePossibleAnswerHandler}
-                            />
-                        </li>
-                    );
-                })}
+                {possibleAnswers &&
+                    possibleAnswers.map((possibleAnswer, index) => {
+                        return (
+                            <li key={index}>
+                                <OptionInput
+                                    id={index + 1}
+                                    type="Possible answer"
+                                    value={possibleAnswer.value}
+                                    handler={possibleAnswerHandler}
+                                    deleteHandler={deletePossibleAnswerHandler}
+                                />
+                            </li>
+                        );
+                    })}
             </ul>
             <button
                 type="button"

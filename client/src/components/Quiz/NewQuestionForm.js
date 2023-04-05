@@ -17,21 +17,37 @@ const NewQuestionForm = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState(
         (props.questionData && props.questionData.answer.toString()) || ""
     );
+
+    const optionsInitialState = [
+        {
+            id: 1,
+            value: "",
+        },
+    ];
+
     const [choices, setChoices] = useState(() => {
-        if (props.questionData && props.questionData.options) {
+        if (
+            props.questionData &&
+            props.questionData.options &&
+            props.questionData.type !== "true or false"
+        ) {
             return formatChoices(props.questionData.options);
         } else {
-            return [
-                {
-                    id: 1,
-                    value: "",
-                },
-            ];
+            return optionsInitialState;
         }
     });
-    const [possibleAnswers, setPossibleAnswers] = useState(
-        (props.questionData && props.questionData.options) || [""]
-    );
+    const [possibleAnswers, setPossibleAnswers] = useState(() => {
+        if (
+            props.questionData &&
+            props.questionData.options &&
+            props.questionData.type !== "true or false"
+        ) {
+            return formatChoices(props.questionData.options);
+        } else {
+            return optionsInitialState;
+        }
+    });
+
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
 
@@ -173,7 +189,7 @@ const NewQuestionForm = (props) => {
             }
             if (possibleAnswers.length > 0) {
                 const filteredPossibleAnswers = possibleAnswers.filter(
-                    (posAns) => posAns.trim() !== ""
+                    (posAns) => posAns.value.trim() !== ""
                 );
 
                 if (filteredPossibleAnswers) {
@@ -276,7 +292,7 @@ const NewQuestionForm = (props) => {
 
             {((questionType && questionType !== "true or false") ||
                 (props.method === "PATCH" &&
-                    props.questionData.type !== "true or false")) && (
+                    questionType !== "true or false")) && (
                 <input
                     type="text"
                     placeholder="Correct answer"
@@ -292,7 +308,7 @@ const NewQuestionForm = (props) => {
 
             {((questionType && questionType === "true or false") ||
                 (props.method === "PATCH" &&
-                    props.questionData.type === "true or false")) && (
+                    questionType === "true or false")) && (
                 <TrueOrFalse
                     answerHandler={answerHandler}
                     correctAnswer={
@@ -303,7 +319,7 @@ const NewQuestionForm = (props) => {
 
             {((questionType && questionType === "multiple choice") ||
                 (props.method === "PATCH" &&
-                    props.questionData.type === "multiple choice")) && (
+                    questionType === "multiple choice")) && (
                 <MultipleChoice
                     choices={choices}
                     newChoiceHandler={newChoiceHandler}
@@ -314,7 +330,7 @@ const NewQuestionForm = (props) => {
 
             {((questionType && questionType === "identification") ||
                 (props.method === "PATCH" &&
-                    props.questionData.type === "identification")) && (
+                    questionType === "identification")) && (
                 <Identification
                     possibleAnswers={possibleAnswers}
                     possibleAnswerHandler={possibleAnswerHandler}
