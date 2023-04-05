@@ -213,7 +213,11 @@ const NewQuestionForm = (props) => {
     };
 
     const cancelAddHandler = () => {
-        props.onToggleForm();
+        if (props.method === "POST") {
+            props.onToggleForm();
+        } else {
+            navigate(`/quiz/${props.displayId}`);
+        }
     };
 
     return (
@@ -222,7 +226,7 @@ const NewQuestionForm = (props) => {
             className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
         >
             <h3 className="font-bold text-2xl lg:text-3xl mb-4">
-                New Question
+                {props.method === "POST" ? "New" : "Edit"} Question
             </h3>
 
             <label htmlFor="type" className="mr-2">
@@ -326,7 +330,9 @@ const NewQuestionForm = (props) => {
                 >
                     Cancel
                 </button>
-                <button className="btn">Add question</button>
+                <button className="btn">
+                    {props.method === "POST" ? "Add question" : "Save changes"}
+                </button>
             </div>
         </form>
     );
