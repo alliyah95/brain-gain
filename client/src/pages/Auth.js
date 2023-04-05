@@ -4,6 +4,8 @@ import {
     useRouteLoaderData,
     useNavigate,
     useActionData,
+    json,
+    redirect,
 } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
@@ -70,3 +72,52 @@ const AuthenticationPage = () => {
 };
 
 export default AuthenticationPage;
+
+export const action = async ({ request }) => {
+    const data = await request.formData();
+    const action = request.url.includes("login") ? "login" : "register";
+    let userCredentials = {};
+
+    if (action === "login") {
+        userCredentials.username = data.get("username");
+        userCredentials.password = data.get("password");
+    }
+
+    if (action === "register") {
+        userCredentials.name = data.get("name");
+        userCredentials.username = data.get("username");
+        userCredentials.password = data.get("password");
+        userCredentials.confirmedPassword = data.get("confirmedPassword");
+    }
+
+    const response = await fetch(`http://localhost:8080/api/${action}`, {
+        method: "POST",
+        body: JSON.stringify(userCredentials),
+        headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.status === 400 || response.status === 401) {
+        return response;
+    }
+
+    if (!response.ok) {
+        throw json(
+            {
+                message:
+                    "There has been an internal server error. We'll try to fix it ASAP...",
+            },
+            { status: 500 }
+        );
+    }
+
+    const resData = await response.json();
+    const token = resData.token;
+    const user = resData.user;
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+    const expiration = new Date();
+    expiration.setHours(expiration.getHours() + 168);
+    localStorage.setItem("expiration", expiration.toISOString());
+
+    return redirect("/");
+};

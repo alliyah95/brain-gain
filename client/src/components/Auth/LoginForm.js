@@ -1,4 +1,4 @@
-import { Form, Link, json, redirect } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 const LoginForm = () => {
     return (
@@ -34,46 +34,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-export const action = async ({ request }) => {
-    const data = await request.formData();
-
-    const userCredentials = {
-        username: data.get("username"),
-        password: data.get("password"),
-    };
-
-    const response = await fetch("http://localhost:8080/api/login", {
-        method: "POST",
-        body: JSON.stringify(userCredentials),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-
-    if (response.status === 401) {
-        return response;
-    }
-
-    if (!response.ok) {
-        throw json(
-            {
-                message:
-                    "There has been an internal server error. We'll try to fix it ASAP...",
-            },
-            { status: 500 }
-        );
-    }
-
-    const resData = await response.json();
-    const token = resData.token;
-    const user = resData.user;
-    localStorage.setItem("user", JSON.stringify(user));
-
-    localStorage.setItem("token", token);
-    const expiration = new Date();
-    expiration.setHours(expiration.getHours() + 168);
-    localStorage.setItem("expiration", expiration.toISOString());
-
-    return redirect("/");
-};

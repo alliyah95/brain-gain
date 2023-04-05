@@ -3,10 +3,8 @@ import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
-import AuthenticationPage from "./pages/Auth";
+import AuthenticationPage, { action as authAction } from "./pages/Auth";
 import QuizzesPage, { loader as quizzesLoader } from "./pages/Quiz/QuizzesPage";
-import { action as loginAction } from "./components/Auth/LoginForm";
-import { action as registerAction } from "./components/Auth/RegistrationForm";
 import { tokenLoader, authChecker } from "./util/auth";
 import { action as logoutAction } from "./pages/Logout";
 import { action as createQuizAction } from "./pages/Quiz/CreateQuizPage";
@@ -36,12 +34,12 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <AuthenticationPage />,
-                action: loginAction,
+                action: authAction,
             },
             {
                 path: "/signup",
                 element: <AuthenticationPage />,
-                action: registerAction,
+                action: authAction,
             },
             {
                 path: "logout",
