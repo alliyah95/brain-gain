@@ -1,14 +1,14 @@
 import React from "react";
 import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData } from "react-router-dom";
-import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
+import QuestionForm from "../../components/Quiz/QuestionForm";
 
 const EditQuestionPage = () => {
     const { question, quizDisplayId } = useLoaderData();
 
     return (
         <div>
-            <NewQuestionForm
+            <QuestionForm
                 method="PATCH"
                 questionData={question}
                 displayId={quizDisplayId}

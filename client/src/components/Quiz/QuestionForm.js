@@ -7,7 +7,7 @@ import Identification from "../Question/Identification";
 import ConfirmModal from "./ConfirmModal";
 import { getOptionsInitialState } from "../../util/question";
 
-const NewQuestionForm = (props) => {
+const QuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState(
         (props.questionData && props.questionData.description) || ""
     );
@@ -405,4 +405,4 @@ const NewQuestionForm = (props) => {
     );
 };
 
-export default NewQuestionForm;
+export default QuestionForm;

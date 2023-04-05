@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import NewQuestionForm from "../../components/Quiz/NewQuestionForm";
+import QuestionForm from "../../components/Quiz/QuestionForm";
 import {
     Link,
     json,
@@ -138,7 +138,7 @@ const QuizDetailPage = () => {
                     )}
                 </div>
                 {newQuestion && (
-                    <NewQuestionForm
+                    <QuestionForm
                         method="POST"
                         onToggleForm={questionFormVisibilityHandler}
                         onAddQuestion={newQuestionHandler}
