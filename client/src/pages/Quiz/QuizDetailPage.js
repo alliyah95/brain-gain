@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import QuestionForm from "../../components/Quiz/QuestionForm";
 import { Link, json, useRouteLoaderData, useParams } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
+import { loadQuizDetail } from "../../util/quiz";
 
 const QuizDetailPage = () => {
     const token = useRouteLoaderData("root");
@@ -12,40 +13,8 @@ const QuizDetailPage = () => {
     const { displayId } = useParams();
 
     const fetchQuizData = async () => {
-        const response = await fetch(
-            "http://localhost:8080/api/quiz/" + displayId,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token,
-                },
-            }
-        );
-
-        if (response.status === 401) {
-            throw json(
-                {
-                    message: "Oops! You are unauthorized to access this quiz.",
-                },
-                { status: 401 }
-            );
-        }
-
-        if (response.status === 404) {
-            throw json(
-                {
-                    message: "Quiz not found!",
-                },
-                { status: 404 }
-            );
-        }
-
-        if (!response.ok) {
-            throw Error("Cannot fetch quiz.");
-        }
-
-        const data = await response.json();
-        setQuizData(data.quiz);
+        const quizData = await loadQuizDetail(displayId, token);
+        setQuizData(quizData);
         setNewQuestionAdded(false);
     };
 
@@ -170,46 +139,6 @@ export default QuizDetailPage;
 export const quizDetailLoader = async ({ request, params }) => {
     const token = getAuthToken();
     const quizDisplayId = params.displayId;
-
-    const response = await fetch(
-        "http://localhost:8080/api/quiz/" + quizDisplayId,
-        {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-        }
-    );
-
-    if (response.status === 401) {
-        throw json(
-            {
-                message: "Oops! You are unauthorized to access this quiz.",
-            },
-            { status: 401 }
-        );
-    }
-
-    if (response.status === 404) {
-        console.log(response);
-        throw json(
-            {
-                message: "Quiz not found!",
-            },
-            { status: 404 }
-        );
-    }
-
-    if (!response.ok) {
-        throw json(
-            {
-                message:
-                    "There has been an internal server error. We'll try to fix it ASAP...",
-            },
-            { status: 500 }
-        );
-    }
-
-    const data = await response.json();
-    return data.quiz;
+    const quizData = await loadQuizDetail(quizDisplayId, token);
+    return quizData;
 };
