@@ -1,4 +1,4 @@
-const getOptionsInitialState = (props) => {
+export const getOptionsInitialState = (props) => {
     if (
         props.questionData &&
         props.questionData.options &&
@@ -19,4 +19,3 @@ const getOptionsInitialState = (props) => {
         ];
     }
 };
-module.exports = { getOptionsInitialState };
