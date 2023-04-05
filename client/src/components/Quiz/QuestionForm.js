@@ -8,15 +8,15 @@ import ConfirmModal from "./ConfirmModal";
 import { getOptionsInitialState } from "../../util/question";
 
 const QuestionForm = (props) => {
-    const [questionDescription, setQuestionDescription] = useState(
-        (props.questionData && props.questionData.description) || ""
-    );
-    const [questionType, setQuestionType] = useState(
-        (props.questionData && props.questionData.type) || ""
-    );
-    const [correctAnswer, setCorrectAnswer] = useState(
-        (props.questionData && props.questionData.answer.toString()) || ""
-    );
+    const {
+        description = "",
+        type = "",
+        answer = "",
+    } = props.questionData || "";
+
+    const [questionDescription, setQuestionDescription] = useState(description);
+    const [questionType, setQuestionType] = useState(type);
+    const [correctAnswer, setCorrectAnswer] = useState(answer.toString());
 
     const [choices, setChoices] = useState(() => {
         return getOptionsInitialState(props);
@@ -28,79 +28,65 @@ const QuestionForm = (props) => {
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
 
-    const descriptionHandler = (evt) => {
-        setQuestionDescription(evt.target.value);
+    const generalOptionHandler = (index, updatedValue, setState) => {
+        setState((prevState) => {
+            const tempOptions = prevState.slice();
+            tempOptions[index - 1].value = updatedValue;
+            return tempOptions;
+        });
     };
 
-    const questionTypeHandler = (evt) => {
-        setQuestionType(evt.target.value);
+    const generalNewOptionHandler = (setState) => {
+        setState((prevState) => {
+            return [
+                ...prevState,
+                {
+                    value: "",
+                },
+            ];
+        });
     };
 
-    const answerHandler = (evt) => {
-        setCorrectAnswer(evt.target.value);
+    const generalDeleteOptionHandler = (index, setState) => {
+        setState((prevState) => {
+            const tempOptions = [...prevState];
+            tempOptions.splice(index, 1);
+            return tempOptions;
+        });
     };
 
     const possibleAnswerHandler = (evt) => {
-        const index = evt.target.id;
-        setPossibleAnswers((possibleAnswer) => {
-            const tempPossibleAnswers = possibleAnswer.slice();
-            tempPossibleAnswers[index - 1].value = evt.target.value;
-            return tempPossibleAnswers;
-        });
-    };
-
-    const newPossibleAnswerHandler = (evt) => {
-        setPossibleAnswers((possibleAnswer) => {
-            return [
-                ...possibleAnswer,
-                {
-                    value: "",
-                },
-            ];
-        });
-    };
-
-    const deletePossibleAnswerHandler = (index) => {
-        setPossibleAnswers((possibleAnswer) => {
-            const tempPossibleAnswers = [...possibleAnswer];
-            tempPossibleAnswers.splice(index, 1);
-            return tempPossibleAnswers;
-        });
+        generalOptionHandler(
+            evt.target.id,
+            evt.target.value,
+            setPossibleAnswers
+        );
     };
 
     const choiceHandler = (evt) => {
-        const index = evt.target.id;
-        setChoices((choice) => {
-            const tempChoices = choice.slice();
-            tempChoices[index - 1].value = evt.target.value;
-            return tempChoices;
-        });
+        generalOptionHandler(evt.target.id, evt.target.value, setChoices);
     };
 
-    const newChoiceHandler = (evt) => {
-        setChoices((choice) => {
-            return [
-                ...choice,
-                {
-                    value: "",
-                },
-            ];
-        });
+    const newPossibleAnswerHandler = () => {
+        generalNewOptionHandler(setPossibleAnswers);
+    };
+
+    const newChoiceHandler = () => {
+        generalNewOptionHandler(setChoices);
+    };
+
+    const deletePossibleAnswerHandler = (index) => {
+        generalDeleteOptionHandler(index, setPossibleAnswers);
     };
 
     const deleteChoiceHandler = (index) => {
-        setChoices((choice) => {
-            const tempChoices = [...choice];
-            tempChoices.splice(index, 1);
-            return tempChoices;
-        });
+        generalDeleteOptionHandler(index, setChoices);
     };
 
     const newQuestionHandler = async (evt) => {
         evt.preventDefault();
 
         const questionData = {};
-
         const QUESTION_TYPES = [
             "true or false",
             "multiple choice",
@@ -272,7 +258,7 @@ const QuestionForm = (props) => {
                 className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
             >
                 <h3 className="font-bold text-2xl lg:text-3xl mb-4 flex justify-between">
-                    {props.method === "POST" ? "New" : "Edit"} Question
+                    {props.method === "POST" ? "New" : "Edit"} question
                     <button
                         className="inline-flex items-center gap-x-2 text-sm hover:text-yellow"
                         type="button"
@@ -300,7 +286,9 @@ const QuestionForm = (props) => {
                         defaultValue={
                             props.questionData ? props.questionData.type : ""
                         }
-                        onChange={questionTypeHandler}
+                        onChange={(evt) => {
+                            setQuestionType(evt.target.value);
+                        }}
                     >
                         <option value="" disabled>
                             Please select...
@@ -327,7 +315,9 @@ const QuestionForm = (props) => {
                     type="text"
                     placeholder="Question"
                     className="line-input text-sm md:text-mt-4 mb-2"
-                    onChange={descriptionHandler}
+                    onChange={(evt) => {
+                        setQuestionDescription(evt.target.value);
+                    }}
                     defaultValue={
                         props.method === "PATCH"
                             ? props.questionData.description
@@ -342,7 +332,9 @@ const QuestionForm = (props) => {
                         type="text"
                         placeholder="Correct answer"
                         className="line-input text-sm mt-2 mb-6"
-                        onChange={answerHandler}
+                        onChange={(evt) => {
+                            setCorrectAnswer(evt.target.value);
+                        }}
                         defaultValue={
                             props.method === "PATCH"
                                 ? props.questionData.answer
@@ -355,7 +347,9 @@ const QuestionForm = (props) => {
                     (props.method === "PATCH" &&
                         questionType === "true or false")) && (
                     <TrueOrFalse
-                        answerHandler={answerHandler}
+                        answerHandler={(evt) => {
+                            setCorrectAnswer(evt.target.value);
+                        }}
                         correctAnswer={
                             props.questionData ? props.questionData.answer : ""
                         }
