@@ -9,7 +9,6 @@ const ErrorPage = ({ noNavBar }) => {
     const token = getAuthToken();
     const navigate = useNavigate();
 
-    console.log(error);
     let message = "";
     if (error instanceof TypeError) {
         message =

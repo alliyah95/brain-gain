@@ -50,5 +50,3 @@ export const loader = async ({ request, params }) => {
     const data = await response.json();
     return { question: data.question, quizDisplayId };
 };
-
-export const action = async ({ request, params }) => {};

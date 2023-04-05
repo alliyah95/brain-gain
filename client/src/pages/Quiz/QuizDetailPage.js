@@ -9,7 +9,6 @@ import {
     redirect,
 } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import { toast } from "react-toastify";
 
 const QuizDetailPage = () => {
     const token = useRouteLoaderData("root");
