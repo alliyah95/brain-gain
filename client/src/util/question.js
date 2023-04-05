@@ -1,8 +1,22 @@
-const formatChoices = (choices) => {
-    const formattedChoices = choices.map((choice, index) => {
-        return { id: index + 1, value: choice };
-    });
-    return formattedChoices;
-};
+const getOptionsInitialState = (props) => {
+    if (
+        props.questionData &&
+        props.questionData.options &&
+        props.questionData.type !== "true or false"
+    ) {
+        const options = props.questionData.options;
+        const formattedOptions = options.map((option, index) => {
+            return { id: index + 1, value: option };
+        });
 
-module.exports = { formatChoices };
+        return formattedOptions;
+    } else {
+        return [
+            {
+                id: 1,
+                value: "",
+            },
+        ];
+    }
+};
+module.exports = { getOptionsInitialState };
