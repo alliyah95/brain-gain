@@ -34,3 +34,10 @@ export const authChecker = () => {
 
     return null;
 };
+
+export const logoutUser = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+};

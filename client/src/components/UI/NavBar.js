@@ -13,6 +13,7 @@ import {
     Button,
     IconButton,
 } from "@material-tailwind/react";
+import { logoutUser } from "../../util/auth";
 
 export default function Example({ tokenProp }) {
     const [openNav, setOpenNav] = useState(false);
@@ -81,18 +82,17 @@ export default function Example({ tokenProp }) {
             </Typography>
 
             <li>
-                <Form action="/logout" method="POST">
-                    <Button
-                        variant="filled"
-                        size="sm"
-                        fullWidth
-                        ripple={false}
-                        type="submit"
-                        className=" btn bg-yellow shadow-none hover:bg-yellow lg:bg-light-brown  text-brown hover:shadow-none mt-1 lg:mt-0"
-                    >
-                        <span>Logout</span>
-                    </Button>
-                </Form>
+                <Button
+                    onClick={logoutUser}
+                    variant="filled"
+                    size="sm"
+                    fullWidth
+                    ripple={false}
+                    type="submit"
+                    className=" btn bg-yellow shadow-none hover:bg-yellow lg:bg-light-brown  text-brown hover:shadow-none mt-1 lg:mt-0"
+                >
+                    <span>Logout</span>
+                </Button>
             </li>
         </ul>
     );

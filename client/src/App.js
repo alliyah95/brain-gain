@@ -6,7 +6,6 @@ import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import AuthenticationPage, { action as authAction } from "./pages/Auth";
 import QuizzesPage, { quizzesLoader } from "./pages/Quiz/QuizzesPage";
 import { tokenLoader, authChecker } from "./util/auth";
-import { logoutAction } from "./pages/Logout";
 import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import QuizDetailPage, { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
 import EditQuizPage, { editQuizAction } from "./pages/Quiz/EditQuizPage";
@@ -36,11 +35,6 @@ const router = createBrowserRouter([
                 path: "/signup",
                 element: <AuthenticationPage />,
                 action: authAction,
-            },
-            {
-                path: "logout",
-                action: logoutAction,
-                loader: authChecker,
             },
             {
                 path: "/",
