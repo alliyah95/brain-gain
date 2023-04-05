@@ -51,7 +51,7 @@ const QuizzesPage = () => {
 
 export default QuizzesPage;
 
-export const loader = async () => {
+export const quizzesLoader = async () => {
     const token = getAuthToken();
     const response = await fetch("http://localhost:8080/api/quiz_sets", {
         headers: {

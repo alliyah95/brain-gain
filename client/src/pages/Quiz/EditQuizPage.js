@@ -16,7 +16,7 @@ const EditQuizPage = () => {
 
 export default EditQuizPage;
 
-export const action = async ({ request, params }) => {
+export const editQuizAction = async ({ request, params }) => {
     const token = getAuthToken();
     const data = await request.formData();
     const quizDisplayId = params.displayId;

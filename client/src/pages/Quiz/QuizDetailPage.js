@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import QuestionForm from "../../components/Quiz/QuestionForm";
-import {
-    Link,
-    json,
-    useRouteLoaderData,
-    useParams,
-    useNavigate,
-    redirect,
-} from "react-router-dom";
+import { Link, json, useRouteLoaderData, useParams } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 
 const QuizDetailPage = () => {
@@ -174,7 +167,7 @@ const QuizDetailPage = () => {
 
 export default QuizDetailPage;
 
-export const loader = async ({ request, params }) => {
+export const quizDetailLoader = async ({ request, params }) => {
     const token = getAuthToken();
     const quizDisplayId = params.displayId;
 

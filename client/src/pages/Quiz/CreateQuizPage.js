@@ -16,7 +16,7 @@ const CreateQuizPage = () => {
 
 export default CreateQuizPage;
 
-export const action = async ({ request }) => {
+export const createQuizAction = async ({ request }) => {
     const data = await request.formData();
 
     const quizData = {

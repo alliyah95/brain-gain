@@ -4,18 +4,14 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import AuthenticationPage, { action as authAction } from "./pages/Auth";
-import QuizzesPage, { loader as quizzesLoader } from "./pages/Quiz/QuizzesPage";
+import QuizzesPage, { quizzesLoader } from "./pages/Quiz/QuizzesPage";
 import { tokenLoader, authChecker } from "./util/auth";
-import { action as logoutAction } from "./pages/Logout";
-import { action as createQuizAction } from "./pages/Quiz/CreateQuizPage";
-import QuizDetailPage, {
-    loader as quizDetailLoader,
-} from "./pages/Quiz/QuizDetailPage";
-import EditQuizPage, {
-    action as editQuizAction,
-} from "./pages/Quiz/EditQuizPage";
+import { logoutAction } from "./pages/Logout";
+import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
+import QuizDetailPage, { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
+import EditQuizPage, { editQuizAction } from "./pages/Quiz/EditQuizPage";
 import EditQuestionPage, {
-    loader as questionLoader,
+    questionLoader,
 } from "./pages/Quiz/EditQuestionPage";
 
 const router = createBrowserRouter([

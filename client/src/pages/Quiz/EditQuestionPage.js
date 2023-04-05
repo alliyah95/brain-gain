@@ -19,7 +19,7 @@ const EditQuestionPage = () => {
 
 export default EditQuestionPage;
 
-export const loader = async ({ request, params }) => {
+export const questionLoader = async ({ request, params }) => {
     const quizDisplayId = params.displayId;
     const questionId = params.questionId;
     const token = getAuthToken();
