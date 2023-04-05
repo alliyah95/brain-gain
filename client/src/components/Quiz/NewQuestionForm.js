@@ -5,6 +5,7 @@ import OptionInput from "./OptionInput";
 import TrueOrFalse from "../Question/TrueOrFalse";
 import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
+import { formatChoices } from "../../util/question";
 
 const NewQuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState(
@@ -16,17 +17,22 @@ const NewQuestionForm = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState(
         (props.questionData && props.questionData.answer.toString()) || ""
     );
-    const token = useRouteLoaderData("root");
-    const initialState = [
-        {
-            id: 1,
-            value: "",
-        },
-    ];
-    const [choices, setChoices] = useState(initialState);
+    const [choices, setChoices] = useState(() => {
+        if (props.questionData && props.questionData.options) {
+            return formatChoices(props.questionData.options);
+        } else {
+            return [
+                {
+                    id: 1,
+                    value: "",
+                },
+            ];
+        }
+    });
     const [possibleAnswers, setPossibleAnswers] = useState(
         (props.questionData && props.questionData.options) || [""]
     );
+    const token = useRouteLoaderData("root");
     const navigate = useNavigate();
 
     const descriptionHandler = (evt) => {
