@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouteLoaderData, json } from "react-router-dom";
+import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import OptionInput from "./OptionInput";
 import TrueOrFalse from "../Question/TrueOrFalse";
@@ -7,9 +7,15 @@ import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
 
 const NewQuestionForm = (props) => {
-    const [questionDescription, setQuestionDescription] = useState("");
-    const [questionType, setQuestionType] = useState("");
-    const [correctAnswer, setCorrectAnswer] = useState("");
+    const [questionDescription, setQuestionDescription] = useState(
+        (props.questionData && props.questionData.description) || ""
+    );
+    const [questionType, setQuestionType] = useState(
+        (props.questionData && props.questionData.type) || ""
+    );
+    const [correctAnswer, setCorrectAnswer] = useState(
+        (props.questionData && props.questionData.answer.toString()) || ""
+    );
     const token = useRouteLoaderData("root");
     const initialState = [
         {
@@ -19,6 +25,7 @@ const NewQuestionForm = (props) => {
     ];
     const [choices, setChoices] = useState(initialState);
     const [possibleAnswers, setPossibleAnswers] = useState([""]);
+    const navigate = useNavigate();
 
     const descriptionHandler = (evt) => {
         setQuestionDescription(evt.target.value);
@@ -167,17 +174,20 @@ const NewQuestionForm = (props) => {
             }
         }
         questionData.answer = correctAnswer;
-        const response = await fetch(
-            "http://localhost:8080/api/add_question/" + props.displayId,
-            {
-                method: "POST",
-                body: JSON.stringify(questionData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token,
-                },
-            }
-        );
+
+        const api =
+            props.method === "POST"
+                ? `add_question/${props.displayId}`
+                : `edit_question/${props.displayId}/${props.questionData._id}`;
+
+        const response = await fetch(`http://localhost:8080/api/${api}`, {
+            method: props.method,
+            body: JSON.stringify(questionData),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+        });
 
         if (!response.ok) {
             throw json(
@@ -189,9 +199,14 @@ const NewQuestionForm = (props) => {
             );
         }
 
-        toast.success("Question successfully added!");
-        props.onToggleForm();
-        props.onAddQuestion();
+        if (props.method === "PATCH") {
+            toast.success("Question successfully updated!");
+            navigate(`/quiz/${props.displayId}`);
+        } else {
+            toast.success("Question successfully added!");
+            props.onToggleForm();
+            props.onAddQuestion();
+        }
     };
 
     const cancelAddHandler = () => {
@@ -213,7 +228,9 @@ const NewQuestionForm = (props) => {
             <div className="relative inline-flex">
                 <select
                     className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
-                    value={questionType}
+                    defaultValue={
+                        props.questionData ? props.questionData.type : ""
+                    }
                     onChange={questionTypeHandler}
                 >
                     <option value="" disabled>
@@ -242,23 +259,43 @@ const NewQuestionForm = (props) => {
                 placeholder="Question"
                 className="line-input text-sm md:text-mt-4 mb-2"
                 onChange={descriptionHandler}
-                value={questionDescription}
+                defaultValue={
+                    props.method === "PATCH"
+                        ? props.questionData.description
+                        : ""
+                }
             />
 
-            {questionType && questionType !== "true or false" && (
+            {((questionType && questionType !== "true or false") ||
+                (props.method === "PATCH" &&
+                    props.questionData.type !== "true or false")) && (
                 <input
                     type="text"
                     placeholder="Correct answer"
                     className="line-input text-sm mt-2 mb-6"
                     onChange={answerHandler}
+                    defaultValue={
+                        props.method === "PATCH"
+                            ? props.questionData.answer
+                            : ""
+                    }
                 />
             )}
 
-            {questionType && questionType === "true or false" && (
-                <TrueOrFalse answerHandler={answerHandler} />
+            {((questionType && questionType === "true or false") ||
+                (props.method === "PATCH" &&
+                    props.questionData.type === "true or false")) && (
+                <TrueOrFalse
+                    answerHandler={answerHandler}
+                    correctAnswer={
+                        props.questionData ? props.questionData.answer : ""
+                    }
+                />
             )}
 
-            {questionType && questionType === "multiple choice" && (
+            {((questionType && questionType === "multiple choice") ||
+                (props.method === "PATCH" &&
+                    props.questionData.type === "multiple choice")) && (
                 <MultipleChoice
                     choices={choices}
                     newChoiceHandler={newChoiceHandler}
@@ -267,9 +304,15 @@ const NewQuestionForm = (props) => {
                 />
             )}
 
-            {questionType && questionType === "identification" && (
+            {((questionType && questionType === "identification") ||
+                (props.method === "PATCH" &&
+                    props.questionData.type === "identification")) && (
                 <Identification
-                    possibleAnswers={possibleAnswers}
+                    possibleAnswers={
+                        props.method === "PATCH"
+                            ? props.questionData.options
+                            : possibleAnswers
+                    }
                     possibleAnswerHandler={possibleAnswerHandler}
                     deletePossibleAnswerHandler={deletePossibleAnswerHandler}
                     newPossibleAnswerHandler={newPossibleAnswerHandler}

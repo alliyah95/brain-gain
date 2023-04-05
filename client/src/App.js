@@ -16,6 +16,9 @@ import QuizDetailPage, {
 import EditQuizPage, {
     action as editQuizAction,
 } from "./pages/Quiz/EditQuizPage";
+import EditQuestionPage, {
+    loader as questionLoader,
+} from "./pages/Quiz/EditQuestionPage";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +72,11 @@ const router = createBrowserRouter([
                         element: <EditQuizPage />,
                         loader: quizDetailLoader,
                         action: editQuizAction,
+                    },
+                    {
+                        path: "quiz/:displayId/question/:questionId/edit",
+                        element: <EditQuestionPage />,
+                        loader: questionLoader,
                     },
                 ],
             },

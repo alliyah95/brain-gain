@@ -78,9 +78,9 @@ const QuizDetailPage = () => {
     };
 
     // TODO: WORK ON THE LOADING STATE
-    if (quizData === null) {
-        return <div>Loading...</div>;
-    }
+    // if (quizData === null) {
+    //     return <div>Loading...</div>;
+    // }
 
     if (quizData) {
         return (
@@ -139,6 +139,7 @@ const QuizDetailPage = () => {
                 </div>
                 {newQuestion && (
                     <NewQuestionForm
+                        method="POST"
                         onToggleForm={questionFormVisibilityHandler}
                         onAddQuestion={newQuestionHandler}
                         displayId={displayId}
@@ -149,7 +150,9 @@ const QuizDetailPage = () => {
                         {quizData.questions.map((question) => {
                             return (
                                 <li key={question._id}>
-                                    <Link>
+                                    <Link
+                                        to={`/quiz/${displayId}/question/${question._id}/edit`}
+                                    >
                                         <div className="preview-card-light">
                                             <p className="font-semibold">
                                                 {question.description}

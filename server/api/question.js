@@ -16,7 +16,7 @@ router.post(
     questionController.addQuestion
 );
 router.patch(
-    "/edit_question/:quizId/:questionId",
+    "/edit_question/:quizDisplayId/:questionId",
     isLoggedIn,
     isQuizOwner,
     questionController.editQuestion

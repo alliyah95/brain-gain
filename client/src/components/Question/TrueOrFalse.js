@@ -1,4 +1,4 @@
-const TrueOrFalse = ({ answerHandler }) => {
+const TrueOrFalse = ({ answerHandler, correctAnswer }) => {
     return (
         <div className="space-y-3">
             <p className="font-semibold">Correct Answer</p>
@@ -9,6 +9,8 @@ const TrueOrFalse = ({ answerHandler }) => {
                         className="radio-btn"
                         value="true"
                         onChange={answerHandler}
+                        defaultChecked={correctAnswer === true}
+                        name="true or false"
                     />
                     <label htmlFor="true">True</label>
                 </li>
@@ -18,6 +20,8 @@ const TrueOrFalse = ({ answerHandler }) => {
                         value="false"
                         className="radio-btn"
                         onChange={answerHandler}
+                        defaultChecked={correctAnswer === false}
+                        name="true or false"
                     />
                     <label htmlFor="false">False</label>
                 </li>

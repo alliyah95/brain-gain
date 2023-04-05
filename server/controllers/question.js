@@ -92,7 +92,7 @@ const editQuestion = asyncHandler(async (req, res) => {
         question.options = options;
     } else if (type === "true or false") {
         question.options = [true, false];
-        question.answer = Boolean(answer);
+        question.answer = JSON.parse(answer);
     }
 
     await question.save();
