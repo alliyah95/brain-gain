@@ -22,7 +22,7 @@ router.patch(
     questionController.editQuestion
 );
 router.delete(
-    "/delete_question/:quizId/:questionId",
+    "/delete_question/:quizDisplayId/:questionId",
     isLoggedIn,
     isQuizOwner,
     questionController.deleteQuestion

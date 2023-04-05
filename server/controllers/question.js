@@ -100,14 +100,14 @@ const editQuestion = asyncHandler(async (req, res) => {
 });
 
 const deleteQuestion = asyncHandler(async (req, res) => {
-    const { quizId, questionId } = req.params;
+    const { quizDisplayId, questionId } = req.params;
     const question = await Question.findById(questionId);
 
     if (!question) {
         return res.status(404).json({ message: "Question not found!" });
     }
 
-    const quizSet = await QuizSet.findById(quizId);
+    const quizSet = await QuizSet.findOne({ displayId: quizDisplayId });
     if (!quizSet) {
         return res.status(404).json({ message: "Quiz set not found" });
     }

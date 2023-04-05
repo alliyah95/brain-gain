@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import OptionInput from "./OptionInput";
 import TrueOrFalse from "../Question/TrueOrFalse";
 import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
+import ConfirmModal from "./ConfirmModal";
 import { getOptionsInitialState } from "../../util/question";
 
 const NewQuestionForm = (props) => {
@@ -24,7 +24,7 @@ const NewQuestionForm = (props) => {
     const [possibleAnswers, setPossibleAnswers] = useState(() => {
         return getOptionsInitialState(props);
     });
-
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
 
@@ -212,6 +212,44 @@ const NewQuestionForm = (props) => {
         }
     };
 
+    const deleteModalVisibilityHandler = (visibility) => {
+        setShowDeleteModal(visibility);
+    };
+
+    const deleteQuestionHandler = async () => {
+        setShowDeleteModal(false);
+
+        const response = await fetch(
+            `http://localhost:8080/api/delete_question/${props.displayId}/${props.questionData._id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
+
+        if (response.status === 404) {
+            throw json(
+                { message: "Quiz or question not found!" },
+                { status: 404 }
+            );
+        }
+
+        if (!response.ok) {
+            throw json(
+                {
+                    message:
+                        "There has been an internal server error. We'll try to fix it ASAP...",
+                },
+                { status: 500 }
+            );
+        }
+
+        toast.success("Question successfully deleted.");
+        navigate(`/quiz/${props.displayId}`);
+    };
+
     const cancelAddHandler = () => {
         if (props.method === "POST") {
             props.onToggleForm();
@@ -221,120 +259,149 @@ const NewQuestionForm = (props) => {
     };
 
     return (
-        <form
-            onSubmit={newQuestionHandler}
-            className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
-        >
-            <h3 className="font-bold text-2xl lg:text-3xl mb-4">
-                {props.method === "POST" ? "New" : "Edit"} Question
-            </h3>
-
-            <label htmlFor="type" className="mr-2">
-                Question Type:
-            </label>
-            <div className="relative inline-flex">
-                <select
-                    className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
-                    defaultValue={
-                        props.questionData ? props.questionData.type : ""
-                    }
-                    onChange={questionTypeHandler}
-                >
-                    <option value="" disabled>
-                        Please select...
-                    </option>
-                    <option value="true or false">True or False</option>
-                    <option value="multiple choice">Multiple Choice</option>
-                    <option value="identification">Identification</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-4 pointer-events-none">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="13"
-                        height="13"
-                        fill="currentColor"
-                        className="bi bi-caret-down-fill text-light-brown"
-                        viewBox="0 0 16 16"
+        <>
+            {showDeleteModal && (
+                <ConfirmModal
+                    onManageModal={deleteModalVisibilityHandler}
+                    onDelete={deleteQuestionHandler}
+                    message="Are you sure you want to delete this question?"
+                />
+            )}
+            <form
+                onSubmit={newQuestionHandler}
+                className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
+            >
+                <h3 className="font-bold text-2xl lg:text-3xl mb-4 flex justify-between">
+                    {props.method === "POST" ? "New" : "Edit"} Question
+                    <button
+                        className="inline-flex items-center gap-x-2 text-sm hover:text-yellow"
+                        type="button"
+                        onClick={() => {
+                            deleteModalVisibilityHandler(true);
+                        }}
                     >
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                    </svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            className="bi bi-trash3 w-5"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                        </svg>
+                    </button>
+                </h3>
+
+                <label htmlFor="type" className="mr-2">
+                    Question Type:
+                </label>
+                <div className="relative inline-flex">
+                    <select
+                        className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
+                        defaultValue={
+                            props.questionData ? props.questionData.type : ""
+                        }
+                        onChange={questionTypeHandler}
+                    >
+                        <option value="" disabled>
+                            Please select...
+                        </option>
+                        <option value="true or false">True or False</option>
+                        <option value="multiple choice">Multiple Choice</option>
+                        <option value="identification">Identification</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-4 pointer-events-none">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="13"
+                            height="13"
+                            fill="currentColor"
+                            className="bi bi-caret-down-fill text-light-brown"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                    </div>
                 </div>
-            </div>
 
-            <input
-                type="text"
-                placeholder="Question"
-                className="line-input text-sm md:text-mt-4 mb-2"
-                onChange={descriptionHandler}
-                defaultValue={
-                    props.method === "PATCH"
-                        ? props.questionData.description
-                        : ""
-                }
-            />
-
-            {((questionType && questionType !== "true or false") ||
-                (props.method === "PATCH" &&
-                    questionType !== "true or false")) && (
                 <input
                     type="text"
-                    placeholder="Correct answer"
-                    className="line-input text-sm mt-2 mb-6"
-                    onChange={answerHandler}
+                    placeholder="Question"
+                    className="line-input text-sm md:text-mt-4 mb-2"
+                    onChange={descriptionHandler}
                     defaultValue={
                         props.method === "PATCH"
-                            ? props.questionData.answer
+                            ? props.questionData.description
                             : ""
                     }
                 />
-            )}
 
-            {((questionType && questionType === "true or false") ||
-                (props.method === "PATCH" &&
-                    questionType === "true or false")) && (
-                <TrueOrFalse
-                    answerHandler={answerHandler}
-                    correctAnswer={
-                        props.questionData ? props.questionData.answer : ""
-                    }
-                />
-            )}
+                {((questionType && questionType !== "true or false") ||
+                    (props.method === "PATCH" &&
+                        questionType !== "true or false")) && (
+                    <input
+                        type="text"
+                        placeholder="Correct answer"
+                        className="line-input text-sm mt-2 mb-6"
+                        onChange={answerHandler}
+                        defaultValue={
+                            props.method === "PATCH"
+                                ? props.questionData.answer
+                                : ""
+                        }
+                    />
+                )}
 
-            {((questionType && questionType === "multiple choice") ||
-                (props.method === "PATCH" &&
-                    questionType === "multiple choice")) && (
-                <MultipleChoice
-                    choices={choices}
-                    newChoiceHandler={newChoiceHandler}
-                    choiceHandler={choiceHandler}
-                    deleteChoiceHandler={deleteChoiceHandler}
-                />
-            )}
+                {((questionType && questionType === "true or false") ||
+                    (props.method === "PATCH" &&
+                        questionType === "true or false")) && (
+                    <TrueOrFalse
+                        answerHandler={answerHandler}
+                        correctAnswer={
+                            props.questionData ? props.questionData.answer : ""
+                        }
+                    />
+                )}
 
-            {((questionType && questionType === "identification") ||
-                (props.method === "PATCH" &&
-                    questionType === "identification")) && (
-                <Identification
-                    possibleAnswers={possibleAnswers}
-                    possibleAnswerHandler={possibleAnswerHandler}
-                    deletePossibleAnswerHandler={deletePossibleAnswerHandler}
-                    newPossibleAnswerHandler={newPossibleAnswerHandler}
-                />
-            )}
+                {((questionType && questionType === "multiple choice") ||
+                    (props.method === "PATCH" &&
+                        questionType === "multiple choice")) && (
+                    <MultipleChoice
+                        choices={choices}
+                        newChoiceHandler={newChoiceHandler}
+                        choiceHandler={choiceHandler}
+                        deleteChoiceHandler={deleteChoiceHandler}
+                    />
+                )}
 
-            <div className="space-x-3 lg:space-x-4 xl:space-x-6 text-end mt-5">
-                <button
-                    className="link"
-                    type="button"
-                    onClick={cancelAddHandler}
-                >
-                    Cancel
-                </button>
-                <button className="btn">
-                    {props.method === "POST" ? "Add question" : "Save changes"}
-                </button>
-            </div>
-        </form>
+                {((questionType && questionType === "identification") ||
+                    (props.method === "PATCH" &&
+                        questionType === "identification")) && (
+                    <Identification
+                        possibleAnswers={possibleAnswers}
+                        possibleAnswerHandler={possibleAnswerHandler}
+                        deletePossibleAnswerHandler={
+                            deletePossibleAnswerHandler
+                        }
+                        newPossibleAnswerHandler={newPossibleAnswerHandler}
+                    />
+                )}
+
+                <div className="space-x-3 lg:space-x-4 xl:space-x-6 text-end mt-5">
+                    <button
+                        className="link"
+                        type="button"
+                        onClick={cancelAddHandler}
+                    >
+                        Cancel
+                    </button>
+                    <button className="btn">
+                        {props.method === "POST"
+                            ? "Add question"
+                            : "Save changes"}
+                    </button>
+                </div>
+            </form>
+        </>
     );
 };
 

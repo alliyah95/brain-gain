@@ -52,6 +52,7 @@ const EditQuizForm = () => {
                 <ConfirmModal
                     onManageModal={deleteModalVisibilityHandler}
                     onDelete={deleteQuizHandler}
+                    message="Are you sure you want to delete this quiz?"
                 />
             )}
             <Form
