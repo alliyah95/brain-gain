@@ -23,7 +23,8 @@ const FlashCardsPage = () => {
         <div className="max-w-[1200px] mx-auto">
             <p className="text-center font-bold text-2xl">{quizData.title}</p>
             <p className="text-center text-yellow ">
-                {index + 1}/{quizData.questions.length} questions
+                {quizData.questions.length === 0 ? "0" : index + 1}/
+                {quizData.questions.length} questions
             </p>
 
             {quizData.questions.length > 0 && (
