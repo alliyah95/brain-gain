@@ -83,3 +83,12 @@
         @apply bg-light-brown hover:bg-light-brown-h active:bg-light-brown-h p-5 rounded-md bg-opacity-80;
     }
 }
+
+.Toastify__toast {
+    color: white !important;
+    background: #423e37 !important;
+}
+
+.Toastify__close-button {
+    color: #white !important;
+}

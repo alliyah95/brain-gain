@@ -34,7 +34,13 @@ const Root = () => {
             </header>
             <main>
                 <Outlet />
-                <ToastContainer />
+                <ToastContainer
+                    icon={false}
+                    hideProgressBar={true}
+                    autoClose={2500}
+                    pauseOnFocusLoss={false}
+                    position="bottom-right"
+                />
             </main>
             <Footer />
         </ParticlesBackground>
