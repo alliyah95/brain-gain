@@ -26,7 +26,7 @@ const attemptHistorySchema = new Schema({
         type: [
             {
                 remark: { type: String, required: true },
-                userAnswer: { type: String, required: true },
+                userAnswer: { type: String },
                 questionDetails: {
                     type: Schema.Types.ObjectId,
                     ref: "Question",
