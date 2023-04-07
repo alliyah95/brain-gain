@@ -148,13 +148,21 @@ const checkQuiz = asyncHandler(async (req, res) => {
     questions.forEach((question, index) => {
         const questionResult = {};
         if (index in answers) {
-            if (question.type === "identification" && !answers[index]) {
-                questionResult.remark = "unanswered";
-            } else if (answers[index] === question.answer.toString()) {
-                questionResult.remark = "correct";
-                score++;
+            if (question.type === "identification") {
+                if (!answers[index]) {
+                    questionResult.remark = "unanswered";
+                } else if (question.options.includes(answers[index])) {
+                    questionResult.remark = "correct";
+                } else {
+                    questionResult.remark = "incorrect";
+                }
             } else {
-                questionResult.remark = "incorrect";
+                if (answers[index] === question.answer.toString()) {
+                    questionResult.remark = "correct";
+                    score++;
+                } else {
+                    questionResult.remark = "incorrect";
+                }
             }
         } else {
             questionResult.remark = "unanswered";
