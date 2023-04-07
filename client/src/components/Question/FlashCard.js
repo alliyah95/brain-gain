@@ -9,7 +9,9 @@ const FlashCard = ({ question, answer }) => {
 
     return (
         <div
-            className={`flip-card ${isFlipped ? "flip-card--flipped" : ""}`}
+            className={`question-card flip-card ${
+                isFlipped ? "flip-card--flipped" : ""
+            }`}
             onClick={flipHandler}
         >
             <div className="flip-card-front">{question}</div>
