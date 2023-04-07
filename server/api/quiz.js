@@ -29,5 +29,10 @@ router.post(
     isQuizOwner,
     quizController.checkQuiz
 );
-
+router.get(
+    "/get_attempt_details/:quizDisplayId/:attemptId",
+    isLoggedIn,
+    isQuizOwner,
+    quizController.getAttemptDetails
+);
 module.exports = router;

@@ -184,7 +184,25 @@ const checkQuiz = asyncHandler(async (req, res) => {
 
     res.status(201).json({
         message: "Attempt history successfully created!",
-        attemptHisotry: newAttemptHistory,
+        attemptHistory: newAttemptHistory,
+        displayId: quiz.displayId,
+    });
+});
+
+const getAttemptDetails = asyncHandler(async (req, res) => {
+    const { attemptId } = req.params;
+
+    const attempt = await AttemptHistory.findById(attemptId)
+        .populate("details.questionDetails")
+        .populate("quizSet");
+
+    if (!attempt) {
+        return res.status(404).json({ message: "Attempt not found" });
+    }
+
+    res.status(201).json({
+        message: "Attempt details successfully retrieved!",
+        attempt,
     });
 });
 
@@ -195,4 +213,5 @@ module.exports = {
     updateQuiz,
     deleteQuiz,
     checkQuiz,
+    getAttemptDetails,
 };

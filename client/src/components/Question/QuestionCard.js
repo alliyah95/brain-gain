@@ -13,12 +13,29 @@ const QuestionCard = (props) => {
 
     if (props.data.type === "identification") {
         cardContent = (
-            <input
-                type="text"
-                className="line-input  text-center text-md w-4/5 max-w-md"
-                placeholder="Your answer here..."
-                name={props.name}
-            />
+            <>
+                <input
+                    type="text"
+                    className="line-input  text-center text-md w-4/5 max-w-md"
+                    placeholder={
+                        props.remark === "unanswered"
+                            ? ""
+                            : "Your answer here..."
+                    }
+                    name={props.name}
+                    disabled={props.disabled}
+                    defaultValue={props.userAnswer}
+                />
+                <p className="text-sm">
+                    The correct answer is {props.data.answer}.
+                </p>
+                {props.data.options.length > 0 && (
+                    <p className="text-sm">
+                        Other possible answers are:{" "}
+                        {props.data.options.join(", ")}.
+                    </p>
+                )}
+            </>
         );
     } else {
         let finalOptions = [];
@@ -38,6 +55,8 @@ const QuestionCard = (props) => {
                         className="radio-btn"
                         value={option}
                         name={props.name}
+                        defaultChecked={props.userAnswer === option}
+                        disabled={props.disabled}
                     />
                     <label>{option}</label>
                 </div>
@@ -45,9 +64,24 @@ const QuestionCard = (props) => {
         });
     }
 
+    const REMARKS = {
+        correct: "You got it right!",
+        incorrect: "Oops! Incorrect.",
+        unanswered: "You did not answer this question.",
+    };
+
     return (
         <div className="question-card text-xl xl:text-2xl min-h-[50vh]">
+            <p className="text-xs md:text-sm opacity-60 mb-2">
+                Question {props.index + 1}
+            </p>
+
             <p className="mb-2">{props.data.description}</p>
+            {props.type === "viewing" && (
+                <p className="text-xs md:text-sm italic text-yellow mb-2">
+                    {REMARKS[props.remark]}
+                </p>
+            )}
             {cardContent}
         </div>
     );

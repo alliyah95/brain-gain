@@ -14,6 +14,7 @@ import EditQuestionPage, {
 } from "./pages/Quiz/EditQuestionPage";
 import FlashCardsPage from "./pages/Quiz/FlashCardsPage";
 import TestPage, { checkQuizResults } from "./pages/Quiz/TestPage";
+import QuizResultsPage, { resultsLoader } from "./pages/Quiz/QuizResultsPage";
 
 const router = createBrowserRouter([
     {
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
                         element: <TestPage />,
                         loader: quizDetailLoader,
                         action: checkQuizResults,
+                    },
+                    {
+                        path: "quiz/:displayId/result/:attemptId",
+                        element: <QuizResultsPage />,
+                        loader: resultsLoader,
                     },
                 ],
             },

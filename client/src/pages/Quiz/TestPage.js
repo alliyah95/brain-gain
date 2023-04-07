@@ -1,4 +1,11 @@
-import { useLoaderData, Link, Form, useParams } from "react-router-dom";
+import {
+    useLoaderData,
+    Link,
+    Form,
+    useParams,
+    json,
+    redirect,
+} from "react-router-dom";
 import QuestionCard from "../../components/Question/QuestionCard";
 import { getAuthToken } from "../../util/auth";
 
@@ -20,9 +27,11 @@ const TestPage = () => {
                             return (
                                 <li key={question._id}>
                                     <QuestionCard
+                                        index={index}
                                         key={question._id}
                                         data={question}
                                         name={`question${index}`}
+                                        disabled={false}
                                     />
                                 </li>
                             );
@@ -72,5 +81,18 @@ export const checkQuizResults = async ({ request, params }) => {
         }
     );
 
-    return null;
+    if (!response.ok) {
+        throw json(
+            {
+                message:
+                    "There has been an internal server error. We'll try to fix it ASAP...",
+            },
+            { status: 500 }
+        );
+    }
+
+    const resData = await response.json();
+    return redirect(
+        `/quiz/${resData.displayId}/result/${resData.attemptHistory._id}`
+    );
 };

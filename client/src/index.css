@@ -101,7 +101,7 @@
         @apply w-full bg-transparent border-brown border-b-[1px] outline-none pb-2 placeholder-muted-brown text-brown placeholder-opacity-75 focus:placeholder-opacity-0;
     }
     .question-card {
-        @apply max-w-[1200px] mx-auto flex flex-col items-center justify-center min-h-[70vh] my-5  text-brown  rounded-md bg-light-brown bg-opacity-40;
+        @apply max-w-[1200px] mx-auto flex flex-col items-center justify-center min-h-[70vh] text-brown  rounded-md bg-light-brown bg-opacity-40;
     }
     .preview-card {
         @apply bg-brown p-5 rounded-md hover:bg-brown-darker active:bg-brown-darker;
