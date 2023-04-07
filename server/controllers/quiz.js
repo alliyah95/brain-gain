@@ -125,7 +125,7 @@ const deleteQuiz = asyncHandler(async (req, res) => {
     }
 
     await Question.deleteMany({ quizSet: quiz.id });
-    // await AttemptHistory.deleteMany({ quizId: id });
+    await AttemptHistory.deleteMany({ quizSet: quiz.id });
 
     res.status(201).json({ message: "Quiz successfully deleted" });
 });
