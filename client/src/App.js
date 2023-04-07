@@ -13,6 +13,7 @@ import EditQuestionPage, {
     questionLoader,
 } from "./pages/Quiz/EditQuestionPage";
 import FlashCardsPage from "./pages/Quiz/FlashCardsPage";
+import TestPage, { checkQuizResults } from "./pages/Quiz/TestPage";
 
 const router = createBrowserRouter([
     {
@@ -71,6 +72,12 @@ const router = createBrowserRouter([
                         path: "quiz/:displayId/flashcards",
                         element: <FlashCardsPage />,
                         loader: quizDetailLoader,
+                    },
+                    {
+                        path: "quiz/:displayId/test",
+                        element: <TestPage />,
+                        loader: quizDetailLoader,
+                        action: checkQuizResults,
                     },
                 ],
             },
