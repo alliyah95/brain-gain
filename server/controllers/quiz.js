@@ -1,5 +1,6 @@
 const QuizSet = require("../models/Quiz/QuizSet");
 const Question = require("../models/Quiz/Question");
+const AttemptHistory = require("../models/Quiz/AttemptHistory");
 const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
 
@@ -129,10 +130,61 @@ const deleteQuiz = asyncHandler(async (req, res) => {
     res.status(201).json({ message: "Quiz successfully deleted" });
 });
 
+const checkQuiz = asyncHandler(async (req, res) => {
+    const { quizDisplayId } = req.params;
+    const answers = req.body;
+
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId }).populate(
+        "questions"
+    );
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    const questions = quiz.questions;
+    const results = [];
+    let score = 0;
+
+    questions.forEach((question, index) => {
+        const questionResult = {};
+        if (index in answers) {
+            if (question.type === "identification" && !answers[index]) {
+                questionResult.remark = "unanswered";
+            } else if (answers[index] === question.answer.toString()) {
+                questionResult.remark = "correct";
+                score++;
+            } else {
+                questionResult.remark = "incorrect";
+            }
+        } else {
+            questionResult.remark = "unanswered";
+        }
+
+        questionResult.userAnswer = answers[index];
+        questionResult.questionDetails = question.id;
+        results.push(questionResult);
+    });
+
+    const newAttemptHistory = await AttemptHistory({
+        score,
+        user: req.user,
+        quizSet: quiz.id,
+        details: results,
+    });
+
+    await newAttemptHistory.save();
+
+    res.status(201).json({
+        message: "Attempt history successfully created!",
+        attemptHisotry: newAttemptHistory,
+    });
+});
+
 module.exports = {
     createQuiz,
     getQuizzes,
     getQuiz,
     updateQuiz,
     deleteQuiz,
+    checkQuiz,
 };

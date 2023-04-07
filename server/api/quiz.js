@@ -23,5 +23,11 @@ router.get(
     isQuizOwner,
     quizController.getQuiz
 );
+router.post(
+    "/check_quiz/:quizDisplayId",
+    isLoggedIn,
+    isQuizOwner,
+    quizController.checkQuiz
+);
 
 module.exports = router;

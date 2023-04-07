@@ -22,6 +22,20 @@ const attemptHistorySchema = new Schema({
         ref: "QuizSet",
         required: [true, "Quiz set cannot be empty"],
     },
+    details: {
+        type: [
+            {
+                remark: { type: String, required: true },
+                userAnswer: { type: String, required: true },
+                questionDetails: {
+                    type: Schema.Types.ObjectId,
+                    ref: "Question",
+                    required: true,
+                },
+            },
+        ],
+        required: [true, "Attempt details cannot be empty"],
+    },
 });
 
 const AttemptHistory = mongoose.model("AttemptHistory", attemptHistorySchema);
