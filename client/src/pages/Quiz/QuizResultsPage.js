@@ -5,7 +5,6 @@ import QuestionCard from "../../components/Question/QuestionCard";
 const QuizResultsPage = () => {
     const details = useLoaderData();
     const attemptDate = new Date(details.createdAt);
-
     const month = attemptDate.toLocaleString("default", { month: "long" });
     const time = attemptDate.toLocaleString("en-US", {
         hour: "numeric",
@@ -13,7 +12,6 @@ const QuizResultsPage = () => {
         hour12: true,
     });
     const formattedDatetime = `${month} ${attemptDate.getDate()}, ${attemptDate.getFullYear()} at ${time}`;
-
     const questions = details.details;
 
     return (
@@ -28,12 +26,12 @@ const QuizResultsPage = () => {
             </p>
 
             <p className="italic mt-12">
-                Your answer may not be displayed if you have not answered the
-                question or if it has been edited.
+                Any edits made to the questions of this quiz after your attempt
+                do not affect your results
             </p>
-            <ul className="mt-8 space-y-5 md:space-y-8">
-                {questions &&
-                    questions.map((question, index) => {
+            {questions && (
+                <ul className="mt-8 space-y-5 md:space-y-8">
+                    {questions.map((question, index) => {
                         return (
                             <li key={question._id}>
                                 <QuestionCard
@@ -49,7 +47,8 @@ const QuizResultsPage = () => {
                             </li>
                         );
                     })}
-            </ul>
+                </ul>
+            )}
         </div>
     );
 };

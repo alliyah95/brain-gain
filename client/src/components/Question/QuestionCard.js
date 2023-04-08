@@ -1,6 +1,14 @@
 import React from "react";
 
-const QuestionCard = (props) => {
+const QuestionCard = ({
+    index,
+    data,
+    name,
+    disabled,
+    remark,
+    userAnswer,
+    type,
+}) => {
     let cardContent = null;
     const shuffleOptions = (options) => {
         for (let i = options.length - 1; i > 0; i--) {
@@ -10,31 +18,29 @@ const QuestionCard = (props) => {
         return options;
     };
 
-    if (props.data.type === "identification") {
+    if (data.type === "identification") {
         cardContent = (
             <>
                 <input
                     type="text"
                     className="line-input  text-center text-md w-4/5 max-w-md"
                     placeholder={
-                        props.remark === "unanswered"
-                            ? ""
-                            : "Your answer here..."
+                        remark === "unanswered" ? "" : "Your answer here..."
                     }
-                    name={props.name}
-                    disabled={props.disabled}
-                    defaultValue={props.userAnswer}
+                    name={name}
+                    disabled={disabled}
+                    defaultValue={userAnswer}
                 />
             </>
         );
     } else {
         let finalOptions = [];
 
-        if (props.data.type === "multiple choice") {
-            const choices = props.data.options;
-            finalOptions = shuffleOptions([...choices, props.data.answer]);
-        } else if (props.data.type === "true or false") {
-            finalOptions = props.data.options;
+        if (data.type === "multiple choice") {
+            const choices = data.options;
+            finalOptions = shuffleOptions([...choices, data.answer]);
+        } else if (data.type === "true or false") {
+            finalOptions = data.options;
         }
 
         cardContent = finalOptions.map((option, index) => {
@@ -44,9 +50,9 @@ const QuestionCard = (props) => {
                         type="radio"
                         className="radio-btn"
                         value={option}
-                        name={props.name}
-                        defaultChecked={props.userAnswer === option}
-                        disabled={props.disabled}
+                        name={name}
+                        defaultChecked={userAnswer === option}
+                        disabled={disabled}
                     />
                     <label>{option}</label>
                 </div>
@@ -54,26 +60,22 @@ const QuestionCard = (props) => {
         });
     }
 
-    let feedback = <></>;
-    if (props.type === "viewing") {
-        feedback = (
+    let correctAnswer = <></>;
+    if (type === "viewing") {
+        correctAnswer = (
             <>
                 <p className="text-sm mt-4">
                     The correct answer is{" "}
-                    <span className="font-bold">
-                        {props.data.answer.toString()}
-                    </span>
-                    .
+                    <span className="font-bold">{data.answer.toString()}</span>.
                 </p>
-                {props.data.type === "identification" &&
-                    props.data.options.length > 0 && (
-                        <p className="text-sm">
-                            Other possible answers are:{" "}
-                            <span className="font-bold">
-                                {props.data.options.join(", ")}.
-                            </span>
-                        </p>
-                    )}
+                {data.type === "identification" && data.options.length > 0 && (
+                    <p className="text-sm">
+                        Other possible answers are:{" "}
+                        <span className="font-bold">
+                            {data.options.join(", ")}.
+                        </span>
+                    </p>
+                )}
             </>
         );
     }
@@ -87,17 +89,17 @@ const QuestionCard = (props) => {
     return (
         <div className="question-card text-xl xl:text-2xl min-h-[50vh]">
             <p className="text-xs md:text-sm opacity-60 mb-2">
-                Question {props.index + 1}
+                Question {index + 1}
             </p>
 
-            <p className="mb-2">{props.data.description}</p>
-            {props.type === "viewing" && (
+            <p className="mb-2">{data.description}</p>
+            {type === "viewing" && (
                 <p className="text-xs md:text-sm italic text-yellow mb-2">
-                    {REMARKS[props.remark]}
+                    {REMARKS[remark]}
                 </p>
             )}
             {cardContent}
-            {feedback}
+            {correctAnswer}
         </div>
     );
 };
