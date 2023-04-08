@@ -2,7 +2,6 @@ import React from "react";
 
 const QuestionCard = (props) => {
     let cardContent = null;
-
     const shuffleOptions = (options) => {
         for (let i = options.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

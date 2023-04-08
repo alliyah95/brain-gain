@@ -28,9 +28,10 @@ const attemptHistorySchema = new Schema({
                 remark: { type: String, required: true },
                 userAnswer: { type: String },
                 questionDetails: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Question",
-                    required: true,
+                    description: { type: String },
+                    type: { type: String },
+                    options: [{ type: String }],
+                    answer: { type: mongoose.Schema.Types.Mixed },
                 },
             },
         ],

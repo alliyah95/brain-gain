@@ -173,7 +173,12 @@ const checkQuiz = asyncHandler(async (req, res) => {
         }
 
         questionResult.userAnswer = answers[index];
-        questionResult.questionDetails = question.id;
+        questionResult.questionDetails = {
+            description: question.description,
+            type: question.type,
+            options: question.options,
+            answer: question.answer,
+        };
         results.push(questionResult);
     });
 
@@ -196,9 +201,9 @@ const checkQuiz = asyncHandler(async (req, res) => {
 const getAttemptDetails = asyncHandler(async (req, res) => {
     const { attemptId } = req.params;
 
-    const attempt = await AttemptHistory.findById(attemptId)
-        .populate("details.questionDetails")
-        .populate("quizSet");
+    const attempt = await AttemptHistory.findById(attemptId).populate(
+        "quizSet"
+    );
 
     if (!attempt) {
         return res.status(404).json({ message: "Attempt not found" });
