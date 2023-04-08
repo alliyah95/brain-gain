@@ -55,6 +55,30 @@ const QuestionCard = (props) => {
         });
     }
 
+    let feedback = <></>;
+    if (props.type === "viewing") {
+        feedback = (
+            <>
+                <p className="text-sm mt-4">
+                    The correct answer is{" "}
+                    <span className="font-bold">
+                        {props.data.answer.toString()}
+                    </span>
+                    .
+                </p>
+                {props.data.type === "identification" &&
+                    props.data.options.length > 0 && (
+                        <p className="text-sm">
+                            Other possible answers are:{" "}
+                            <span className="font-bold">
+                                {props.data.options.join(", ")}.
+                            </span>
+                        </p>
+                    )}
+            </>
+        );
+    }
+
     const REMARKS = {
         correct: "Awesome! You got it!",
         incorrect: "Not quite right!",
@@ -74,24 +98,7 @@ const QuestionCard = (props) => {
                 </p>
             )}
             {cardContent}
-
-            <p className="text-sm mt-4">
-                The correct answer is{" "}
-                <span className="font-bold">
-                    {props.data.answer.toString()}
-                </span>
-                .
-            </p>
-
-            {props.data.type === "identification" &&
-                props.data.options.length > 0 && (
-                    <p className="text-sm">
-                        Other possible answers are:{" "}
-                        <span className="font-bold">
-                            {props.data.options.join(", ")}.
-                        </span>
-                    </p>
-                )}
+            {feedback}
         </div>
     );
 };

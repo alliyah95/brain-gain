@@ -22,7 +22,7 @@ const TestPage = () => {
 
             <Form method="post">
                 {quizData.questions.length > 0 && (
-                    <ul>
+                    <ul className="mt-8 space-y-5 md:space-y-8">
                         {quizData.questions.map((question, index) => {
                             return (
                                 <li key={question._id}>
