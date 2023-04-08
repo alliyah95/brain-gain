@@ -151,8 +151,12 @@ const checkQuiz = asyncHandler(async (req, res) => {
             if (question.type === "identification") {
                 if (!answers[index]) {
                     questionResult.remark = "unanswered";
-                } else if (question.options.includes(answers[index])) {
+                } else if (
+                    question.options.includes(answers[index]) ||
+                    question.answer.toString() === answers[index]
+                ) {
                     questionResult.remark = "correct";
+                    score++;
                 } else {
                     questionResult.remark = "incorrect";
                 }
