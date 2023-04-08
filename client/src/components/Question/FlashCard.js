@@ -14,8 +14,14 @@ const FlashCard = ({ question, answer }) => {
             } text-2xl lg:text-3xl my-5`}
             onClick={flipHandler}
         >
-            <div className="flip-card-front">{question}</div>
-            <div className="flip-card-back">{answer.toString()}</div>
+            <div className="flip-card-front">
+                <p className="text-xs md:text-sm opacity-60 mb-2">Question</p>
+                {question}
+            </div>
+            <div className="flip-card-back">
+                {<p className="text-xs md:text-sm opacity-60 mb-2">Answer</p>}
+                {answer.toString()}
+            </div>
         </div>
     );
 };
