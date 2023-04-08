@@ -26,15 +26,6 @@ const QuestionCard = (props) => {
                     disabled={props.disabled}
                     defaultValue={props.userAnswer}
                 />
-                <p className="text-sm">
-                    The correct answer is {props.data.answer}.
-                </p>
-                {props.data.options.length > 0 && (
-                    <p className="text-sm">
-                        Other possible answers are:{" "}
-                        {props.data.options.join(", ")}.
-                    </p>
-                )}
             </>
         );
     } else {
@@ -65,9 +56,9 @@ const QuestionCard = (props) => {
     }
 
     const REMARKS = {
-        correct: "You got it right!",
-        incorrect: "Oops! Incorrect.",
-        unanswered: "You did not answer this question.",
+        correct: "Awesome! You got it!",
+        incorrect: "Not quite right!",
+        unanswered: "You skipped this question.",
     };
 
     return (
@@ -83,6 +74,24 @@ const QuestionCard = (props) => {
                 </p>
             )}
             {cardContent}
+
+            <p className="text-sm mt-4">
+                The correct answer is{" "}
+                <span className="font-bold">
+                    {props.data.answer.toString()}
+                </span>
+                .
+            </p>
+
+            {props.data.type === "identification" &&
+                props.data.options.length > 0 && (
+                    <p className="text-sm">
+                        Other possible answers are:{" "}
+                        <span className="font-bold">
+                            {props.data.options.join(", ")}.
+                        </span>
+                    </p>
+                )}
         </div>
     );
 };

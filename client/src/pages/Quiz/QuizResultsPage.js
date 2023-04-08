@@ -27,7 +27,11 @@ const QuizResultsPage = () => {
                 Your score: {details.score} / {questions.length}
             </p>
 
-            <ul className="mt-12 space-y-5 md:space-y-8">
+            <p className="italic mt-12">
+                Your answer may not be displayed if you have not answered the
+                question or if it has been edited.
+            </p>
+            <ul className="mt-8 space-y-5 md:space-y-8">
                 {questions &&
                     questions.map((question, index) => {
                         return (
