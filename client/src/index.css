@@ -85,6 +85,15 @@
     .flip-card-back {
         transform: rotateY(180deg);
     }
+    ::-webkit-scrollbar {
+        @apply w-1 h-1;
+    }
+    ::-webkit-scrollbar-track {
+        @apply bg-brown bg-opacity-10 rounded-md;
+    }
+    ::-webkit-scrollbar-thumb {
+        @apply bg-brown rounded-md;
+    }
 }
 
 @layer components {
