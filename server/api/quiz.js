@@ -23,6 +23,7 @@ router.get(
     isQuizOwner,
     quizController.getQuiz
 );
+router.get("/quiz/:quizDisplayId/public", quizController.getQuiz);
 router.post(
     "/check_quiz/:quizDisplayId",
     isLoggedIn,

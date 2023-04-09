@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 
 const createQuiz = asyncHandler(async (req, res) => {
     const creator = req.user;
-    const { title } = req.body;
+    const { title, isPublic } = req.body;
     let { description } = req.body;
 
     const validationError = validators.validateQuiz({ title, creator });
@@ -24,6 +24,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         createdBy: creator,
         questions: [],
         attempts: [],
+        isPublic,
     });
 
     await newQuizSet.save();
@@ -35,7 +36,7 @@ const createQuiz = asyncHandler(async (req, res) => {
 
 const updateQuiz = asyncHandler(async (req, res) => {
     const { quizDisplayId } = req.params;
-    const { title, description, flashcardsPublic, testPublic } = req.body;
+    const { title, description, isPublic } = req.body;
 
     const validationError = validators.validateQuizUpdateValues({
         quizDisplayId,
@@ -60,8 +61,7 @@ const updateQuiz = asyncHandler(async (req, res) => {
         updatedFields.description = description;
     }
 
-    updatedFields.flashcardsPublic = flashcardsPublic;
-    updatedFields.testPublic = testPublic;
+    updatedFields.isPublic = isPublic;
 
     const updatedQuiz = await QuizSet.findOneAndUpdate(
         { _id: quiz.id },
@@ -107,6 +107,28 @@ const getQuiz = asyncHandler(async (req, res) => {
 
     if (!quiz) {
         return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    res.status(200).json({ message: "Quiz successfully retrieved", quiz });
+});
+
+const getPublicQuiz = asyncHandler(async (req, res) => {
+    const { quizDisplayId } = req.params;
+
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId }).populate(
+        "questions"
+    );
+
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    if (!quiz.flashcardsPublic) {
+        if (quiz.createdBy.toString() !== req.user) {
+            return res
+                .status(401)
+                .json({ message: "You are unauthorized to access this quiz" });
+        }
     }
 
     res.status(200).json({ message: "Quiz successfully retrieved", quiz });
@@ -222,6 +244,7 @@ module.exports = {
     createQuiz,
     getQuizzes,
     getQuiz,
+    getPublicQuiz,
     updateQuiz,
     deleteQuiz,
     checkQuiz,

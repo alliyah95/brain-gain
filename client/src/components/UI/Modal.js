@@ -4,6 +4,7 @@ const ConfirmModal = ({
     onCancel,
     onAction,
     noButtons,
+    addtlMsg,
 }) => {
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center">
@@ -30,6 +31,10 @@ const ConfirmModal = ({
                     </svg>
                 </button>
                 <div>{message}</div>
+
+                {addtlMsg && (
+                    <p className="mt-4 italic opacity-50 text-sm">{addtlMsg}</p>
+                )}
 
                 {!noButtons && (
                     <div className="flex justify-end gap-x-5">

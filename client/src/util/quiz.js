@@ -1,8 +1,10 @@
 import { json } from "react-router-dom";
 
 export const loadQuizDetail = async (displayId, token) => {
+    const access = !token ? "/public" : "";
+
     const response = await fetch(
-        "http://localhost:8080/api/quiz/" + displayId,
+        `http://localhost:8080/api/quiz/${displayId}${access}`,
         {
             headers: {
                 "Content-Type": "application/json",

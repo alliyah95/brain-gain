@@ -1,8 +1,6 @@
 import { toast } from "react-toastify";
 
-const ShareQuiz = ({ link, title, access }) => {
-    const accessMessage = access ? "Public access" : "Registered users only";
-
+const ShareQuiz = ({ link, title }) => {
     const copyHandler = () => {
         navigator.clipboard.writeText(link);
         toast(`${title} link copied to clipboard!`);
@@ -10,10 +8,7 @@ const ShareQuiz = ({ link, title, access }) => {
 
     return (
         <div>
-            <label>
-                {title}
-                <span className="opacity-50 italic"> {accessMessage}</span>
-            </label>
+            <label>{title}</label>
             <div className="flex gap-x-2 lg:gap-x-3 mt-2">
                 <input
                     type="text"

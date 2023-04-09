@@ -51,13 +51,8 @@ const QuizDetailPage = () => {
             <ShareQuiz
                 link={`${window.location.href}/flashcards`}
                 title="Flashcards"
-                access={quizData?.flashcardsPublic}
             />
-            <ShareQuiz
-                link={`${window.location.href}/test`}
-                title="Quiz"
-                access={quizData?.testPublic}
-            />
+            <ShareQuiz link={`${window.location.href}/test`} title="Quiz" />
         </div>
     );
 
@@ -68,6 +63,11 @@ const QuizDetailPage = () => {
                     message={modalContent}
                     noButtons={true}
                     onCancel={shareModalVisibilityHandler}
+                    addtlMsg={
+                        quizData.isPublic
+                            ? "Anyone can access the quiz through the links."
+                            : "Only you can access the quiz."
+                    }
                 />
             )}
             <div className="flex items-center gap-x-3">

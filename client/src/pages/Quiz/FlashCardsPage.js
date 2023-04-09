@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useLoaderData, Link, useParams } from "react-router-dom";
+import { useLoaderData, Link, useParams, json } from "react-router-dom";
 import FlashCard from "../../components/Question/FlashCard";
+import { getAuthToken } from "../../util/auth";
+import { loadQuizDetail } from "../../util/quiz";
 
 const FlashCardsPage = () => {
     const quizData = useLoaderData();
@@ -85,3 +87,18 @@ const FlashCardsPage = () => {
 };
 
 export default FlashCardsPage;
+
+export const publicQuizDetailLoader = async ({ params }) => {
+    const quizDisplayId = params.displayId;
+    const quizData = await loadQuizDetail(quizDisplayId, null);
+
+    if (!quizData.isPublic) {
+        throw json(
+            {
+                message: "You are unauthorized to access this quiz.",
+            },
+            { status: 401 }
+        );
+    }
+    return quizData;
+};

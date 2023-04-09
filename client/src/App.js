@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
@@ -12,9 +12,12 @@ import EditQuizPage, { editQuizAction } from "./pages/Quiz/EditQuizPage";
 import EditQuestionPage, {
     questionLoader,
 } from "./pages/Quiz/EditQuestionPage";
-import FlashCardsPage from "./pages/Quiz/FlashCardsPage";
+import FlashCardsPage, {
+    publicQuizDetailLoader,
+} from "./pages/Quiz/FlashCardsPage";
 import TestPage, { checkQuizResults } from "./pages/Quiz/TestPage";
 import QuizResultsPage, { resultsLoader } from "./pages/Quiz/QuizResultsPage";
+import { loadQuizDetail } from "./util/quiz";
 
 const router = createBrowserRouter([
     {
@@ -70,22 +73,22 @@ const router = createBrowserRouter([
                         loader: questionLoader,
                     },
                     {
-                        path: "quiz/:displayId/flashcards",
-                        element: <FlashCardsPage />,
-                        loader: quizDetailLoader,
-                    },
-                    {
-                        path: "quiz/:displayId/test",
-                        element: <TestPage />,
-                        loader: quizDetailLoader,
-                        action: checkQuizResults,
-                    },
-                    {
                         path: "quiz/:displayId/result/:attemptId",
                         element: <QuizResultsPage />,
                         loader: resultsLoader,
                     },
                 ],
+            },
+            {
+                path: "quiz/:displayId/flashcards",
+                element: <FlashCardsPage />,
+                loader: publicQuizDetailLoader,
+            },
+            {
+                path: "quiz/:displayId/test",
+                element: <TestPage />,
+                loader: publicQuizDetailLoader,
+                action: checkQuizResults,
             },
         ],
     },
