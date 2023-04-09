@@ -5,6 +5,7 @@ import {
     useParams,
     json,
     redirect,
+    useRouteLoaderData,
 } from "react-router-dom";
 import QuestionCard from "../../components/Question/QuestionCard";
 import { getAuthToken } from "../../util/auth";
@@ -22,24 +23,25 @@ const TestPage = () => {
 
             <Form method="post">
                 {quizData.questions.length > 0 && (
-                    <ul className="mt-8 space-y-5 md:space-y-8">
-                        {quizData.questions.map((question, index) => {
-                            return (
-                                <li key={question._id}>
-                                    <QuestionCard
-                                        index={index}
-                                        key={question._id}
-                                        data={question}
-                                        name={`question${index}`}
-                                        disabled={false}
-                                    />
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    <>
+                        <ul className="mt-8 space-y-5 md:space-y-8">
+                            {quizData.questions.map((question, index) => {
+                                return (
+                                    <li key={question._id}>
+                                        <QuestionCard
+                                            index={index}
+                                            key={question._id}
+                                            data={question}
+                                            name={`question${index}`}
+                                            disabled={false}
+                                        />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <button className="btn">Submit Quiz</button>
+                    </>
                 )}
-
-                <button className="btn">Submit Quiz</button>
             </Form>
 
             {quizData.questions.length === 0 && (
@@ -47,6 +49,7 @@ const TestPage = () => {
                     <p className="text-2xl lg:text-3xl font-bold mb-5">
                         Oops! This quiz does not have any questions yet
                     </p>
+
                     <Link className="btn" to={`/quiz/${displayId}`}>
                         Add questions
                     </Link>
