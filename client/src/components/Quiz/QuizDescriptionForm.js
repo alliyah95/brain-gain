@@ -32,7 +32,7 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                     </button>
                 )}
             </h3>
-            <div className="space-y-5 mt-4 mb-10 xl:mt-10 xl:mb-16">
+            <div className="space-y-5 mt-4 xl:mt-10 mb-8 ">
                 <input
                     type="text"
                     name="title"
@@ -50,6 +50,28 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                     defaultValue={quizData && quizData.description}
                 />
                 <label htmlFor="description">Description</label>
+            </div>
+            <div className="mb-10 xl:mb-16 text-brown">
+                <p className="font-bold mb-2">
+                    Select which you would like to make public by checking the
+                    appropriate boxes.
+                </p>
+                <div className="space-x-2">
+                    <input
+                        type="checkbox"
+                        name="flashcardsAccess"
+                        defaultChecked={quizData && quizData.flashcardsPublic}
+                    />
+                    <label className="text-base">Flashcards</label>
+                </div>
+                <div className="space-x-2">
+                    <input
+                        type="checkbox"
+                        name="testAccess"
+                        defaultChecked={quizData && quizData.testPublic}
+                    />
+                    <label className="text-base">Test</label>
+                </div>
             </div>
             <div className="flex flex-col text-center gap-y-3 lg:flex-row-reverse lg:gap-y-0 lg:gap-x-5 lg:items-center">
                 <button className="btn w-full lg:w-auto">Save</button>

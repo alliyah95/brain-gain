@@ -24,6 +24,8 @@ export const editQuizAction = async ({ request, params }) => {
     const newQuizData = {
         title: data.get("title"),
         description: data.get("description"),
+        flashcardsPublic: Boolean(data.get("flashcardsAccess")),
+        testPublic: Boolean(data.get("testAccess")),
     };
 
     const response = await fetch(

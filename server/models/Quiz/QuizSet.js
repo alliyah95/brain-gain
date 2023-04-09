@@ -36,6 +36,14 @@ const quizSetSchema = new Schema(
                 ref: "AttemptHistory",
             },
         ],
+        flashcardsPublic: {
+            type: Boolean,
+            default: false,
+        },
+        testPublic: {
+            type: Boolean,
+            default: false,
+        },
     },
     {
         timestamps: true,

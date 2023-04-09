@@ -35,7 +35,7 @@ const createQuiz = asyncHandler(async (req, res) => {
 
 const updateQuiz = asyncHandler(async (req, res) => {
     const { quizDisplayId } = req.params;
-    const { title, description } = req.body;
+    const { title, description, flashcardsPublic, testPublic } = req.body;
 
     const validationError = validators.validateQuizUpdateValues({
         quizDisplayId,
@@ -59,6 +59,9 @@ const updateQuiz = asyncHandler(async (req, res) => {
     if (description || description === "") {
         updatedFields.description = description;
     }
+
+    updatedFields.flashcardsPublic = flashcardsPublic;
+    updatedFields.testPublic = testPublic;
 
     const updatedQuiz = await QuizSet.findOneAndUpdate(
         { _id: quiz.id },

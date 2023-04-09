@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
 
 const ShareQuiz = ({ link, title, access }) => {
-    const accessMessage =
-        access === "public" ? "Public access" : "Registered users only";
+    const accessMessage = access ? "Public access" : "Registered users only";
 
     const copyHandler = () => {
         navigator.clipboard.writeText(link);

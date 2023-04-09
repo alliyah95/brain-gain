@@ -25,8 +25,15 @@
     main {
         @apply w-[90%] mx-auto;
     }
+    input[type="checkbox"],
     input[type="radio"] {
-        @apply appearance-none cursor-pointer w-3 h-3 lg:w-4 lg:h-4 rounded-full bg-transparent border border-brown-darker checked:bg-brown-darker mr-1;
+        @apply appearance-none cursor-pointer w-3 h-3 lg:w-4 lg:h-4 bg-transparent border border-brown-darker checked:bg-brown-darker mr-1;
+    }
+    input[type="checkbox"] {
+        @apply rounded-sm;
+    }
+    input[type="radio"] {
+        @apply rounded-full;
     }
     label {
         @apply text-sm;

@@ -51,12 +51,12 @@ const QuizDetailPage = () => {
             <ShareQuiz
                 link={`${window.location.href}/flashcards`}
                 title="Flashcards"
-                access="public"
+                access={quizData?.flashcardsPublic}
             />
             <ShareQuiz
                 link={`${window.location.href}/test`}
                 title="Quiz"
-                access="private"
+                access={quizData?.testPublic}
             />
         </div>
     );
