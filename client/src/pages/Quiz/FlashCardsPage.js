@@ -100,8 +100,9 @@ export default FlashCardsPage;
 export const publicQuizDetailLoader = async ({ params }) => {
     const quizDisplayId = params.displayId;
     const quizData = await loadQuizDetail(quizDisplayId, null);
+    const token = getAuthToken();
 
-    if (!quizData.isPublic) {
+    if (!quizData.isPublic && !token) {
         throw json(
             {
                 message: "You are unauthorized to access this quiz.",
@@ -109,5 +110,6 @@ export const publicQuizDetailLoader = async ({ params }) => {
             { status: 401 }
         );
     }
+
     return quizData;
 };

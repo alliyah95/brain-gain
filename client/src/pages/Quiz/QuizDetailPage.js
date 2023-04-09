@@ -66,7 +66,7 @@ const QuizDetailPage = () => {
                     addtlMsg={
                         quizData.isPublic
                             ? "Anyone can access the quiz through the links."
-                            : "Only you can access the quiz."
+                            : "Only you and registered users can access the quiz."
                     }
                 />
             )}
