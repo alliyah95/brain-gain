@@ -33,6 +33,13 @@ export const questionLoader = async ({ request, params }) => {
         }
     );
 
+    if (response.status === 401) {
+        throw json(
+            { message: "You are not allowed to edit this question." },
+            { status: 401 }
+        );
+    }
+
     if (response.status === 404) {
         throw json({ message: "Question not found." }, { status: 404 });
     }
