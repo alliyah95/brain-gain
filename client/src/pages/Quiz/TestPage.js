@@ -13,6 +13,7 @@ import { getAuthToken } from "../../util/auth";
 const TestPage = () => {
     const quizData = useLoaderData();
     const { displayId } = useParams();
+    const token = useRouteLoaderData("root");
 
     return (
         <div className="max-w-[1200px] mx-auto">
@@ -50,9 +51,11 @@ const TestPage = () => {
                         Oops! This quiz does not have any questions yet
                     </p>
 
-                    <Link className="btn" to={`/quiz/${displayId}`}>
-                        Add questions
-                    </Link>
+                    {token && (
+                        <Link className="btn" to={`/quizzes`}>
+                            View my quizzes
+                        </Link>
+                    )}
                 </div>
             )}
         </div>

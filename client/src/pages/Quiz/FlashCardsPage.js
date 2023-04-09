@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { useLoaderData, Link, useParams, json } from "react-router-dom";
+import {
+    useLoaderData,
+    Link,
+    useParams,
+    json,
+    useRouteLoaderData,
+} from "react-router-dom";
 import FlashCard from "../../components/Question/FlashCard";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
@@ -7,6 +13,7 @@ import { loadQuizDetail } from "../../util/quiz";
 const FlashCardsPage = () => {
     const quizData = useLoaderData();
     const [index, setIndex] = useState(0);
+    const token = useRouteLoaderData("root");
     const { displayId } = useParams();
 
     const prevBtnHandler = () => {
@@ -77,9 +84,11 @@ const FlashCardsPage = () => {
                     <p className="text-2xl lg:text-3xl font-bold mb-5">
                         Oops! This quiz does not have any questions yet
                     </p>
-                    <Link className="btn" to={`/quiz/${displayId}`}>
-                        Add questions
-                    </Link>
+                    {token && (
+                        <Link className="btn" to={`/quizzes`}>
+                            View my quizzes
+                        </Link>
+                    )}
                 </div>
             )}
         </div>
