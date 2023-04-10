@@ -37,7 +37,7 @@ const ConfirmModal = ({
                 )}
 
                 {!noButtons && (
-                    <div className="flex justify-end gap-x-5">
+                    <div className="flex justify-end gap-x-5 mt-4 lg:mt-6">
                         <button
                             className="link"
                             onClick={() => {

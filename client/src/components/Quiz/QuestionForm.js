@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import TrueOrFalse from "../Question/TrueOrFalse";
 import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
-import ConfirmModal from "./ConfirmModal";
+import Modal from "../UI/Modal";
 import { getOptionsInitialState } from "../../util/question";
 
 const QuestionForm = (props) => {
@@ -247,10 +247,11 @@ const QuestionForm = (props) => {
     return (
         <>
             {showDeleteModal && (
-                <ConfirmModal
-                    onManageModal={deleteModalVisibilityHandler}
-                    onDelete={deleteQuestionHandler}
+                <Modal
+                    onAction={deleteQuestionHandler}
+                    onCancel={deleteModalVisibilityHandler}
                     message="Are you sure you want to delete this question?"
+                    actionBtn="Yes"
                 />
             )}
             <form

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ConfirmModal from "./ConfirmModal";
 import {
     useLoaderData,
     useRouteLoaderData,
@@ -8,6 +7,7 @@ import {
     useNavigate,
 } from "react-router-dom";
 import QuizDescriptionForm from "./QuizDescriptionForm";
+import Modal from "../UI/Modal";
 import { toast } from "react-toastify";
 
 const EditQuizForm = () => {
@@ -48,10 +48,11 @@ const EditQuizForm = () => {
     return (
         <>
             {showDeleteModal && (
-                <ConfirmModal
-                    onManageModal={deleteModalVisibilityHandler}
-                    onDelete={deleteQuizHandler}
+                <Modal
+                    onAction={deleteQuizHandler}
+                    onCancel={deleteModalVisibilityHandler}
                     message="Are you sure you want to delete this quiz?"
+                    actionBtn="Yes"
                 />
             )}
             <QuizDescriptionForm
