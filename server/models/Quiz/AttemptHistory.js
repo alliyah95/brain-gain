@@ -13,8 +13,7 @@ const attemptHistorySchema = new Schema({
         required: [true, "No score was entered"],
     },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
         required: [true, "Quiz taker cannot be empty"],
     },
     quizSet: {

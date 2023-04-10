@@ -1,8 +1,10 @@
 const QuizSet = require("../models/Quiz/QuizSet");
 const Question = require("../models/Quiz/Question");
 const AttemptHistory = require("../models/Quiz/AttemptHistory");
+const User = require("../models/User");
 const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 
 const createQuiz = asyncHandler(async (req, res) => {
     const creator = req.user;
@@ -207,9 +209,20 @@ const checkQuiz = asyncHandler(async (req, res) => {
         results.push(questionResult);
     });
 
+    let quizTaker = null;
+    const token = req.headers.authorization.split(" ")[1];
+
+    if (!token) {
+        quizTaker = "anonymous";
+    } else {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decodedToken.id);
+        quizTaker = user.username;
+    }
+
     const newAttemptHistory = await AttemptHistory({
         score,
-        user: req.user,
+        user: quizTaker,
         quizSet: quiz.id,
         details: results,
     });
@@ -234,10 +247,28 @@ const getAttemptDetails = asyncHandler(async (req, res) => {
         return res.status(404).json({ message: "Attempt not found" });
     }
 
-    res.status(201).json({
-        message: "Attempt details successfully retrieved!",
-        attempt,
-    });
+    const token = req.headers.authorization.split(" ")[1];
+
+    if (token && token !== "null") {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decodedToken.id);
+
+        if (attempt.user === "anonymous" || user.username === attempt.user) {
+            return res.status(201).json({
+                message: "Attempt details successfully retrieved!",
+                attempt,
+            });
+        }
+    } else {
+        if (attempt.user === "anonymous") {
+            return res.status(201).json({
+                message: "Attempt details successfully retrieved!",
+                attempt,
+            });
+        }
+    }
+
+    res.status(401).json({ message: "You are unauthorized to access this." });
 });
 
 module.exports = {

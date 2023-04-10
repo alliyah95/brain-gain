@@ -72,11 +72,6 @@ const router = createBrowserRouter([
                         element: <EditQuestionPage />,
                         loader: questionLoader,
                     },
-                    {
-                        path: "quiz/:displayId/result/:attemptId",
-                        element: <QuizResultsPage />,
-                        loader: resultsLoader,
-                    },
                 ],
             },
             {
@@ -89,6 +84,11 @@ const router = createBrowserRouter([
                 element: <TestPage />,
                 loader: publicQuizDetailLoader,
                 action: checkQuizResults,
+            },
+            {
+                path: "quiz/:displayId/result/:attemptId",
+                element: <QuizResultsPage />,
+                loader: resultsLoader,
             },
         ],
     },

@@ -18,16 +18,17 @@ const QuizResultsPage = () => {
         <div className="max-w-[1200px] mx-auto text-center">
             <p className="font-bold text-2xl">{details.quizSet.title}</p>
             <p className="text-yellow mb-8">
-                Attempt made on {formattedDatetime}
+                Attempt made on {formattedDatetime} by user{" "}
+                <span className="font-bold">{details.user}</span>
             </p>
 
             <p className="font-semibold text-xl  bg-yellow text-white inline mx-auto p-4">
-                Your score: {details.score} / {questions.length}
+                Score: {details.score} / {questions.length}
             </p>
 
             <p className="italic mt-12">
-                Any edits made to the questions of this quiz after your attempt
-                do not affect your results
+                Any edits made to the questions of this quiz will not effect the
+                results of this attempt.
             </p>
             {questions && (
                 <ul className="mt-8 space-y-5 md:space-y-8">
@@ -67,6 +68,10 @@ export const resultsLoader = async ({ params }) => {
             headers: { Authorization: "Bearer " + token },
         }
     );
+
+    if (response.status === 401) {
+        throw json({ message: "You are unauthorized to access this." });
+    }
 
     if (response.status === 404) {
         throw json({ message: "Attempt not found" });
