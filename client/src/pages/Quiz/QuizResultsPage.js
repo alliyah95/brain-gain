@@ -88,5 +88,6 @@ export const resultsLoader = async ({ params }) => {
     }
 
     const results = await response.json();
+    window.scrollTo(0, 0);
     return results.attempt;
 };
