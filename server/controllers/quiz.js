@@ -209,15 +209,14 @@ const checkQuiz = asyncHandler(async (req, res) => {
         results.push(questionResult);
     });
 
-    let quizTaker = null;
     const token = req.headers.authorization.split(" ")[1];
 
-    if (!token) {
-        quizTaker = "anonymous";
-    } else {
+    if (token && token !== "null") {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decodedToken.id);
         quizTaker = user.username;
+    } else {
+        quizTaker = "anonymous";
     }
 
     const newAttemptHistory = await AttemptHistory({
