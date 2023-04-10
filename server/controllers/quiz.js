@@ -26,7 +26,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         createdBy: creator,
         questions: [],
         attempts: [],
-        isPublic,
+        isPublic: Boolean(isPublic),
     });
 
     await newQuizSet.save();

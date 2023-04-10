@@ -38,7 +38,6 @@ const quizSetSchema = new Schema(
         ],
         isPublic: {
             type: Boolean,
-            default: false,
         },
     },
     {
