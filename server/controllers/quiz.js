@@ -270,6 +270,23 @@ const getAttemptDetails = asyncHandler(async (req, res) => {
     res.status(401).json({ message: "You are unauthorized to access this." });
 });
 
+const getAttemptHistory = asyncHandler(async (req, res) => {
+    const { quizDisplayId } = req.params;
+
+    const quiz = await QuizSet.findOne({ displayId: quizDisplayId });
+
+    if (!quiz) {
+        return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    const attemptHistory = await AttemptHistory.find({ quizSet: quiz.id });
+
+    res.status(201).json({
+        message: "Attempt history successfully retrieved",
+        attemptHistory,
+    });
+});
+
 module.exports = {
     createQuiz,
     getQuizzes,
@@ -279,4 +296,5 @@ module.exports = {
     deleteQuiz,
     checkQuiz,
     getAttemptDetails,
+    getAttemptHistory,
 };

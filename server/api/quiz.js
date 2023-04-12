@@ -33,5 +33,11 @@ router.get(
     "/get_attempt_details/:quizDisplayId/:attemptId",
     quizController.getAttemptDetails
 );
+router.get(
+    "/get_attempt_history/:quizDisplayId",
+    isLoggedIn,
+    isQuizOwner,
+    quizController.getAttemptHistory
+);
 
 module.exports = router;
