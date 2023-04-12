@@ -279,11 +279,24 @@ const getAttemptHistory = asyncHandler(async (req, res) => {
         return res.status(404).json({ message: "Quiz not found" });
     }
 
+    const user = await User.findById(req.user);
+
     const attemptHistory = await AttemptHistory.find({ quizSet: quiz.id });
+    const filteredAttemptHistory = attemptHistory.map((attempt) => {
+        return {
+            id: attempt._id,
+            score: attempt.score,
+            user: attempt.user == user.username ? "you" : attempt.user,
+            totalScore: attempt.details.length,
+            attemptDate: attempt.createdAt,
+        };
+    });
 
     res.status(201).json({
         message: "Attempt history successfully retrieved",
-        attemptHistory,
+        quizName: quiz.title,
+        quizDisplayId: quiz.displayId,
+        attemptHistory: filteredAttemptHistory,
     });
 });
 
