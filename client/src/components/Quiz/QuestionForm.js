@@ -6,6 +6,7 @@ import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
 import Modal from "../UI/Modal";
 import { getOptionsInitialState } from "../../util/question";
+import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const QuestionForm = (props) => {
     const {
@@ -268,14 +269,7 @@ const QuestionForm = (props) => {
                                 deleteModalVisibilityHandler(true);
                             }}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                className="bi bi-trash3 w-5"
-                                viewBox="0 0 16 16"
-                            >
-                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                            </svg>
+                            <TrashIcon className="h-6 w-6 " />
                         </button>
                     )}
                 </h3>
@@ -294,23 +288,14 @@ const QuestionForm = (props) => {
                         }}
                     >
                         <option value="" disabled>
-                            Please select...
+                            Please select
                         </option>
                         <option value="true or false">True or False</option>
                         <option value="multiple choice">Multiple Choice</option>
                         <option value="identification">Identification</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-4 pointer-events-none">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="13"
-                            height="13"
-                            fill="currentColor"
-                            className="bi bi-caret-down-fill text-light-brown"
-                            viewBox="0 0 16 16"
-                        >
-                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                        </svg>
+                        <ChevronDownIcon className="h-5 w-5 text-light-brown " />
                     </div>
                 </div>
 

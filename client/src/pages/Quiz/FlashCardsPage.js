@@ -9,6 +9,7 @@ import {
 import FlashCard from "../../components/Question/FlashCard";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const FlashCardsPage = () => {
     const quizData = useLoaderData();
@@ -45,35 +46,11 @@ const FlashCardsPage = () => {
                     />
                     <div className="space-x-8 mx-auto text-center">
                         <button className="btn" onClick={prevBtnHandler}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-chevron-left"
-                                viewBox="0 0 16 16"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-                                />
-                            </svg>
+                            <ChevronLeftIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                         </button>
 
                         <button className="btn" onClick={nextBtnHandler}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                className="bi bi-chevron-right"
-                                viewBox="0 0 16 16"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
-                                />
-                            </svg>
+                            <ChevronRightIcon className="h-4 w-4 lg:h-6 lg:w-6" />
                         </button>
                     </div>
                 </>
