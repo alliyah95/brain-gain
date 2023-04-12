@@ -7,23 +7,29 @@ import {
     useRouteLoaderData,
     useNavigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { getAuthToken } from "../../util/auth";
+import UserContext from "../../store/user";
 import QuestionCard from "../../components/Question/QuestionCard";
 import Modal from "../../components/UI/Modal";
-import { getAuthToken } from "../../util/auth";
 
 const TestPage = () => {
     const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
     const [showModal, setShowModal] = useState(true);
     const navigate = useNavigate();
+    const userCtx = useContext(UserContext);
 
     const modalVisibilityHandler = () => {
         setShowModal(false);
     };
 
     const cancelHandler = () => {
-        navigate(`/quizzes`);
+        if (userCtx.username === quizData.creatorUsername) {
+            navigate(`/quiz/${quizData.displayId}`);
+        } else {
+            navigate(`/quizzes`);
+        }
     };
 
     return (

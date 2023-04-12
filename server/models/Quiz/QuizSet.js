@@ -30,6 +30,10 @@ const quizSetSchema = new Schema(
             ref: "User",
             required: [true, "Quiz owner cannot be empty"],
         },
+        creatorUsername: {
+            type: String,
+            required: [true, "Creator username cannot be empty"],
+        },
         attempts: [
             {
                 type: Schema.Types.ObjectId,
