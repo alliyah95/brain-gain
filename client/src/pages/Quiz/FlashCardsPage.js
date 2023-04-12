@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
     useLoaderData,
     Link,
-    useParams,
     json,
     useRouteLoaderData,
 } from "react-router-dom";
@@ -15,7 +14,6 @@ const FlashCardsPage = () => {
     const quizData = useLoaderData();
     const [index, setIndex] = useState(0);
     const token = useRouteLoaderData("root");
-    const { displayId } = useParams();
 
     const prevBtnHandler = () => {
         if (index > 0) {

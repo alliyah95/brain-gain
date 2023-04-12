@@ -19,8 +19,7 @@
         "react-toastify": "^9.1.1",
         "tslib": "^2.5.0",
         "tsparticles": "^2.9.3",
-        "tsparticles-engine": "^2.9.3",
-        "web-vitals": "^2.1.4"
+        "tsparticles-engine": "^2.9.3"
     },
     "scripts": {
         "start": "react-scripts start",

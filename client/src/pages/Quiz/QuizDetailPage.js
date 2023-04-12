@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useLocation } from "react";
+import { useState, useEffect, useCallback } from "react";
 import QuestionForm from "../../components/Quiz/QuestionForm";
 import { Link, useRouteLoaderData, useParams } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
