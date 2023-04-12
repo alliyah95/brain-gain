@@ -5,9 +5,14 @@ const ConfirmModal = ({
     onAction,
     noButtons,
     addtlMsg,
+    blurredBg,
 }) => {
     return (
-        <div className="fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center">
+        <div
+            className={`fixed z-10 inset-0 overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center ${
+                blurredBg ? "backdrop-blur" : ""
+            }`}
+        >
             <div className="bg-white w-[90%] max-w-md rounded-md p-5 md:p-8 relative ">
                 <button
                     className="absolute top-0 right-0 p-3"
@@ -30,7 +35,7 @@ const ConfirmModal = ({
                         />
                     </svg>
                 </button>
-                <div>{message}</div>
+                <p>{message}</p>
 
                 {addtlMsg && (
                     <p className="mt-4 italic opacity-50 text-sm">{addtlMsg}</p>
