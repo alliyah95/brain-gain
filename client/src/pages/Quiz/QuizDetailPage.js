@@ -158,7 +158,7 @@ const QuizDetailPage = () => {
                     </button>
                     <Link
                         className="btn inline-flex items-center gap-x-2"
-                        to={`/quiz/${displayId}/test`}
+                        to={`/quiz/${displayId}/attempt_history`}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

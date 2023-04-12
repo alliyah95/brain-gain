@@ -17,7 +17,9 @@ import FlashCardsPage, {
 } from "./pages/Quiz/FlashCardsPage";
 import TestPage, { checkQuizResults } from "./pages/Quiz/TestPage";
 import QuizResultsPage, { resultsLoader } from "./pages/Quiz/QuizResultsPage";
-import { loadQuizDetail } from "./util/quiz";
+import AttemptHistoryPage, {
+    attemptHistoryLoader,
+} from "./pages/Quiz/AttemptHistoryPage";
 
 const router = createBrowserRouter([
     {
@@ -71,6 +73,11 @@ const router = createBrowserRouter([
                         path: "quiz/:displayId/question/:questionId/edit",
                         element: <EditQuestionPage />,
                         loader: questionLoader,
+                    },
+                    {
+                        path: "quiz/:displayId/attempt_history",
+                        element: <AttemptHistoryPage />,
+                        loader: attemptHistoryLoader,
                     },
                 ],
             },
