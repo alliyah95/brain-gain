@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import QuizDescriptionForm from "./QuizDescriptionForm";
 import Modal from "../UI/Modal";
-import { toast } from "react-toastify";
+import { customToast } from "../../util/customToast";
 
 const EditQuizForm = () => {
     const quizData = useLoaderData();
@@ -41,7 +41,7 @@ const EditQuizForm = () => {
             throw json({ message: "Failed to delete quiz." }, { status: 500 });
         }
 
-        toast.success("Quiz successfully deleted.");
+        customToast("success", "Quiz successully deleted");
         navigate("/quizzes");
     };
 

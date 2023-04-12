@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
-import { toast } from "react-toastify";
+import { customToast } from "../util/customToast";
 
 const AuthenticationPage = () => {
     const location = useLocation();
@@ -32,7 +32,7 @@ const AuthenticationPage = () => {
     }
 
     if (error && error.message) {
-        toast.error(error.message);
+        customToast("error", error.message);
         error.message = "";
     }
 

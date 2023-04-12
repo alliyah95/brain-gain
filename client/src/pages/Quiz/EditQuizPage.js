@@ -1,13 +1,13 @@
 import EditQuizForm from "../../components/Quiz/EditQuizForm";
 import { getAuthToken } from "../../util/auth";
 import { json, redirect, useActionData } from "react-router-dom";
-import { toast } from "react-toastify";
+import { customToast } from "../../util/customToast";
 
 const EditQuizPage = () => {
     const error = useActionData();
 
     if (error && error.message) {
-        toast.error(error.message);
+        customToast("error", error.message);
         error.message = "";
     }
 
@@ -57,5 +57,6 @@ export const editQuizAction = async ({ request, params }) => {
         );
     }
 
+    customToast("success", "Quiz succesfully edited");
     return redirect(`/quiz/${quizDisplayId}`);
 };

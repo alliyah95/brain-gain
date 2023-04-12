@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { customToast } from "../../util/customToast";
 import TrueOrFalse from "../Question/TrueOrFalse";
 import MultipleChoice from "../Question/MultipleChoice";
 import Identification from "../Question/Identification";
@@ -96,32 +96,35 @@ const QuestionForm = (props) => {
 
         if (!QUESTION_TYPES.includes(questionType)) {
             if (questionType === null) {
-                toast.error("Please select a question type.");
+                customToast("error", "Please select a question type");
             } else {
-                toast.error("Invalid question type!");
+                customToast("error", "Invalid question type!");
             }
             return;
         }
         questionData.type = questionType;
 
         if (questionDescription.trim().length === 0) {
-            toast.error("Question cannot be empty!");
+            customToast("error", "Question cannot be empty!");
             return;
         }
         questionData.description = questionDescription;
 
         if (questionType === "true or false") {
             if (!["true", "false"].includes(correctAnswer)) {
-                toast.error("Invalid correct answer");
+                customToast("error", "Invalid correct answer");
                 return;
             }
         } else if (questionType === "multiple choice") {
             if (!correctAnswer.trim()) {
-                toast.error("Please provide the correct answer.");
+                customToast("error", "Please provide the correct answer");
                 return;
             }
             if (choices.length < 1) {
-                toast.error("Please provide at least 1 choice");
+                customToast(
+                    "error",
+                    "Please provide at least 1 incorrect choice"
+                );
                 return;
             } else {
                 let filteredChoices = choices.filter(
@@ -132,12 +135,18 @@ const QuestionForm = (props) => {
                 );
 
                 if (answerInChoices) {
-                    toast.error("Correct answer cannot be in other choices.");
+                    customToast(
+                        "error",
+                        "Correct answer cannot be in incorrect choices"
+                    );
                     return;
                 }
 
                 if (filteredChoices.length < 1) {
-                    toast.error("Please provide at least 1 choice");
+                    customToast(
+                        "error",
+                        "Please provide at least 1 incorrect choice"
+                    );
                     return;
                 } else {
                     const choiceValues = filteredChoices.map(
@@ -148,7 +157,7 @@ const QuestionForm = (props) => {
             }
         } else if (questionType === "identification") {
             if (!correctAnswer.trim()) {
-                toast.error("Please provide the correct answer.");
+                customToast("error", "Please provide the correct answer");
                 return;
             }
             if (possibleAnswers.length > 0) {
@@ -190,10 +199,10 @@ const QuestionForm = (props) => {
         }
 
         if (props.method === "PATCH") {
-            toast.success("Question successfully updated!");
+            customToast("success", "Question successfully updated!!");
             navigate(`/quiz/${props.displayId}`);
         } else {
-            toast.success("Question successfully added!");
+            customToast("success", "Question successfully added!");
             props.onToggleForm();
             props.onAddQuestion();
         }
@@ -233,7 +242,7 @@ const QuestionForm = (props) => {
             );
         }
 
-        toast.success("Question successfully deleted.");
+        customToast("success", "Question successfully deleted");
         navigate(`/quiz/${props.displayId}`);
     };
 

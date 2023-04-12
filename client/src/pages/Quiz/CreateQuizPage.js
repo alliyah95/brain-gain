@@ -1,13 +1,13 @@
 import CreateQuizForm from "../../components/Quiz/CreateQuizForm";
 import { json, redirect, useActionData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import { toast } from "react-toastify";
+import { customToast } from "../../util/customToast";
 
 const CreateQuizPage = () => {
     const error = useActionData();
 
     if (error && error.message) {
-        toast.error(error.message);
+        customToast("error", error.message);
         error.message = "";
     }
 

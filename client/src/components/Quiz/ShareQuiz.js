@@ -1,10 +1,10 @@
-import { toast } from "react-toastify";
 import { LinkIcon } from "@heroicons/react/24/solid";
+import { customToast } from "../../util/customToast";
 
 const ShareQuiz = ({ link, title }) => {
     const copyHandler = () => {
         navigator.clipboard.writeText(link);
-        toast(`${title} link copied to clipboard!`);
+        customToast("success", `${title} link copied to clipboard!`);
     };
 
     return (

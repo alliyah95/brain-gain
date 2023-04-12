@@ -35,7 +35,6 @@ const Root = () => {
             <main>
                 <Outlet />
                 <ToastContainer
-                    icon={false}
                     hideProgressBar={true}
                     autoClose={2500}
                     pauseOnFocusLoss={false}
