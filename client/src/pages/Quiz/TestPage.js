@@ -25,10 +25,13 @@ const TestPage = () => {
     };
 
     const cancelHandler = () => {
-        if (userCtx.username === quizData.creatorUsername) {
+        if (
+            userCtx.user &&
+            userCtx.user.username === quizData.creatorUsername
+        ) {
             navigate(`/quiz/${quizData.displayId}`);
         } else {
-            navigate(`/quizzes`);
+            navigate(`/`);
         }
     };
 

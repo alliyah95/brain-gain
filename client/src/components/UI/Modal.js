@@ -24,7 +24,7 @@ const ConfirmModal = ({
                 >
                     <XMarkIcon className="h-6 w-6 text-brown" />
                 </button>
-                <p>{message}</p>
+                <div>{message}</div>
 
                 {addtlMsg && (
                     <p className="mt-4 italic opacity-50 text-sm">{addtlMsg}</p>
