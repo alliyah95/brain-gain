@@ -16,6 +16,8 @@ const createQuiz = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: validationError });
     }
 
+    const user = await User.findById(creator);
+
     if (!description) {
         description = "";
     }
@@ -24,6 +26,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         title,
         description,
         createdBy: creator,
+        createdByUsername: user.username,
         questions: [],
         attempts: [],
         isPublic: Boolean(isPublic),
