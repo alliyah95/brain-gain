@@ -44,3 +44,15 @@ export const loadQuizDetail = async (displayId, token) => {
     const data = await response.json();
     return data.quiz;
 };
+
+export const formatDateTime = (dateTime) => {
+    const attemptDate = new Date(dateTime);
+    const month = attemptDate.toLocaleString("default", { month: "long" });
+    const time = attemptDate.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+    });
+    const formattedDatetime = `${month} ${attemptDate.getDate()}, ${attemptDate.getFullYear()} at ${time}`;
+    return formattedDatetime;
+};

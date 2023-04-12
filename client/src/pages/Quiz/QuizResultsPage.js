@@ -1,17 +1,11 @@
 import { useLoaderData, json } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import QuestionCard from "../../components/Question/QuestionCard";
+import { formatDateTime } from "../../util/quiz";
 
 const QuizResultsPage = () => {
     const details = useLoaderData();
-    const attemptDate = new Date(details.createdAt);
-    const month = attemptDate.toLocaleString("default", { month: "long" });
-    const time = attemptDate.toLocaleString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-    });
-    const formattedDatetime = `${month} ${attemptDate.getDate()}, ${attemptDate.getFullYear()} at ${time}`;
+    const formattedDatetime = formatDateTime(details.createdAt);
     const questions = details.details;
 
     return (

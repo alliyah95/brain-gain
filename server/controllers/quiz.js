@@ -281,12 +281,15 @@ const getAttemptHistory = asyncHandler(async (req, res) => {
 
     const user = await User.findById(req.user);
 
-    const attemptHistory = await AttemptHistory.find({ quizSet: quiz.id });
+    const attemptHistory = await AttemptHistory.find({
+        quizSet: quiz.id,
+        user: user.username,
+    });
+
     const filteredAttemptHistory = attemptHistory.map((attempt) => {
         return {
             id: attempt._id,
             score: attempt.score,
-            user: attempt.user == user.username ? "you" : attempt.user,
             totalScore: attempt.details.length,
             attemptDate: attempt.createdAt,
         };
