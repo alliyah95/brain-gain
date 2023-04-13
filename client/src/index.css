@@ -18,13 +18,13 @@
         @apply cursor-pointer;
     }
     body {
-        @apply text-muted-brown text-base;
+        @apply text-muted-brown;
     }
     img {
         @apply max-w-full;
     }
     header {
-        @apply py-4 md:py-6 lg:py-8 w-[90%] mx-auto;
+        @apply pb-4 md:py-6 lg:py-8;
     }
     nav {
         @apply flex justify-between items-center;
@@ -116,7 +116,7 @@
 
 @layer components {
     .btn {
-        @apply text-light-brown bg-brown py-2 px-8 lg:px-10 h-auto rounded-lg hover:bg-brown-darker  cursor-pointer;
+        @apply text-light-brown bg-brown py-2 px-8 lg:px-10 h-auto rounded-lg hover:bg-brown-darker  cursor-pointer text-sm;
     }
     .btn--light {
         @apply bg-light-brown text-brown;
@@ -130,11 +130,20 @@
     .question-card {
         @apply max-w-[1200px] mx-auto flex flex-col items-center justify-center min-h-[70vh] text-brown  rounded-md bg-light-brown bg-opacity-40;
     }
-    .preview-card {
-        @apply bg-brown p-5 rounded-md hover:bg-brown-darker active:bg-brown-darker;
+    .preview-card-container {
+        @apply grid lg:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4;
     }
-    .preview-card-light {
-        @apply bg-light-brown hover:bg-light-brown-h active:bg-light-brown-h p-5 rounded-md bg-opacity-80;
+    .preview-card-container li {
+        @apply overflow-hidden;
+    }
+    .preview-card {
+        @apply border border-brown p-5 rounded-md;
+    }
+    .preview-card p {
+        @apply truncate;
+    }
+    .tag {
+        @apply uppercase inline-block text-xs text-light-brown p-1 lg:px-2 rounded-md  font-semibold;
     }
 }
 

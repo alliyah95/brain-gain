@@ -64,7 +64,7 @@ const QuizDetailPage = () => {
     );
 
     return (
-        <div>
+        <div className="md:px-5 xl:px-8">
             {showShareModal && (
                 <Modal
                     message={modalContent}
@@ -78,7 +78,7 @@ const QuizDetailPage = () => {
                 />
             )}
             <div className="flex items-center gap-x-3">
-                <h3 className="text-3xl lg:text-4xl font-bold text-brown flex break-all">
+                <h3 className="text-3xl lg:text-4xl font-bold text-brown flex">
                     {quizData?.title}
                     <span className="mt-3 lg: ml-4 flex ">
                         {" "}
@@ -90,20 +90,14 @@ const QuizDetailPage = () => {
             </div>
 
             <div className="space-y-4 mt-2">
-                <p className="text-yellow break-all">{quizData?.description}</p>
-                {quizData?.questions.length === 0 && (
-                    <p className="text-yellow break-all">
-                        There are currently no questions in this quiz
-                    </p>
-                )}
-
+                <p className="text-yellow">{quizData?.description}</p>
                 <div className="flex overflow-auto space-x-4 whitespace-nowrap pb-4">
                     {showAddQuestionBtn && (
                         <button
                             className="btn inline-flex items-center gap-x-2 "
                             onClick={questionFormVisibilityHandler}
                         >
-                            <PlusIcon className="h-4 w-4 text-light-brown fill-none stroke-current stroke-2" />
+                            <PlusIcon className="h-3.5 w-3.5 text-light-brown fill-none stroke-current stroke-2" />
                             Add a question
                         </button>
                     )}
@@ -113,10 +107,8 @@ const QuizDetailPage = () => {
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
                             fill="currentColor"
-                            className="bi bi-card-text"
+                            className="bi bi-card-text h-3.5 w-3.5"
                             viewBox="0 0 16 16"
                         >
                             <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
@@ -128,7 +120,7 @@ const QuizDetailPage = () => {
                         className="btn inline-flex items-center gap-x-2"
                         to={`/quiz/${displayId}/test`}
                     >
-                        <ClockIcon className="h-4 w-4 text-light-brown fill-none stroke-current stroke-2" />
+                        <ClockIcon className="h-3.5 w-3.5 text-light-brown fill-none stroke-current stroke-2" />
                         Take quiz
                     </Link>
 
@@ -138,14 +130,14 @@ const QuizDetailPage = () => {
                             setShowShareModal(true);
                         }}
                     >
-                        <ShareIcon className="h-4 w-4 text-light-brown fill-none stroke-current stroke-2" />
+                        <ShareIcon className="h-3.5 w-3.5 text-light-brown fill-none stroke-current stroke-2" />
                         Share
                     </button>
                     <Link
                         className="btn inline-flex items-center gap-x-2"
                         to={`/quiz/${displayId}/attempt_history`}
                     >
-                        <ListBulletIcon className="h-5 w-5 text-light-brown stroke-current" />
+                        <ListBulletIcon className="h-4 w-4 text-light-brown stroke-current" />
                         View attempt history
                     </Link>
                 </div>
@@ -158,19 +150,25 @@ const QuizDetailPage = () => {
                     displayId={displayId}
                 />
             )}
+
+            {quizData?.questions.length === 0 && (
+                <p className="text-yellow mt-2">
+                    There are currently no questions in this quiz
+                </p>
+            )}
             {quizData?.questions && (
-                <ul className="my-8 space-y-4">
+                <ul className="my-8 preview-card-container">
                     {quizData?.questions.map((question, index) => {
                         return (
                             <li key={question._id}>
                                 <Link
                                     to={`/quiz/${displayId}/question/${question._id}/edit`}
                                 >
-                                    <div className="preview-card-light">
+                                    <div className="preview-card">
                                         <p className="text-muted-brown text-xs">
                                             Question {index + 1}
                                         </p>
-                                        <p className="font-semibold">
+                                        <p className="font-semibold truncate">
                                             {question.description}
                                         </p>
                                     </div>

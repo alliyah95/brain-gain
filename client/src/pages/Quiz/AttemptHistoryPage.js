@@ -8,9 +8,7 @@ const AttemptHistoryPage = () => {
     return (
         <>
             <div className="mb-2">
-                <p className="uppercase bg-brown inline-block text-xs text-white p-1 lg:p-2 rounded-md mb-2 lg:mb-3">
-                    Attempt history
-                </p>
+                <p className="tag bg-brown">Attempt history</p>
                 <h3 className="text-3xl lg:text-4xl font-bold text-brown flex break-all">
                     {quizName}
                 </h3>
@@ -29,7 +27,7 @@ const AttemptHistoryPage = () => {
                                 <Link
                                     to={`/quiz/${quizDisplayId}/result/${attempt.id}`}
                                 >
-                                    <div className="preview-card-light">
+                                    <div className="preview-card">
                                         <p className="font-semibold">
                                             Attempt made on{" "}
                                             {formatDateTime(

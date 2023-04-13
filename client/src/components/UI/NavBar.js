@@ -100,7 +100,7 @@ export default function Example({ tokenProp }) {
     return (
         <>
             <Navbar
-                className="h-max max-w-full rounded-md py-2 px-5 xl:px-8 lg:py-4 bg-brown  mx-auto"
+                className="h-max max-w-full p-2 px-5 xl:px-8 lg:py-4 bg-brown mx-auto md:rounded-md md:w-[90%]"
                 shadow={false}
                 blurred={false}
                 fullWidth={true}
@@ -108,8 +108,8 @@ export default function Example({ tokenProp }) {
                 <div className="flex items-center justify-between text-light-brown">
                     <Typography
                         as="a"
-                        href="#"
-                        className="mr-4 cursor-pointer py-1.5 font-medium"
+                        href="/"
+                        className="mr-4 cursor-pointer py-1.5 font-bold"
                     >
                         <h2>brain gain</h2>
                     </Typography>

@@ -5,8 +5,8 @@ const QuizzesPage = () => {
     const quizSets = useLoaderData();
 
     return (
-        <div className="md:bg-light-brown md:bg-opacity-80 md:p-5 md:rounded-md xl:p-8">
-            <ul className="flex flex-row gap-4 border-b-[1px] border-b-brown py-2 mb-4 lg:text-lg font-semibold">
+        <div className="md:px-5 xl:px-8">
+            <ul className="flex flex-row gap-4 border-b-[1px] border-b-brown py-2 mb-4 font-bold">
                 <li>
                     <Link>Quiz Sets</Link>
                 </li>
@@ -18,33 +18,37 @@ const QuizzesPage = () => {
                 </li>
             </ul>
 
-            <ul className="space-y-3">
-                {quizSets.length === 0 && (
-                    <p className="italic">You don't have any quiz sets yet.</p>
-                )}
-                {quizSets &&
-                    quizSets.map((quiz) => {
+            {quizSets.length === 0 && (
+                <p className="italic">You don't have any quiz sets yet.</p>
+            )}
+            {quizSets && (
+                <ul className="preview-card-container">
+                    {quizSets.map((quiz) => {
                         return (
                             <li key={quiz.id}>
                                 <Link to={`/quiz/${quiz.displayId}`}>
                                     <div className="preview-card">
-                                        <div className="space-x-2">
-                                            <span className="font-semibold text-light-brown">
-                                                {quiz.title}
-                                            </span>
-                                            <span className="text-yellow">
-                                                {quiz.numQuestions} questions
-                                            </span>
-                                        </div>
-                                        <p className="text-light-brown">
-                                            {quiz.description}
+                                        <p className="tag bg-yellow">
+                                            {quiz.numQuestions} questions
                                         </p>
+                                        <p className="font-semibold">
+                                            {quiz.title}
+                                        </p>
+                                        {quiz.description && (
+                                            <p>{quiz.description}</p>
+                                        )}
+                                        {!quiz.description && (
+                                            <p className="text-brown text-opacity-50">
+                                                No description
+                                            </p>
+                                        )}
                                     </div>
                                 </Link>
                             </li>
                         );
                     })}
-            </ul>
+                </ul>
+            )}
         </div>
     );
 };
