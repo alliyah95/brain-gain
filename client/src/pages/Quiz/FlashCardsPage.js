@@ -69,7 +69,7 @@ const FlashCardsPage = () => {
                         Oops! This quiz does not have any questions yet
                     </p>
                     {token && (
-                        <Link className="btn" to={`/quizzes`}>
+                        <Link className="btn" to={`/home`}>
                             View my quizzes
                         </Link>
                     )}

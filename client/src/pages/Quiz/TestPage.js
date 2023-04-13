@@ -91,7 +91,7 @@ const TestPage = () => {
                         </p>
 
                         {token && (
-                            <Link className="btn" to={`/quizzes`}>
+                            <Link className="btn" to={`/home`}>
                                 View my quizzes
                             </Link>
                         )}

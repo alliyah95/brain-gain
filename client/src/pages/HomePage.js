@@ -39,7 +39,7 @@ const HomePage = () => {
                     <Link to="/home?tab=my_activity">My Activity</Link>
                 </li>
                 <li className={tabValue !== "library" ? "opacity-50" : ""}>
-                    <Link>Library</Link>
+                    <Link to="/home">Library</Link>
                 </li>
             </ul>
 

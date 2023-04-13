@@ -42,7 +42,7 @@ const EditQuizForm = () => {
         }
 
         customToast("success", "Quiz successully deleted");
-        navigate("/quizzes");
+        navigate("/home");
     };
 
     return (

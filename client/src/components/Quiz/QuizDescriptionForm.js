@@ -61,7 +61,7 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                     to={
                         location.pathname.includes("edit")
                             ? `/quiz/${displayId}`
-                            : "/quizzes"
+                            : "/home"
                     }
                 >
                     Cancel

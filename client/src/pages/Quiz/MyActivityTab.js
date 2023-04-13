@@ -7,7 +7,7 @@ const MyActivityTab = ({ attemptHistory, currentUser }) => {
                 <p className="italic">You have not taken any quiz sets yet.</p>
             )}
             {attemptHistory && (
-                <ul className="my-8 preview-card-container">
+                <ul className="preview-card-container">
                     {attemptHistory.map((attempt) => {
                         return (
                             <li key={attempt.id}>
