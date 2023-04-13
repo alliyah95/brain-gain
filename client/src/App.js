@@ -67,6 +67,7 @@ const router = createBrowserRouter([
                     {
                         path: "quiz/:displayId",
                         element: <QuizDetailPage />,
+                        loader: quizDetailLoader,
                     },
                     {
                         path: "quiz/:displayId/edit",

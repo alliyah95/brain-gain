@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import QuestionForm from "../../components/Quiz/QuestionForm";
-import { Link, useRouteLoaderData, useParams } from "react-router-dom";
+import {
+    Link,
+    useParams,
+    useLoaderData,
+    useRouteLoaderData,
+} from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
 import Modal from "../../components/UI/Modal";
@@ -14,8 +19,9 @@ import {
 } from "@heroicons/react/24/solid";
 
 const QuizDetailPage = () => {
+    const data = useLoaderData();
+    const [quizData, setQuizData] = useState(data);
     const token = useRouteLoaderData("root");
-    const [quizData, setQuizData] = useState(null);
     const [newQuestionAdded, setNewQuestionAdded] = useState(false);
     const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
     const [newQuestion, setNewQuestion] = useState(false);
@@ -33,12 +39,6 @@ const QuizDetailPage = () => {
             fetchQuizData();
         }
     }, [newQuestionAdded, fetchQuizData]);
-
-    useEffect(() => {
-        if (!quizData) {
-            fetchQuizData();
-        }
-    }, [quizData, fetchQuizData]);
 
     const newQuestionHandler = () => {
         setNewQuestionAdded(true);
@@ -148,17 +148,18 @@ const QuizDetailPage = () => {
                     onToggleForm={questionFormVisibilityHandler}
                     onAddQuestion={newQuestionHandler}
                     displayId={displayId}
+                    renderQuestions={newQuestionHandler}
                 />
             )}
 
-            {quizData?.questions.length === 0 && (
+            {quizData.questions.length === 0 && (
                 <p className="text-yellow mt-2">
                     There are currently no questions in this quiz
                 </p>
             )}
-            {quizData?.questions && (
+            {quizData.questions && (
                 <ul className="my-8 preview-card-container">
-                    {quizData?.questions.map((question, index) => {
+                    {quizData.questions.map((question, index) => {
                         return (
                             <li key={question._id}>
                                 <Link
