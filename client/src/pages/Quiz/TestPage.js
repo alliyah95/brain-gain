@@ -6,12 +6,14 @@ import {
     redirect,
     useRouteLoaderData,
     useNavigate,
+    useParams,
 } from "react-router-dom";
 import { useState, useContext } from "react";
 import { getAuthToken } from "../../util/auth";
 import UserContext from "../../store/user";
 import QuestionCard from "../../components/Question/QuestionCard";
 import Modal from "../../components/UI/Modal";
+import QuizTitleAndDescription from "../../components/Quiz/QuizTitleAndDescription";
 
 const TestPage = () => {
     const quizData = useLoaderData();
@@ -19,6 +21,7 @@ const TestPage = () => {
     const [showModal, setShowModal] = useState(true);
     const navigate = useNavigate();
     const userCtx = useContext(UserContext);
+    const { displayId } = useParams();
 
     const modalVisibilityHandler = () => {
         setShowModal(false);
@@ -29,7 +32,7 @@ const TestPage = () => {
             userCtx.user &&
             userCtx.user.username === quizData.creatorUsername
         ) {
-            navigate(`/quiz/${quizData.displayId}`);
+            navigate(-1);
         } else {
             navigate(`/`);
         }
@@ -48,12 +51,13 @@ const TestPage = () => {
             )}
 
             <div className="max-w-[1200px] mx-auto">
-                <p className="text-center font-bold text-2xl">
-                    {quizData.title}
-                </p>
-                <p className="text-center text-yellow ">
-                    {quizData.questions.length} questions
-                </p>
+                <QuizTitleAndDescription
+                    title={quizData.title}
+                    description={quizData.description}
+                    creatorUsername={quizData.creatorUsername}
+                    type="test"
+                    displayId={displayId}
+                />
 
                 <Form method="post" className="mt-8 flex flex-col flex-grow">
                     {quizData.questions.length > 0 && (

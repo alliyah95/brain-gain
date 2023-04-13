@@ -59,7 +59,7 @@ const QuizDetailPage = () => {
                 link={`${window.location.href}/flashcards`}
                 title="Flashcards"
             />
-            <ShareQuiz link={`${window.location.href}/test`} title="Quiz" />
+            <ShareQuiz link={`${window.location.href}/test`} title="Test" />
         </div>
     );
 

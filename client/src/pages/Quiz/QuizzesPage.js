@@ -28,7 +28,7 @@ const QuizzesPage = () => {
                             <li key={quiz.id}>
                                 <Link to={`/quiz/${quiz.displayId}`}>
                                     <div className="preview-card">
-                                        <p className="tag bg-yellow">
+                                        <p className="tag bg-yellow text-white">
                                             {quiz.numQuestions} questions
                                         </p>
                                         <p className="font-semibold">

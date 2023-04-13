@@ -199,7 +199,7 @@ const QuestionForm = (props) => {
         }
 
         if (props.method === "PATCH") {
-            customToast("success", "Question successfully updated!!");
+            customToast("success", "Question successfully updated!");
             navigate(`/quiz/${props.displayId}`);
         } else {
             customToast("success", "Question successfully added!");

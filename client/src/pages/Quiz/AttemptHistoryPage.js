@@ -6,12 +6,16 @@ const AttemptHistoryPage = () => {
     const { attemptHistory, quizName, quizDisplayId } = useLoaderData();
 
     return (
-        <>
+        <div className="md:px-5 xl:px-8">
             <div className="mb-2">
-                <p className="tag bg-brown">Attempt history</p>
-                <h3 className="text-3xl lg:text-4xl font-bold text-brown flex break-all">
-                    {quizName}
-                </h3>
+                <p className="tag bg-brown mb-2">Attempt history</p>
+                <Link to={`/quiz/${quizDisplayId}`}>
+                    {" "}
+                    <h3 className="text-3xl lg:text-4xl font-bold text-brown flex break-all">
+                        {quizName}
+                    </h3>
+                </Link>
+
                 <p className="text-yellow italic mt-2">
                     {attemptHistory.length === 0
                         ? "You have not taken this quiz yet"
@@ -20,7 +24,7 @@ const AttemptHistoryPage = () => {
             </div>
 
             {attemptHistory && (
-                <ul className="my-8 space-y-4">
+                <ul className="my-8 preview-card-container">
                     {attemptHistory.map((attempt) => {
                         return (
                             <li key={attempt.id}>
@@ -45,7 +49,7 @@ const AttemptHistoryPage = () => {
                     })}
                 </ul>
             )}
-        </>
+        </div>
     );
 };
 

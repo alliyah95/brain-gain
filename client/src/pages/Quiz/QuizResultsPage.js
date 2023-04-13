@@ -16,12 +16,12 @@ const QuizResultsPage = () => {
                 <span className="font-bold">{details.user}</span>
             </p>
 
-            <p className="font-semibold text-xl  bg-yellow text-white inline mx-auto p-4">
+            <p className="font-semibold text-xl  bg-yellow text-white inline mx-auto p-4 rounded-md">
                 Score: {details.score} / {questions.length}
             </p>
 
             <p className="italic mt-12">
-                Any edits made to the questions of this quiz will not effect the
+                Any edits made to the questions of this quiz will not affect the
                 results of this attempt.
             </p>
             {questions && (

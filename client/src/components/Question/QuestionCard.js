@@ -1,5 +1,3 @@
-import React from "react";
-
 const QuestionCard = ({
     index,
     data,
@@ -23,7 +21,7 @@ const QuestionCard = ({
             <>
                 <input
                     type="text"
-                    className="line-input  text-center text-md w-4/5 max-w-md"
+                    className="line-input text-center text-base w-4/5 max-w-sm"
                     placeholder={
                         remark === "unanswered" ? "" : "Your answer here..."
                     }
@@ -43,21 +41,33 @@ const QuestionCard = ({
             finalOptions = data.options;
         }
 
-        cardContent = finalOptions.map((option, index) => {
-            return (
-                <div className="flex items-center space-x-1" key={index}>
-                    <input
-                        type="radio"
-                        className="radio-btn"
-                        value={option}
-                        name={name}
-                        defaultChecked={userAnswer === option}
-                        disabled={disabled}
-                    />
-                    <label>{option}</label>
-                </div>
-            );
-        });
+        cardContent = (
+            <ul className="grid lg:grid-cols-2 gap-1 lg:gap-y-2 lg:gap-x-4">
+                {finalOptions.map((option, index) => {
+                    return (
+                        <li className="flex items-center space-x-1" key={index}>
+                            <input
+                                type="radio"
+                                className="radio-btn"
+                                value={option}
+                                name={name}
+                                defaultChecked={userAnswer === option}
+                                disabled={disabled}
+                            />
+                            <label
+                                className={`test-option ${
+                                    data.type === "true or false"
+                                        ? "capitalize"
+                                        : ""
+                                }`}
+                            >
+                                {option}
+                            </label>
+                        </li>
+                    );
+                })}
+            </ul>
+        );
     }
 
     let correctAnswer = <></>;
@@ -70,7 +80,9 @@ const QuestionCard = ({
                 </p>
                 {data.type === "identification" && data.options.length > 0 && (
                     <p className="text-sm">
-                        Other possible answers are:{" "}
+                        {data.options.length === 1
+                            ? "Another possible answer is "
+                            : "Other possible answers are: "}
                         <span className="font-bold">
                             {data.options.join(", ")}.
                         </span>
