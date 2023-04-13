@@ -26,7 +26,7 @@ const HomePage = () => {
                 <li>
                     <Link
                         className={
-                            !tabValue || tabValue !== "quizzes"
+                            tabValue === "my_activity" || tabValue === "library"
                                 ? "opacity-50"
                                 : ""
                         }
@@ -80,5 +80,6 @@ export const homeDataLoader = async ({ request }) => {
     } else if (tab === "my_activity") {
         return data.data;
     }
-    return null;
+
+    return data.filteredQuizSets;
 };
