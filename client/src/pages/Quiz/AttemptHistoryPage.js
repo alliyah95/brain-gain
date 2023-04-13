@@ -28,9 +28,7 @@ const AttemptHistoryPage = () => {
                     {attemptHistory.map((attempt) => {
                         return (
                             <li key={attempt.id}>
-                                <Link
-                                    to={`/quiz/${quizDisplayId}/result/${attempt.id}`}
-                                >
+                                <Link to={`/quiz/result/${attempt.id}`}>
                                     <div className="preview-card">
                                         <p className="font-semibold">
                                             Attempt made on{" "}

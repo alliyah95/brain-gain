@@ -49,24 +49,13 @@ export default function Example({ tokenProp }) {
         <ul className="mb-4 mt-2 flex flex-col lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-light-brown lg:gap-3">
             <Typography as="li" variant="small" className="p-1 font-normal">
                 <NavLink
-                    to="/"
+                    to="/home"
                     className={({ isActive }) =>
                         isActive ? "active-nav-link" : ""
                     }
                     onClick={navbarCollapseHandler}
                 >
-                    Dashboard
-                </NavLink>
-            </Typography>
-            <Typography as="li" variant="small" className="p-1 font-normal">
-                <NavLink
-                    to="/quizzes"
-                    className={({ isActive }) =>
-                        isActive ? "active-nav-link" : ""
-                    }
-                    onClick={navbarCollapseHandler}
-                >
-                    My Quizzes
+                    Home
                 </NavLink>
             </Typography>
             <Typography as="li" variant="small" className="p-1 font-normal">

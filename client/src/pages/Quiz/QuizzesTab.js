@@ -1,23 +1,8 @@
-import { Link, json, useLoaderData } from "react-router-dom";
-import { getAuthToken } from "../../util/auth";
+import { Link } from "react-router-dom";
 
-const QuizzesPage = () => {
-    const quizSets = useLoaderData();
-
+const QuizzesTab = ({ quizSets }) => {
     return (
-        <div className="md:px-5 xl:px-8">
-            <ul className="flex flex-row gap-4 border-b-[1px] border-b-brown py-2 mb-4 font-bold">
-                <li>
-                    <Link>Quiz Sets</Link>
-                </li>
-                <li className="opacity-50">
-                    <Link>My Activity</Link>
-                </li>
-                <li className="opacity-50">
-                    <Link>Friends' Activity</Link>
-                </li>
-            </ul>
-
+        <div>
             {quizSets.length === 0 && (
                 <p className="italic">You don't have any quiz sets yet.</p>
             )}
@@ -53,24 +38,4 @@ const QuizzesPage = () => {
     );
 };
 
-export default QuizzesPage;
-
-export const quizzesLoader = async () => {
-    const token = getAuthToken();
-    const response = await fetch("http://localhost:8080/api/quiz_sets", {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-        },
-    });
-
-    if (!response.ok) {
-        throw json(
-            { message: "Could not fetch your quiz sets" },
-            { status: 500 }
-        );
-    }
-
-    const data = await response.json();
-    return data.filteredQuizSets;
-};
+export default QuizzesTab;

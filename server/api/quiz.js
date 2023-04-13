@@ -25,10 +25,7 @@ router.get(
 );
 router.get("/quiz/:quizDisplayId/public", quizController.getQuiz);
 router.post("/check_quiz/:quizDisplayId", quizController.checkQuiz);
-router.get(
-    "/get_attempt_details/:quizDisplayId/:attemptId",
-    quizController.getAttemptDetails
-);
+router.get("/get_attempt_details/:attemptId", quizController.getAttemptDetails);
 router.get(
     "/get_attempt_history/:quizDisplayId",
     isLoggedIn,

@@ -52,11 +52,10 @@ export default QuizResultsPage;
 
 export const resultsLoader = async ({ params }) => {
     const attemptId = params.attemptId;
-    const displayId = params.displayId;
     const token = getAuthToken();
 
     const response = await fetch(
-        `http://localhost:8080/api/get_attempt_details/${displayId}/${attemptId}`,
+        `http://localhost:8080/api/get_attempt_details/${attemptId}`,
         {
             method: "GET",
             headers: { Authorization: "Bearer " + token },

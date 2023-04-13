@@ -314,9 +314,14 @@ const getAttemptsByUser = async (req, res) => {
         user: user.username,
     });
 
+    const filteredAttemptHistory = filterAttemptHistory(attemptHistory);
+
     res.status(201).json({
         message: "Attempt history successfully retrieved",
-        attemptHistory,
+        data: {
+            attemptHistory: filteredAttemptHistory,
+            currentUser: user.username,
+        },
     });
 };
 

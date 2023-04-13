@@ -11,6 +11,8 @@ const filterAttemptHistory = (attemptHistory) => {
             score: attempt.score,
             totalScore: attempt.details.length,
             attemptDate: attempt.createdAt,
+            quizTitle: attempt.quizTitle,
+            quizSetCreator: attempt.quizSetCreator,
         };
     });
 

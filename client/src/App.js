@@ -1,10 +1,12 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    redirect,
+    RouterProvider,
+} from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
-import Home from "./pages/Home";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import AuthenticationPage, { action as authAction } from "./pages/Auth";
-import QuizzesPage, { quizzesLoader } from "./pages/Quiz/QuizzesPage";
 import { tokenLoader, authChecker } from "./util/auth";
 import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import QuizDetailPage, { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
@@ -20,6 +22,7 @@ import QuizResultsPage, { resultsLoader } from "./pages/Quiz/QuizResultsPage";
 import AttemptHistoryPage, {
     attemptHistoryLoader,
 } from "./pages/Quiz/AttemptHistoryPage";
+import HomePage, { homeDataLoader } from "./pages/HomePage";
 
 const router = createBrowserRouter([
     {
@@ -31,8 +34,9 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Home />,
-                loader: authChecker,
+                loader: () => {
+                    return redirect("/home");
+                },
             },
             {
                 path: "/login",
@@ -55,9 +59,10 @@ const router = createBrowserRouter([
                         action: createQuizAction,
                     },
                     {
-                        path: "quizzes",
-                        element: <QuizzesPage />,
-                        loader: quizzesLoader,
+                        index: true,
+                        path: "/home",
+                        element: <HomePage />,
+                        loader: homeDataLoader,
                     },
                     {
                         path: "quiz/:displayId",
@@ -93,7 +98,7 @@ const router = createBrowserRouter([
                 action: checkQuizResults,
             },
             {
-                path: "quiz/:displayId/result/:attemptId",
+                path: "quiz/result/:attemptId",
                 element: <QuizResultsPage />,
                 loader: resultsLoader,
             },
