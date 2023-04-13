@@ -1,4 +1,5 @@
 import { redirect } from "react-router-dom";
+import { customToast } from "./customToast";
 
 export const getTokenDuration = () => {
     const storedExpirationDate = localStorage.getItem("expiration");
@@ -29,6 +30,7 @@ export const tokenLoader = () => {
 
 export const authChecker = () => {
     if (!getAuthToken()) {
+        customToast("error", "Please log in to continue.");
         return redirect("/login");
     }
 

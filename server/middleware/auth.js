@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
-const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
-const User = require("../models/User");
 const QuizSet = require("../models/Quiz/QuizSet");
 
 const isLoggedIn = async (req, res, next) => {
@@ -11,7 +9,7 @@ const isLoggedIn = async (req, res, next) => {
         if (!token) {
             return res
                 .status(401)
-                .json({ message: "Please log in to continue" });
+                .json({ message: "Please log in to continue." });
         }
 
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
@@ -19,7 +17,7 @@ const isLoggedIn = async (req, res, next) => {
 
         next();
     } catch (err) {
-        return res.status(401).json({ message: "Please log in to continue" });
+        return res.status(401).json({ message: "Please log in to continue." });
     }
 };
 
