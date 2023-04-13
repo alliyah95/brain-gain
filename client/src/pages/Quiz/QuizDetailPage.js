@@ -89,7 +89,7 @@ const QuizDetailPage = () => {
                 </h3>
             </div>
 
-            <div className="space-y-4 mt-2">
+            <div className="space-y-4 my-2">
                 <p className="text-yellow">{quizData?.description}</p>
                 <div className="flex overflow-auto space-x-4 whitespace-nowrap pb-4">
                     {showAddQuestionBtn && (

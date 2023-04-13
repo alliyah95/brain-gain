@@ -100,7 +100,7 @@ export default function Example({ tokenProp }) {
     return (
         <>
             <Navbar
-                className="h-max max-w-full p-2 px-5 xl:px-8 lg:py-4 bg-brown mx-auto md:rounded-md md:w-[90%]"
+                className="h-max max-w-full p-2 px-5 xl:px-8 lg:py-4 bg-brown-darker mx-auto md:rounded-md md:w-[90%]"
                 shadow={false}
                 blurred={false}
                 fullWidth={true}

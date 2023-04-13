@@ -8,9 +8,9 @@ const Identification = ({
     newPossibleAnswerHandler,
 }) => {
     return (
-        <div className="space-y-3">
-            <p className="font-semibold">Possible answers</p>
-            <ul className="space-y-3">
+        <div>
+            <p className="font-semibold mt-4 mb-2">Possible answers</p>
+            <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
                 {possibleAnswers &&
                     possibleAnswers.map((possibleAnswer, index) => {
                         return (

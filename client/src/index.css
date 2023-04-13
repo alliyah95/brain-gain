@@ -47,7 +47,7 @@
         @apply rounded-full;
     }
     label {
-        @apply text-sm;
+        @apply text-sm font-bold;
     }
 }
 @layer utilities {
@@ -129,6 +129,9 @@
     }
     .question-card {
         @apply max-w-[1200px] mx-auto flex flex-col items-center justify-center min-h-[70vh] text-brown  rounded-md bg-light-brown bg-opacity-40;
+    }
+    .edit-form {
+        @apply max-w-[1200px] mx-auto  md:p-5 xl:p-8  rounded-md mt-4 lg:mt-10 bg-opacity-80;
     }
     .preview-card-container {
         @apply grid lg:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4;

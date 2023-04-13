@@ -266,9 +266,11 @@ const QuestionForm = (props) => {
             )}
             <form
                 onSubmit={newQuestionHandler}
-                className="mx-auto bg-light-brown p-5 xl:p-8 rounded-md mt-4 lg:mt-10 text-brown-darker bg-opacity-80"
+                className={
+                    props.method === "POST" ? "preview-card" : "edit-form"
+                }
             >
-                <h3 className="font-bold text-2xl lg:text-3xl mb-4 flex justify-between">
+                <h3 className="font-bold text-2xl lg:text-3xl mb-4 flex justify-between text-brown-darker">
                     {props.method === "POST" ? "New" : "Edit"} question
                     {props.method !== "POST" && (
                         <button
@@ -283,12 +285,12 @@ const QuestionForm = (props) => {
                     )}
                 </h3>
 
-                <label htmlFor="type" className="mr-2">
+                <label htmlFor="type" className="mr-2 mb-2">
                     Question Type:
                 </label>
-                <div className="relative inline-flex">
+                <div className="relative inline-flex mb-2">
                     <select
-                        className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-7 rounded-md outline-0"
+                        className="text-sm cursor-pointer appearance-none bg-brown-darker text-light-brown py-2 px-3 pr-8 rounded-md outline-0"
                         defaultValue={
                             props.questionData ? props.questionData.type : ""
                         }
@@ -303,15 +305,16 @@ const QuestionForm = (props) => {
                         <option value="multiple choice">Multiple Choice</option>
                         <option value="identification">Identification</option>
                     </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center pl-2 pr-4 pointer-events-none">
-                        <ChevronDownIcon className="h-5 w-5 text-light-brown " />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                        <ChevronDownIcon className="h-5 w-5 text-light-brown" />
                     </div>
                 </div>
 
                 <input
+                    id="question"
                     type="text"
-                    placeholder="Question"
-                    className="line-input text-sm md:text-mt-4 mb-2"
+                    placeholder="Enter your question here..."
+                    className="line-input md:mt-4"
                     onChange={(evt) => {
                         setQuestionDescription(evt.target.value);
                     }}
@@ -321,23 +324,29 @@ const QuestionForm = (props) => {
                             : ""
                     }
                 />
+                <label htmlFor="question">Question</label>
 
                 {((questionType && questionType !== "true or false") ||
                     (props.method === "PATCH" &&
                         questionType !== "true or false")) && (
-                    <input
-                        type="text"
-                        placeholder="Correct answer"
-                        className="line-input text-sm mt-2 mb-6"
-                        onChange={(evt) => {
-                            setCorrectAnswer(evt.target.value);
-                        }}
-                        defaultValue={
-                            props.method === "PATCH"
-                                ? props.questionData.answer
-                                : ""
-                        }
-                    />
+                    <>
+                        {" "}
+                        <input
+                            type="text"
+                            id="correctAnswer"
+                            placeholder="Enter the correct answer here..."
+                            className="line-input mt-4"
+                            onChange={(evt) => {
+                                setCorrectAnswer(evt.target.value);
+                            }}
+                            defaultValue={
+                                props.method === "PATCH"
+                                    ? props.questionData.answer
+                                    : ""
+                            }
+                        />
+                        <label htmlFor="correctAnswer">Correct answer</label>
+                    </>
                 )}
 
                 {((questionType && questionType === "true or false") ||
@@ -379,7 +388,7 @@ const QuestionForm = (props) => {
 
                 <div className="space-x-3 lg:space-x-4 xl:space-x-6 text-end mt-5">
                     <button
-                        className="link"
+                        className="link text-sm"
                         type="button"
                         onClick={cancelAddHandler}
                     >

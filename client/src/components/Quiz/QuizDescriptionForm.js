@@ -6,10 +6,7 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
     const { displayId } = useParams();
 
     return (
-        <Form
-            method={method}
-            className="max-w-[1200px] mx-auto  md:p-5 xl:p-8  rounded-md mt-4 lg:mt-10 bg-opacity-80"
-        >
+        <Form method={method} className="edit-form">
             <h3
                 className={`form-title ${
                     method === "PATCH" ? "flex justify-between" : ""
@@ -52,7 +49,9 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                     name="quizAccess"
                     defaultChecked={quizData && quizData.isPublic}
                 />
-                <label className="text-base">Make the quiz public</label>
+                <label className="text-base font-normal">
+                    Make the quiz public
+                </label>
             </div>
 
             <div className="flex flex-col text-center gap-y-3 lg:flex-row-reverse lg:gap-y-0 lg:gap-x-5 lg:items-center">

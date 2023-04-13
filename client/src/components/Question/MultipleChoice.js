@@ -8,25 +8,23 @@ const MultipleChoice = ({
     deleteChoiceHandler,
 }) => {
     return (
-        <>
-            <div className="space-y-3">
-                <p className="font-semibold">Choices</p>
-                <ul className="space-y-3">
-                    {choices.map((choice, index) => {
-                        return (
-                            <li key={index}>
-                                <OptionInput
-                                    id={index + 1}
-                                    type="Choice"
-                                    value={choice.value}
-                                    handler={choiceHandler}
-                                    deleteHandler={deleteChoiceHandler}
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+        <div>
+            <p className="font-semibold mt-4 mb-2">Incorrect choices</p>
+            <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {choices.map((choice, index) => {
+                    return (
+                        <li key={index}>
+                            <OptionInput
+                                id={index + 1}
+                                type="Choice"
+                                value={choice.value}
+                                handler={choiceHandler}
+                                deleteHandler={deleteChoiceHandler}
+                            />
+                        </li>
+                    );
+                })}
+            </ul>
             <button
                 type="button"
                 className="underline font-bold my-4"
@@ -34,7 +32,7 @@ const MultipleChoice = ({
             >
                 Add another choice
             </button>
-        </>
+        </div>
     );
 };
 
