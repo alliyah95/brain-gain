@@ -222,15 +222,14 @@ const checkQuiz = asyncHandler(async (req, res) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decodedToken.id);
         quizTaker = user.username;
-        quizSetCreator = user.username;
     } else {
-        quizTaker = "anonymous";
+        quizTaker = "an unregistered user";
     }
 
     const newAttemptHistory = await AttemptHistory({
         score,
         user: quizTaker,
-        quizSetCreator: quizSetCreator,
+        quizSetCreator: quiz.creatorUsername,
         quizSet: quiz.id,
         quizTitle: quiz.title,
         details: results,
@@ -262,14 +261,17 @@ const getAttemptDetails = asyncHandler(async (req, res) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decodedToken.id);
 
-        if (attempt.user === "anonymous" || user.username === attempt.user) {
+        if (
+            attempt.user === "an unregistered user" ||
+            user.username === attempt.user
+        ) {
             return res.status(201).json({
                 message: "Attempt details successfully retrieved!",
                 attempt,
             });
         }
     } else {
-        if (attempt.user === "anonymous") {
+        if (attempt.user === "an unregistered user") {
             return res.status(201).json({
                 message: "Attempt details successfully retrieved!",
                 attempt,
