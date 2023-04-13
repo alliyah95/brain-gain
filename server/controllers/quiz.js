@@ -5,6 +5,10 @@ const User = require("../models/User");
 const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
+const {
+    filteredAttemptHistory,
+    filterAttemptHistory,
+} = require("../utils/quiz");
 
 const createQuiz = asyncHandler(async (req, res) => {
     const creator = req.user;
@@ -218,6 +222,7 @@ const checkQuiz = asyncHandler(async (req, res) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decodedToken.id);
         quizTaker = user.username;
+        quizSetCreator = user.username;
     } else {
         quizTaker = "anonymous";
     }
@@ -225,7 +230,9 @@ const checkQuiz = asyncHandler(async (req, res) => {
     const newAttemptHistory = await AttemptHistory({
         score,
         user: quizTaker,
+        quizSetCreator: quizSetCreator,
         quizSet: quiz.id,
+        quizTitle: quiz.title,
         details: results,
     });
 
@@ -289,14 +296,7 @@ const getAttemptHistory = asyncHandler(async (req, res) => {
         user: user.username,
     });
 
-    const filteredAttemptHistory = attemptHistory.map((attempt) => {
-        return {
-            id: attempt._id,
-            score: attempt.score,
-            totalScore: attempt.details.length,
-            attemptDate: attempt.createdAt,
-        };
-    });
+    const filteredAttemptHistory = filterAttemptHistory(attemptHistory);
 
     res.status(201).json({
         message: "Attempt history successfully retrieved",
@@ -305,6 +305,18 @@ const getAttemptHistory = asyncHandler(async (req, res) => {
         attemptHistory: filteredAttemptHistory,
     });
 });
+
+const getAttemptsByUser = async (req, res) => {
+    const user = await User.findById(req.user);
+    const attemptHistory = await AttemptHistory.find({
+        user: user.username,
+    });
+
+    res.status(201).json({
+        message: "Attempt history successfully retrieved",
+        attemptHistory,
+    });
+};
 
 module.exports = {
     createQuiz,
@@ -316,4 +328,5 @@ module.exports = {
     checkQuiz,
     getAttemptDetails,
     getAttemptHistory,
+    getAttemptsByUser,
 };

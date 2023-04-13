@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const quizController = require("../controllers/quiz");
-const {
-    isLoggedIn,
-    isQuizOwner,
-    isQuizResultPublic,
-} = require("../middleware/auth");
+const { isLoggedIn, isQuizOwner } = require("../middleware/auth");
 
 router.post("/create_quiz", isLoggedIn, quizController.createQuiz);
 router.get("/quiz_sets", isLoggedIn, quizController.getQuizzes);
@@ -38,6 +34,11 @@ router.get(
     isLoggedIn,
     isQuizOwner,
     quizController.getAttemptHistory
+);
+router.get(
+    "/get_attempts_by_user",
+    isLoggedIn,
+    quizController.getAttemptsByUser
 );
 
 module.exports = router;

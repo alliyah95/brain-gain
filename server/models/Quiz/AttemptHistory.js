@@ -21,6 +21,14 @@ const attemptHistorySchema = new Schema({
         ref: "QuizSet",
         required: [true, "Quiz set cannot be empty"],
     },
+    quizSetCreator: {
+        type: String,
+        required: [true, "Quiz creator cannot be empty"],
+    },
+    quizTitle: {
+        type: String,
+        required: [true, "Quiz title cannot be empty"],
+    },
     details: {
         type: [
             {
