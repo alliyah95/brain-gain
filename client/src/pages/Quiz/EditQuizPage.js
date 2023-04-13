@@ -39,12 +39,12 @@ export const editQuizAction = async ({ request, params }) => {
         }
     );
 
-    if (response.status === 400) {
-        return response;
-    }
-
-    if (response.status === 404) {
-        throw json({ message: "Quiz not found!" }, { status: 400 });
+    if (
+        response.status === 404 ||
+        response.status === 401 ||
+        response.status === 400
+    ) {
+        throw response;
     }
 
     if (!response.ok) {

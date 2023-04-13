@@ -18,13 +18,14 @@ import QuizTitleAndDescription from "../../components/Quiz/QuizTitleAndDescripti
 const TestPage = () => {
     const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
-    const [showModal, setShowModal] = useState(true);
+    const [showConfirmationModal, setConfirmationModal] = useState(true);
+    const [showWarningModal, setShowWarningModal] = useState(true);
     const navigate = useNavigate();
     const userCtx = useContext(UserContext);
     const { displayId } = useParams();
 
     const modalVisibilityHandler = () => {
-        setShowModal(false);
+        setConfirmationModal(false);
     };
 
     const cancelHandler = () => {
@@ -40,7 +41,7 @@ const TestPage = () => {
 
     return (
         <>
-            {showModal && (
+            {showConfirmationModal && (
                 <Modal
                     message={`You are about to take the quiz ${quizData.title}.`}
                     actionBtn="Continue"
@@ -78,6 +79,7 @@ const TestPage = () => {
                                 })}
                             </ul>
                             <div className="self-end mt-5 md:mt-8">
+                                <p></p>
                                 <button className="btn">Submit Quiz</button>
                             </div>
                         </>
@@ -138,7 +140,5 @@ export const checkQuizResults = async ({ request, params }) => {
     }
 
     const resData = await response.json();
-    return redirect(
-        `/quiz/${resData.displayId}/result/${resData.attemptHistory._id}`
-    );
+    return redirect(`/quiz/result/${resData.attemptHistory._id}`);
 };

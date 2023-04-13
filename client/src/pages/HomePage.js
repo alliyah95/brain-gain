@@ -70,6 +70,10 @@ export const homeDataLoader = async ({ request }) => {
         }
     );
 
+    if (response.status === 404 || response.status === 401) {
+        throw response;
+    }
+
     if (!response.ok) {
         throw json({ message: "Could not fetch data" }, { status: 500 });
     }

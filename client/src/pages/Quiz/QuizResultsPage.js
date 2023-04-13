@@ -62,12 +62,8 @@ export const resultsLoader = async ({ params }) => {
         }
     );
 
-    if (response.status === 401) {
-        throw json({ message: "You are unauthorized to access this." });
-    }
-
-    if (response.status === 404) {
-        throw json({ message: "Attempt not found" });
+    if (response.status === 404 || response.status === 401) {
+        throw response;
     }
 
     if (!response.ok) {

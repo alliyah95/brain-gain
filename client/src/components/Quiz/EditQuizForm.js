@@ -35,7 +35,10 @@ const EditQuizForm = () => {
         );
 
         if (response.status === 404) {
-            throw json({ message: "Quiz not found!" }, { status: 404 });
+            throw json(
+                { message: "That quiz doesn't exist." },
+                { status: 404 }
+            );
         }
         if (!response.ok) {
             throw json({ message: "Failed to delete quiz." }, { status: 500 });

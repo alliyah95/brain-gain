@@ -13,22 +13,8 @@ export const loadQuizDetail = async (displayId, token) => {
         }
     );
 
-    if (response.status === 401) {
-        throw json(
-            {
-                message: "Oops! You are unauthorized to access this quiz.",
-            },
-            { status: 401 }
-        );
-    }
-
-    if (response.status === 404) {
-        throw json(
-            {
-                message: "Quiz not found!",
-            },
-            { status: 404 }
-        );
+    if (response.status === 401 || response.status === 404) {
+        throw response;
     }
 
     if (!response.ok) {

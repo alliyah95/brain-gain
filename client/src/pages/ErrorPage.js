@@ -13,14 +13,11 @@ const ErrorPage = ({ noNavBar }) => {
     if (error instanceof TypeError) {
         message =
             "There has been an internal server error. We'll try to fix it ASAP...";
-    } else if (
-        error.status === 404 ||
-        (error.status === 404 &&
-            Array.isArray(error.data) &&
-            error.data.includes("route"))
-    ) {
+    } else if (error.status === 404 && error.data.includes("route")) {
         message = "Page not found.";
-    } else {
+    }
+
+    if (error.data && error.data.message) {
         message = error.data.message;
     }
 
