@@ -5,10 +5,7 @@ const User = require("../models/User");
 const validators = require("../utils/validators");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
-const {
-    filteredAttemptHistory,
-    filterAttemptHistory,
-} = require("../utils/quiz");
+const { filterAttemptHistory } = require("../utils/quiz");
 
 const createQuiz = asyncHandler(async (req, res) => {
     const creator = req.user;
@@ -33,7 +30,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         creatorUsername: user.username,
         questions: [],
         attempts: [],
-        isPublic: Boolean(isPublic),
+        isPublic: isPublic,
     });
 
     await newQuizSet.save();

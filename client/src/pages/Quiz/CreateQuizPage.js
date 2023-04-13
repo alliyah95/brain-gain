@@ -22,6 +22,7 @@ export const createQuizAction = async ({ request }) => {
     const quizData = {
         title: data.get("title"),
         description: data.get("description"),
+        isPublic: Boolean(data.get("quizAccess")),
     };
 
     const token = getAuthToken();
