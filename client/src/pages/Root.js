@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import ParticlesBackground from "../components/UI/ParticlesBackground";
 import NavBar from "../components/UI/NavBar";
 import Footer from "../components/UI/Footer";
-import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getTokenDuration } from "../util/auth";
+import { logoutUser } from "../util/auth";
 
 const Root = () => {
-    const submit = useSubmit();
     const token = useLoaderData();
 
     useEffect(() => {
@@ -17,15 +17,15 @@ const Root = () => {
         }
 
         if (token === "EXPIRED") {
-            submit(null, { action: "/logout", method: "POST" });
+            logoutUser();
         }
 
         const tokenDuration = getTokenDuration();
 
         setTimeout(() => {
-            submit(null, { action: "/logout", method: "post" });
+            logoutUser();
         }, tokenDuration);
-    }, [token, submit]);
+    }, [token]);
 
     return (
         <ParticlesBackground>
