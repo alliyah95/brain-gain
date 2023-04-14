@@ -1,25 +1,27 @@
 import React from "react";
 import OptionInput from "../Quiz/OptionInput";
 
-const MultipleChoice = ({
-    choices,
-    newChoiceHandler,
-    choiceHandler,
-    deleteChoiceHandler,
+const QuestionWithOptions = ({
+    options,
+    newOptionHandler,
+    optionHandler,
+    deleteOptionHandler,
+    title,
+    type,
 }) => {
     return (
         <div>
-            <p className="font-semibold mt-4 mb-2">Incorrect choices</p>
+            <p className="font-semibold mt-4 mb-2">{title}</p>
             <ul className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-                {choices.map((choice, index) => {
+                {options.map((option, index) => {
                     return (
                         <li key={index}>
                             <OptionInput
                                 id={index + 1}
-                                type="Choice"
-                                value={choice.value}
-                                handler={choiceHandler}
-                                deleteHandler={deleteChoiceHandler}
+                                type={type}
+                                value={option.value}
+                                handler={optionHandler}
+                                deleteHandler={deleteOptionHandler}
                             />
                         </li>
                     );
@@ -28,12 +30,12 @@ const MultipleChoice = ({
             <button
                 type="button"
                 className="underline font-bold my-4"
-                onClick={newChoiceHandler}
+                onClick={newOptionHandler}
             >
-                Add another choice
+                Add another {type.toLowerCase()}
             </button>
         </div>
     );
 };
 
-export default MultipleChoice;
+export default QuestionWithOptions;

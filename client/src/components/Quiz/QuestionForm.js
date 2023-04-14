@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { customToast } from "../../util/customToast";
 import TrueOrFalse from "../Question/TrueOrFalse";
-import MultipleChoice from "../Question/MultipleChoice";
-import Identification from "../Question/Identification";
+import QuestionWithOptions from "../Question/QuestionWithOptions";
 import Modal from "../UI/Modal";
 import { getOptionsInitialState } from "../../util/question";
 import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
@@ -365,24 +364,26 @@ const QuestionForm = (props) => {
                 {((questionType && questionType === "multiple choice") ||
                     (props.method === "PATCH" &&
                         questionType === "multiple choice")) && (
-                    <MultipleChoice
-                        choices={choices}
-                        newChoiceHandler={newChoiceHandler}
-                        choiceHandler={choiceHandler}
-                        deleteChoiceHandler={deleteChoiceHandler}
+                    <QuestionWithOptions
+                        options={choices}
+                        newOptionHandler={newChoiceHandler}
+                        optionHandler={choiceHandler}
+                        deleteOptionHandler={deleteChoiceHandler}
+                        title="Incorrect choices"
+                        type="Choice"
                     />
                 )}
 
                 {((questionType && questionType === "identification") ||
                     (props.method === "PATCH" &&
                         questionType === "identification")) && (
-                    <Identification
-                        possibleAnswers={possibleAnswers}
-                        possibleAnswerHandler={possibleAnswerHandler}
-                        deletePossibleAnswerHandler={
-                            deletePossibleAnswerHandler
-                        }
-                        newPossibleAnswerHandler={newPossibleAnswerHandler}
+                    <QuestionWithOptions
+                        options={possibleAnswers}
+                        optionHandler={possibleAnswerHandler}
+                        deleteOptionHandler={deletePossibleAnswerHandler}
+                        newOptionHandler={newPossibleAnswerHandler}
+                        title="Possible answers"
+                        type="Possible answer"
                     />
                 )}
 
