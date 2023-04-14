@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Card from "../../components/UI/Card";
 
 const QuizzesTab = ({ quizSets }) => {
     return (
@@ -11,24 +11,14 @@ const QuizzesTab = ({ quizSets }) => {
                     {quizSets.map((quiz) => {
                         return (
                             <li key={quiz.id}>
-                                <Link to={`/quiz/${quiz.displayId}`}>
-                                    <div className="preview-card">
-                                        <p className="tag bg-yellow text-white">
-                                            {quiz.numQuestions} questions
-                                        </p>
-                                        <p className="font-semibold">
-                                            {quiz.title}
-                                        </p>
-                                        {quiz.description && (
-                                            <p>{quiz.description}</p>
-                                        )}
-                                        {!quiz.description && (
-                                            <p className="text-brown text-opacity-50">
-                                                No description
-                                            </p>
-                                        )}
-                                    </div>
-                                </Link>
+                                <Card
+                                    path={`/quiz/${quiz.displayId}`}
+                                    title={quiz.title}
+                                    description={quiz.description}
+                                    hasTag={true}
+                                    tagContent={`${quiz.numQuestions} questions`}
+                                    noDescPrompt={false}
+                                />
                             </li>
                         );
                     })}

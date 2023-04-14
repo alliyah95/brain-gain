@@ -17,6 +17,7 @@ import {
     PlusIcon,
     ShareIcon,
 } from "@heroicons/react/24/solid";
+import Card from "../../components/UI/Card";
 
 const QuizDetailPage = () => {
     const data = useLoaderData();
@@ -162,18 +163,14 @@ const QuizDetailPage = () => {
                     {quizData.questions.map((question, index) => {
                         return (
                             <li key={question._id}>
-                                <Link
-                                    to={`/quiz/${displayId}/question/${question._id}/edit`}
-                                >
-                                    <div className="preview-card">
-                                        <p className="text-muted-brown text-xs">
-                                            Question {index + 1}
-                                        </p>
-                                        <p className="font-semibold truncate">
-                                            {question.description}
-                                        </p>
-                                    </div>
-                                </Link>
+                                <Card
+                                    path={`/quiz/${displayId}/question/${question._id}/edit`}
+                                    title={question.description}
+                                    hasTag={true}
+                                    tagType="no-bg"
+                                    noDescPrompt={true}
+                                    tagContent={`Question ${index + 1}`}
+                                />
                             </li>
                         );
                     })}

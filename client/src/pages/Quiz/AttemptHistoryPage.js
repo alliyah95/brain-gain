@@ -1,6 +1,7 @@
 import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData, Link } from "react-router-dom";
 import { formatDateTime } from "../../util/quiz";
+import Card from "../../components/UI/Card";
 
 const AttemptHistoryPage = () => {
     const { attemptHistory, quizName, quizDisplayId } = useLoaderData();
@@ -28,20 +29,15 @@ const AttemptHistoryPage = () => {
                     {attemptHistory.map((attempt) => {
                         return (
                             <li key={attempt.id}>
-                                <Link to={`/quiz/result/${attempt.id}`}>
-                                    <div className="preview-card">
-                                        <p className="font-semibold">
-                                            Attempt made on{" "}
-                                            {formatDateTime(
-                                                attempt.attemptDate
-                                            )}
-                                        </p>
-                                        <p className="text-muted-brown">
-                                            Score: {attempt.score}/
-                                            {attempt.totalScore}
-                                        </p>
-                                    </div>
-                                </Link>
+                                <Card
+                                    path={`/quiz/result/${attempt.id}`}
+                                    title={`Attempt made on ${formatDateTime(
+                                        attempt.attemptDate
+                                    )}`}
+                                    description={`Score: ${attempt.score}/${attempt.totalScore}`}
+                                    hasTag={false}
+                                    noDescPrompt={true}
+                                />
                             </li>
                         );
                     })}

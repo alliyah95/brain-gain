@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Card from "../../components/UI/Card";
 
 const MyActivityTab = ({ attemptHistory, currentUser }) => {
     return (
@@ -11,23 +11,17 @@ const MyActivityTab = ({ attemptHistory, currentUser }) => {
                     {attemptHistory.map((attempt) => {
                         return (
                             <li key={attempt.id}>
-                                <Link to={`/quiz/result/${attempt.id}`}>
-                                    <div className="preview-card">
-                                        <p className="tag bg-yellow text-white">
-                                            {currentUser !==
-                                            attempt.quizSetCreator
-                                                ? "others"
-                                                : "own quiz"}
-                                        </p>
-                                        <p className="font-semibold">
-                                            {attempt.quizTitle}
-                                        </p>
-                                        <p className="text-muted-brown">
-                                            Score: {attempt.score}/
-                                            {attempt.totalScore}
-                                        </p>
-                                    </div>
-                                </Link>
+                                <Card
+                                    path={`/quiz/result/${attempt.id}`}
+                                    title={attempt.quizTitle}
+                                    description={`Score: ${attempt.score}/${attempt.totalScore}`}
+                                    hasTag={true}
+                                    tagContent={
+                                        currentUser !== attempt.quizSetCreator
+                                            ? "others"
+                                            : "own quiz"
+                                    }
+                                />
                             </li>
                         );
                     })}
