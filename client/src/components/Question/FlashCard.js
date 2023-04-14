@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FlashCard = ({ question, answer }) => {
+const Flashcard = ({ question, answer }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const flipHandler = () => {
@@ -26,4 +26,4 @@ const FlashCard = ({ question, answer }) => {
     );
 };
 
-export default FlashCard;
+export default Flashcard;

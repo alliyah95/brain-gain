@@ -1,7 +1,7 @@
 import React from "react";
 import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData } from "react-router-dom";
-import QuestionForm from "../../components/Quiz/QuestionForm";
+import QuestionForm from "../../components/Question/QuestionForm";
 
 const EditQuestionPage = () => {
     const { question, quizDisplayId } = useLoaderData();

@@ -6,11 +6,11 @@ import {
     useRouteLoaderData,
     useParams,
 } from "react-router-dom";
-import FlashCard from "../../components/Question/FlashCard";
+import Flashcard from "../../components/Question/Flashcard";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import QuizTitleAndDescription from "../../components/Quiz/QuizTitleAndDescription";
+import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
 
 const FlashCardsPage = () => {
     const quizData = useLoaderData();
@@ -32,7 +32,7 @@ const FlashCardsPage = () => {
 
     return (
         <div className="max-w-[1200px] mx-auto">
-            <QuizTitleAndDescription
+            <FlashcardsAndTestHeader
                 title={quizData.title}
                 description={quizData.description}
                 creatorUsername={quizData.creatorUsername}
@@ -42,7 +42,7 @@ const FlashCardsPage = () => {
 
             {quizData.questions.length > 0 && (
                 <>
-                    <FlashCard
+                    <Flashcard
                         key={index}
                         question={quizData.questions[index].description}
                         answer={quizData.questions[index].answer}

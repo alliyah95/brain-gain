@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import QuestionForm from "../../components/Quiz/QuestionForm";
+import QuestionForm from "../../components/Question/QuestionForm";
 import {
     Link,
     useParams,

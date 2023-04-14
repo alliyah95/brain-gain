@@ -13,7 +13,7 @@ import { getAuthToken } from "../../util/auth";
 import UserContext from "../../store/user";
 import QuestionCard from "../../components/Question/QuestionCard";
 import Modal from "../../components/UI/Modal";
-import QuizTitleAndDescription from "../../components/Quiz/QuizTitleAndDescription";
+import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
 
 const TestPage = () => {
     const quizData = useLoaderData();
@@ -52,7 +52,7 @@ const TestPage = () => {
             )}
 
             <div className="max-w-[1200px] mx-auto">
-                <QuizTitleAndDescription
+                <FlashcardsAndTestHeader
                     title={quizData.title}
                     description={quizData.description}
                     creatorUsername={quizData.creatorUsername}

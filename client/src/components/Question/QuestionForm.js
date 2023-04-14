@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { customToast } from "../../util/customToast";
-import TrueOrFalse from "../Question/TrueOrFalse";
-import QuestionWithOptions from "../Question/QuestionWithOptions";
+import TrueOrFalse from "./TrueOrFalse";
+import QuestionWithOptions from "./QuestionWithOptions";
 import Modal from "../UI/Modal";
 import { getOptionsInitialState } from "../../util/question";
 import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";

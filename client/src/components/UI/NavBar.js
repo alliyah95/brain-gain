@@ -15,7 +15,7 @@ import {
 import { logoutUser } from "../../util/auth";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 
-export default function Example({ tokenProp }) {
+export default function NavBar({ tokenProp }) {
     const [openNav, setOpenNav] = useState(false);
     const location = useLocation();
     const [path, setPath] = useState();

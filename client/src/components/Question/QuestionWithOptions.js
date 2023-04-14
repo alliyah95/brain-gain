@@ -1,5 +1,5 @@
 import React from "react";
-import OptionInput from "../Quiz/OptionInput";
+import OptionInput from "./OptionInput";
 
 const QuestionWithOptions = ({
     options,

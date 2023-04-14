@@ -6,7 +6,7 @@ import {
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
-import AuthenticationPage, { action as authAction } from "./pages/Auth";
+import AuthPage, { action as authAction } from "./pages/AuthPage";
 import { tokenLoader, authChecker } from "./util/auth";
 import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import QuizDetailPage, { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
@@ -40,12 +40,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: <AuthenticationPage />,
+                element: <AuthPage />,
                 action: authAction,
             },
             {
                 path: "/signup",
-                element: <AuthenticationPage />,
+                element: <AuthPage />,
                 action: authAction,
             },
             {
@@ -107,8 +107,6 @@ const router = createBrowserRouter([
     },
 ]);
 
-function App() {
-    return <RouterProvider router={router} />;
-}
+const App = () => <RouterProvider router={router} />;
 
 export default App;

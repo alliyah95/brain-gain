@@ -11,7 +11,7 @@ import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
 import { customToast } from "../util/customToast";
 
-const AuthenticationPage = () => {
+const AuthPage = () => {
     const location = useLocation();
     const token = useRouteLoaderData("root");
     const navigate = useNavigate();
@@ -71,7 +71,7 @@ const AuthenticationPage = () => {
     );
 };
 
-export default AuthenticationPage;
+export default AuthPage;
 
 export const action = async ({ request }) => {
     const data = await request.formData();
