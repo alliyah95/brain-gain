@@ -127,6 +127,12 @@
     .btn--link {
         @apply text-sm bg-light-brown text-brown hover:bg-light-brown-h font-bold uppercase px-5 py-1;
     }
+    .btn--pagination {
+        @apply py-2 px-4 border bg-transparent border-brown text-brown rounded-lg h-auto cursor-pointer text-sm;
+    }
+    .btn--pagination-active {
+        @apply bg-brown text-light-brown;
+    }
     .line-input {
         @apply w-full bg-transparent border-brown border-b-[1px] outline-none pb-2 placeholder-muted-brown text-brown placeholder-opacity-75 focus:placeholder-opacity-0;
     }

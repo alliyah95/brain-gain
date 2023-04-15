@@ -21,7 +21,7 @@ const HomePage = () => {
     }
 
     return (
-        <div className="md:px-5 xl:px-8">
+        <div className="md:px-5 xl:px-8 h-full">
             <ul className="flex flex-row gap-4 border-b-[1px] border-b-brown py-2 mb-4 font-bold">
                 <li>
                     <Link
