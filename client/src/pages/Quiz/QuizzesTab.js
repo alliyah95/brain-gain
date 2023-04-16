@@ -17,14 +17,7 @@ const QuizzesTab = ({ quizSets }) => {
         } else if (isExtraLargeScreen) {
             setNumCards(15);
         }
-    }, [
-        isSmallScreen,
-        isLargeScreen,
-        isExtraLargeScreen,
-        quizSets.length,
-        numCards,
-        currentPage,
-    ]);
+    }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
 
     if (quizSets.length === 0) {
         return <p className="italic">You don't have any quiz sets yet.</p>;
@@ -48,7 +41,7 @@ const QuizzesTab = ({ quizSets }) => {
     const currentCards = cards.slice(firstCardIndex, lastCardIndex);
 
     return (
-        <div className="overflow-hidden">
+        <div>
             <PaginationContainer cards={currentCards} />
             <PaginationNav
                 totalCards={cards.length}
