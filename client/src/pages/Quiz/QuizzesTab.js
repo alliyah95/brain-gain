@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
-import { useMediaQuery } from "react-responsive";
 import Card from "../../components/UI/Card";
 import PaginationContainer from "../../components/Pagination/PaginationContainer";
 import PaginationNav from "../../components/Pagination/PaginationNav";
+import useMedia from "../../hooks/useMedia";
 
 const QuizzesTab = ({ quizSets }) => {
-    const isSmallScreen = useMediaQuery({ query: "(max-width: 959.99px)" });
-    const isLargeScreen = useMediaQuery({
-        query: "(min-width: 960px) and (max-width: 1139.99px)",
-    });
-    const isExtraLargeScreen = useMediaQuery({ query: "(min-width: 1140px)" });
+    const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
     const [currentPage, setCurrentPage] = useState(1);
     const [numCards, setNumCards] = useState(6);
-    const [firstCard, setFirstCard] = useState(0);
 
     useEffect(() => {
         if (isSmallScreen) {
@@ -22,10 +17,6 @@ const QuizzesTab = ({ quizSets }) => {
         } else if (isExtraLargeScreen) {
             setNumCards(15);
         }
-
-        const newTotalPages = Math.ceil(quizSets.length / numCards);
-        const newCurrentPage = Math.min(currentPage, newTotalPages);
-        setCurrentPage(newCurrentPage);
     }, [
         isSmallScreen,
         isLargeScreen,
@@ -64,7 +55,6 @@ const QuizzesTab = ({ quizSets }) => {
                 cardsPerPage={numCards}
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
-                firstCardIndex={firstCard}
             />
         </div>
     );

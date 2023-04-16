@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import useMedia from "../../hooks/useMedia";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const getPageNumbers = (totalCards, cardsPerPage) => {
@@ -15,12 +16,21 @@ const PaginationNav = ({
     setCurrentPage,
     currentPage,
 }) => {
-    const [currentBtnGroup, setCurrentBtnGroup] = useState([]);
     const pageNumbers = getPageNumbers(totalCards, cardsPerPage);
+    const [currentBtnGroup, setCurrentBtnGroup] = useState(
+        pageNumbers.slice(0, 3)
+    );
+    const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
 
     useEffect(() => {
-        setCurrentBtnGroup(pageNumbers.slice(0, 3));
-    }, []);
+        if (!pageNumbers.includes(currentPage)) {
+            setCurrentPage(pageNumbers.length);
+            const startIndex = Math.max(0, pageNumbers.length - 3);
+            setCurrentBtnGroup(
+                pageNumbers.slice(startIndex, pageNumbers.length)
+            );
+        }
+    }, [isSmallScreen, isLargeScreen, isExtraLargeScreen, pageNumbers]);
 
     useEffect(() => {
         if (!currentBtnGroup.includes(currentPage)) {
