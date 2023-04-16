@@ -17,7 +17,7 @@ import {
     PlusIcon,
     ShareIcon,
 } from "@heroicons/react/24/solid";
-import Card from "../../components/UI/Card";
+import QuestionsList from "../../components/Question/QuestionsList";
 
 const QuizDetailPage = () => {
     const data = useLoaderData();
@@ -153,29 +153,10 @@ const QuizDetailPage = () => {
                 />
             )}
 
-            {quizData.questions.length === 0 && (
-                <p className="text-yellow mt-2">
-                    There are currently no questions in this quiz
-                </p>
-            )}
-            {quizData.questions && (
-                <ul className="my-8 preview-card-container">
-                    {quizData.questions.map((question, index) => {
-                        return (
-                            <li key={question._id}>
-                                <Card
-                                    path={`/quiz/${displayId}/question/${question._id}/edit`}
-                                    title={question.description}
-                                    hasTag={true}
-                                    tagType="no-bg"
-                                    noDescPrompt={true}
-                                    tagContent={`Question ${index + 1}`}
-                                />
-                            </li>
-                        );
-                    })}
-                </ul>
-            )}
+            <QuestionsList
+                questions={quizData.questions}
+                displayId={displayId}
+            />
         </div>
     );
 };
