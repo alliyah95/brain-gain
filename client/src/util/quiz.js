@@ -42,3 +42,18 @@ export const formatDateTime = (dateTime) => {
     const formattedDatetime = `${month} ${attemptDate.getDate()}, ${attemptDate.getFullYear()} at ${time}`;
     return formattedDatetime;
 };
+
+export const getNumCards = (
+    isSmallScreen,
+    isLargeScreen,
+    isExtraLargeScreen,
+    compact = true
+) => {
+    if (isSmallScreen) {
+        return compact ? 9 : 6;
+    } else if (isLargeScreen) {
+        return compact ? 18 : 12;
+    } else if (isExtraLargeScreen) {
+        return compact ? 21 : 15;
+    }
+};

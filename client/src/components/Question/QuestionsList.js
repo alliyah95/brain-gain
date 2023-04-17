@@ -3,20 +3,18 @@ import Card from "../UI/Card";
 import PaginationContainer from "../Pagination/PaginationContainer";
 import PaginationNav from "../Pagination/PaginationNav";
 import useMedia from "../../hooks/useMedia";
+import { getNumCards } from "../../util/quiz";
 
 const QuestionsList = ({ questions, displayId }) => {
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
     const [currentPage, setCurrentPage] = useState(1);
-    const [numCards, setNumCards] = useState(9);
-
+    const [numCards, setNumCards] = useState(
+        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+    );
     useEffect(() => {
-        if (isSmallScreen) {
-            setNumCards(9);
-        } else if (isLargeScreen) {
-            setNumCards(18);
-        } else if (isExtraLargeScreen) {
-            setNumCards(21);
-        }
+        setNumCards(
+            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+        );
     }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
 
     if (questions.length === 0) {
@@ -45,7 +43,7 @@ const QuestionsList = ({ questions, displayId }) => {
     const currentCards = cards.slice(firstCardIndex, lastCardIndex);
 
     return (
-        <div>
+        <div className="my-8">
             <PaginationContainer cards={currentCards} />
             <PaginationNav
                 totalCards={cards.length}

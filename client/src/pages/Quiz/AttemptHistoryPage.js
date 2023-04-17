@@ -6,30 +6,20 @@ import Card from "../../components/UI/Card";
 import PaginationContainer from "../../components/Pagination/PaginationContainer";
 import PaginationNav from "../../components/Pagination/PaginationNav";
 import useMedia from "../../hooks/useMedia";
+import { getNumCards } from "../../util/quiz";
 
 const AttemptHistoryPage = () => {
     const { attemptHistory, quizName, quizDisplayId } = useLoaderData();
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
     const [currentPage, setCurrentPage] = useState(1);
-    const [numCards, setNumCards] = useState(6);
-
+    const [numCards, setNumCards] = useState(
+        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+    );
     useEffect(() => {
-        if (isSmallScreen) {
-            setNumCards(6);
-        } else if (isLargeScreen) {
-            setNumCards(12);
-        } else if (isExtraLargeScreen) {
-            setNumCards(15);
-        }
+        setNumCards(
+            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+        );
     }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
-
-    // if (attemptHistory.length === 0) {
-    //     return (
-    //         <p className="text-yellow italic mt-2">
-    //             You have not taken this quiz yet
-    //         </p>
-    //     );
-    // }
 
     const cards = attemptHistory.map((attempt) => {
         return (
