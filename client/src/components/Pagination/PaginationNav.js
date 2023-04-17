@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import useMedia from "../../hooks/useMedia";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
@@ -20,38 +20,47 @@ const PaginationNav = ({
     const [currentBtnGroup, setCurrentBtnGroup] = useState(
         pageNumbers.slice(0, 3)
     );
-    const memoizedSetCurrentBtnGroup = useCallback(
-        (newGroup) => setCurrentBtnGroup(newGroup),
-        [setCurrentBtnGroup]
-    );
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
 
-    // useEffect(() => {
-    //     if (!pageNumbers.includes(currentPage)) {
-    //         setCurrentPage(pageNumbers.length);
-    //         const startIndex = Math.max(0, pageNumbers.length - 3);
-    //         setCurrentBtnGroup(
-    //             pageNumbers.slice(startIndex, pageNumbers.length)
-    //         );
-    //     }
-    // }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
+    useEffect(() => {
+        if (!pageNumbers.includes(currentPage)) {
+            setCurrentPage(pageNumbers.length);
+            const startIndex = Math.max(0, pageNumbers.length - 3);
+            setCurrentBtnGroup(
+                pageNumbers.slice(startIndex, pageNumbers.length)
+            );
+        }
+    }, [
+        isSmallScreen,
+        isLargeScreen,
+        isExtraLargeScreen,
+        pageNumbers,
+        currentPage,
+        setCurrentPage,
+    ]);
 
-    // useEffect(() => {
-    //     if (!currentBtnGroup.includes(currentPage)) {
-    //         const currentPageIndex = pageNumbers.indexOf(currentPage);
-    //         let newGroup = [];
+    useEffect(() => {
+        if (!currentBtnGroup.includes(currentPage)) {
+            const currentPageIndex = pageNumbers.indexOf(currentPage);
+            let newGroup = [];
 
-    //         if (currentPageIndex === 0) {
-    //             newGroup = pageNumbers.slice(0, 3);
-    //         } else if (currentPageIndex === pageNumbers.length - 1) {
-    //             newGroup = pageNumbers.slice(-3);
-    //         } else {
-    //             newGroup = [currentPage - 1, currentPage, currentPage + 1];
-    //         }
+            if (currentPageIndex === 0) {
+                newGroup = pageNumbers.slice(0, 3);
+            } else if (currentPageIndex === pageNumbers.length - 1) {
+                newGroup = pageNumbers.slice(-3);
+            } else {
+                newGroup = [currentPage - 1, currentPage, currentPage + 1];
+            }
 
-    //         memoizedSetCurrentBtnGroup(newGroup);
-    //     }
-    // }, [currentBtnGroup, currentPage]);
+            setCurrentBtnGroup(newGroup);
+        }
+    }, [
+        currentBtnGroup,
+        currentPage,
+        pageNumbers,
+        setCurrentPage,
+        setCurrentBtnGroup,
+    ]);
 
     if (pageNumbers.length <= 1) {
         return;
