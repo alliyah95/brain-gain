@@ -9,11 +9,11 @@ const QuestionsList = ({ questions, displayId }) => {
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
     const [currentPage, setCurrentPage] = useState(1);
     const [numCards, setNumCards] = useState(
-        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen, true)
     );
     useEffect(() => {
         setNumCards(
-            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen, true)
         );
     }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
 
@@ -44,7 +44,12 @@ const QuestionsList = ({ questions, displayId }) => {
 
     return (
         <div className="my-8">
-            <PaginationContainer cards={currentCards} />
+            <PaginationContainer
+                cards={currentCards}
+                smHeight="800px"
+                lgHeight="900px"
+                xlHeight="665px"
+            />
             <PaginationNav
                 totalCards={cards.length}
                 cardsPerPage={numCards}

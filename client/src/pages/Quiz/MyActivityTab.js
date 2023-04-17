@@ -43,7 +43,7 @@ const MyActivityTab = ({ attemptHistory, currentUser }) => {
 
     return (
         <div>
-            <PaginationContainer cards={currentCards} />
+            <PaginationContainer cards={currentCards} smHeight="850px" />
             <PaginationNav
                 totalCards={cards.length}
                 cardsPerPage={numCards}

@@ -13,11 +13,11 @@ const AttemptHistoryPage = () => {
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();
     const [currentPage, setCurrentPage] = useState(1);
     const [numCards, setNumCards] = useState(
-        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+        getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen, false)
     );
     useEffect(() => {
         setNumCards(
-            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen)
+            getNumCards(isSmallScreen, isLargeScreen, isExtraLargeScreen, false)
         );
     }, [isSmallScreen, isLargeScreen, isExtraLargeScreen]);
 
@@ -56,7 +56,12 @@ const AttemptHistoryPage = () => {
             </div>
 
             <div>
-                <PaginationContainer cards={currentCards} />
+                <PaginationContainer
+                    cards={currentCards}
+                    smHeight="900px"
+                    lgHeight="900px"
+                    xlHeight="665px"
+                />
                 <PaginationNav
                     totalCards={cards.length}
                     cardsPerPage={numCards}

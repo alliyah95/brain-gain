@@ -34,7 +34,7 @@
         @apply text-2xl md:text-3xl font-bold;
     }
     main {
-        @apply w-[90%] mx-auto;
+        @apply w-[90%] mx-auto min-h-[80vh];
     }
     input[type="checkbox"],
     input[type="radio"] {
