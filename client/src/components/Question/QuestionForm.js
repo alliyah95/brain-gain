@@ -178,14 +178,17 @@ const QuestionForm = (props) => {
                 ? `add_question/${props.displayId}`
                 : `edit_question/${props.displayId}/${props.questionData._id}`;
 
-        const response = await fetch(`http://localhost:8080/api/${api}`, {
-            method: props.method,
-            body: JSON.stringify(questionData),
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            },
-        });
+        const response = await fetch(
+            `${process.env.REACT_APP_BACKEND_API}${api}`,
+            {
+                method: props.method,
+                body: JSON.stringify(questionData),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            }
+        );
 
         if (!response.ok) {
             throw json(

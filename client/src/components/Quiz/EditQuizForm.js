@@ -25,7 +25,7 @@ const EditQuizForm = () => {
         setShowDeleteModal(false);
 
         const response = await fetch(
-            "http://localhost:8080/api/delete_quiz/" + displayId,
+            `${process.env.REACT_APP_BACKEND_API}delete_quiz/${displayId}`,
             {
                 method: "DELETE",
                 headers: {

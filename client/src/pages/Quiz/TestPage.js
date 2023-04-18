@@ -118,7 +118,7 @@ export const checkQuizResults = async ({ request, params }) => {
     }
 
     const response = await fetch(
-        `http://localhost:8080/api/check_quiz/${displayId}`,
+        `${process.env.REACT_APP_BACKEND_API}check_quiz/${displayId}`,
         {
             method: "POST",
             body: JSON.stringify(answers),

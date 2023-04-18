@@ -26,14 +26,17 @@ export const createQuizAction = async ({ request }) => {
     };
 
     const token = getAuthToken();
-    const response = await fetch("http://localhost:8080/api/create_quiz", {
-        method: "POST",
-        body: JSON.stringify(quizData),
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-        },
-    });
+    const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_API}create_quiz`,
+        {
+            method: "POST",
+            body: JSON.stringify(quizData),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+            },
+        }
+    );
 
     if (response.status === 400) {
         return response;

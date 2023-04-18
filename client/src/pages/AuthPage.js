@@ -90,11 +90,14 @@ export const action = async ({ request }) => {
         userCredentials.confirmedPassword = data.get("confirmedPassword");
     }
 
-    const response = await fetch(`http://localhost:8080/api/${action}`, {
-        method: "POST",
-        body: JSON.stringify(userCredentials),
-        headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_API}${action}`,
+        {
+            method: "POST",
+            body: JSON.stringify(userCredentials),
+            headers: { "Content-Type": "application/json" },
+        }
+    );
 
     if (response.status === 400 || response.status === 401) {
         return response;

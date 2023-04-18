@@ -80,7 +80,7 @@ export const attemptHistoryLoader = async ({ request, params }) => {
     const quizDisplayId = params.displayId;
 
     const response = await fetch(
-        `http://localhost:8080/api/get_attempt_history/${quizDisplayId}`,
+        `${process.env.REACT_APP_BACKEND_API}get_attempt_history/${quizDisplayId}`,
         {
             method: "GET",
             headers: {

@@ -61,7 +61,7 @@ export const homeDataLoader = async ({ request }) => {
     };
 
     const response = await fetch(
-        `http://localhost:8080/api/${ENDPOINTS[tab] || "quiz_sets"}`,
+        `${process.env.REACT_APP_BACKEND_API}${ENDPOINTS[tab] || "quiz_sets"}`,
         {
             headers: {
                 "Content-Type": "application/json",

@@ -25,7 +25,7 @@ export const questionLoader = async ({ request, params }) => {
     const token = getAuthToken();
 
     const response = await fetch(
-        `http://localhost:8080/api/get_question/${quizDisplayId}/${questionId}`,
+        `${process.env.REACT_APP_BACKEND_API}get_question/${quizDisplayId}/${questionId}`,
         {
             headers: {
                 Authorization: "Bearer " + token,

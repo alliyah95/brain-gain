@@ -4,7 +4,7 @@ export const loadQuizDetail = async (displayId, token) => {
     const access = !token ? "/public" : "";
 
     const response = await fetch(
-        `http://localhost:8080/api/quiz/${displayId}${access}`,
+        `${process.env.REACT_APP_BACKEND_API}quiz/${displayId}${access}`,
         {
             headers: {
                 "Content-Type": "application/json",

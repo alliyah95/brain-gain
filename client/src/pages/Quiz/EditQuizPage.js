@@ -28,7 +28,7 @@ export const editQuizAction = async ({ request, params }) => {
     };
 
     const response = await fetch(
-        "http://localhost:8080/api/update_quiz/" + quizDisplayId,
+        `${process.env.REACT_APP_BACKEND_API}update_quiz/${quizDisplayId}`,
         {
             method: request.method,
             body: JSON.stringify(newQuizData),
