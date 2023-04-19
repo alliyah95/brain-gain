@@ -19,7 +19,6 @@ const TestPage = () => {
     const quizData = useLoaderData();
     const token = useRouteLoaderData("root");
     const [showConfirmationModal, setConfirmationModal] = useState(true);
-    const [showWarningModal, setShowWarningModal] = useState(true);
     const navigate = useNavigate();
     const userCtx = useContext(UserContext);
     const { displayId } = useParams();
@@ -41,7 +40,7 @@ const TestPage = () => {
 
     return (
         <>
-            {showConfirmationModal && (
+            {quizData.questions.length > 0 && showConfirmationModal && (
                 <Modal
                     message={`You are about to take the quiz ${quizData.title}.`}
                     actionBtn="Continue"
@@ -89,7 +88,7 @@ const TestPage = () => {
                 {quizData.questions.length === 0 && (
                     <div className="text-center my-20 px-4">
                         <p className="text-2xl lg:text-3xl font-bold mb-5">
-                            Oops! This quiz does not have any questions yet
+                            Oops! This quiz does not have any questions yet.
                         </p>
 
                         {token && (

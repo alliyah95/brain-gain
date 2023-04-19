@@ -7,6 +7,7 @@ const QuizTitleAndDescription = ({
     creatorUsername,
     type,
     displayId,
+    numQuestions,
 }) => {
     return (
         <div className="text-center">
@@ -15,7 +16,7 @@ const QuizTitleAndDescription = ({
             <p className="text-yellow my-2">
                 created by <span className="font-bold">{creatorUsername}</span>
             </p>
-            {type === "flashcards" && (
+            {numQuestions > 0 && type === "flashcards" && (
                 <Link
                     className="btn inline-flex items-center gap-x-2 mx-auto"
                     to={`/quiz/${displayId}/test`}
@@ -25,7 +26,7 @@ const QuizTitleAndDescription = ({
                     Take quiz
                 </Link>
             )}
-            {type === "test" && (
+            {numQuestions > 0 && type === "test" && (
                 <Link
                     className="btn inline-flex items-center gap-x-2"
                     to={`/quiz/${displayId}/flashcards`}

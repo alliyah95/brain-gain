@@ -38,6 +38,7 @@ const FlashCardsPage = () => {
                 creatorUsername={quizData.creatorUsername}
                 type="flashcards"
                 displayId={displayId}
+                numQuestions={quizData.questions.length}
             />
 
             {quizData.questions.length > 0 && (
@@ -64,9 +65,9 @@ const FlashCardsPage = () => {
             )}
 
             {quizData.questions.length === 0 && (
-                <div className="my-20 px-4">
+                <div className="text-center my-20 px-4">
                     <p className="text-2xl lg:text-3xl font-bold mb-5">
-                        Oops! This quiz does not have any questions yet
+                        Oops! This quiz does not have any questions yet.
                     </p>
                     {token && (
                         <Link className="btn" to={`/home`}>
