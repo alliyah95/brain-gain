@@ -55,10 +55,10 @@
         @apply w-[92%] md:w-[90%] max-w-full mx-auto;
     }
     .auth-container {
-        @apply flex flex-col lg:flex-row min-h-screen lg:min-h-0 lg:h-[90vh] justify-between lg:w-[90%] lg:mx-auto lg:items-center;
+        @apply flex flex-col lg:flex-row min-h-[80vh] mx-auto md:justify-center items-center;
     }
     .auth-form-container {
-        @apply w-[95%] mx-auto mt-12 lg:mt-0 lg:w-[50%] 2xl:px-[140px] mb-8;
+        @apply mx-auto mt-12 lg:mt-0 mb-8 max-w-md;
     }
     .form-title {
         @apply font-bold text-2xl lg:text-3xl text-brown;

@@ -3,35 +3,39 @@ import { Link, Form } from "react-router-dom";
 const RegistrationForm = () => {
     return (
         <Form action="" method="post">
-            <div className="space-y-5 mb-8">
+            <div className="space-y-4 mb-8">
                 <input
                     type="text"
                     className="line-input"
-                    placeholder="Name"
+                    placeholder="Alliyah joyce"
                     name="name"
                     required
                 />
+                <label>Name</label>
                 <input
                     type="text"
                     className="line-input"
-                    placeholder="Username"
+                    placeholder="alliyah95"
                     name="username"
                     required
                 />
+                <label>Username</label>
                 <input
                     type="password"
                     className="line-input"
-                    placeholder="Password"
+                    placeholder="••••••••"
                     name="password"
                     required
                 />
+                <label>Password</label>
                 <input
                     type="password"
                     className="line-input"
-                    placeholder="Confirm password"
+                    placeholder="••••••••"
                     name="confirmedPassword"
                     required
                 />
+                <label>Confirm password</label>
             </div>
 
             <button className="btn w-full mb-3">Create account</button>

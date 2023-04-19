@@ -4,21 +4,23 @@ const LoginForm = () => {
     return (
         <>
             <Form method="post">
-                <div className="space-y-5 mb-8">
+                <div className="space-y-4 mb-8">
                     <input
                         type="text"
                         className="line-input"
-                        placeholder="Username"
+                        placeholder="alliyah95"
                         name="username"
                         required
                     />
+                    <label>Username</label>
                     <input
                         type="password"
                         className="line-input"
-                        placeholder="Password"
+                        placeholder="••••••••"
                         name="password"
                         required
                     />
+                    <label>Password</label>
                 </div>
 
                 <button className="btn w-full mb-3">Sign in</button>

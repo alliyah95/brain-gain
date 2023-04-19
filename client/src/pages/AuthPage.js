@@ -52,20 +52,13 @@ const AuthPage = () => {
     return (
         <div className="auth-container">
             <div className="auth-form-container">
-                <div className="text-center lg:text-start mb-9">
+                <div className="text-start mb-9">
                     <h2 className="text-brown text-4xl md:text-5xl font-bold mb-2">
                         {header}
                     </h2>
-                    <p>{subtitle}</p>
+                    <p className="text-sm md:text-base">{subtitle}</p>
                 </div>
                 {form}
-            </div>
-            <div className="lg:w-[50%]">
-                <img
-                    src="/assets/landing.png"
-                    alt="Illustration"
-                    className="w-[350px] md:w-[400px] xl:w-[500px] mx-auto"
-                />
             </div>
         </div>
     );
