@@ -12,7 +12,7 @@ import { loadQuizDetail } from "../../util/quiz";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
 
-const FlashCardsPage = () => {
+const FlashcardsPage = () => {
     const quizData = useLoaderData();
     const [index, setIndex] = useState(0);
     const token = useRouteLoaderData("root");
@@ -80,7 +80,7 @@ const FlashCardsPage = () => {
     );
 };
 
-export default FlashCardsPage;
+export default FlashcardsPage;
 
 export const publicQuizDetailLoader = async ({ params }) => {
     const quizDisplayId = params.displayId;

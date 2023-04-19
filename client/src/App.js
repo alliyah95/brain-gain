@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
     createBrowserRouter,
     redirect,
@@ -5,24 +6,31 @@ import {
 } from "react-router-dom";
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
-import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
-import AuthPage, { action as authAction } from "./pages/AuthPage";
+import Spinner from "./components/UI/Spinner";
+import { action as authAction } from "./pages/AuthPage";
 import { tokenLoader, authChecker } from "./util/auth";
 import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
-import QuizDetailPage, { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
-import EditQuizPage, { editQuizAction } from "./pages/Quiz/EditQuizPage";
-import EditQuestionPage, {
-    questionLoader,
-} from "./pages/Quiz/EditQuestionPage";
-import FlashCardsPage, {
-    publicQuizDetailLoader,
-} from "./pages/Quiz/FlashCardsPage";
-import TestPage, { checkQuizResults } from "./pages/Quiz/TestPage";
-import QuizResultsPage, { resultsLoader } from "./pages/Quiz/QuizResultsPage";
-import AttemptHistoryPage, {
-    attemptHistoryLoader,
-} from "./pages/Quiz/AttemptHistoryPage";
-import HomePage, { homeDataLoader } from "./pages/HomePage";
+import { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
+import { editQuizAction } from "./pages/Quiz/EditQuizPage";
+import { questionLoader } from "./pages/Quiz/EditQuestionPage";
+import { publicQuizDetailLoader } from "./pages/Quiz/FlashcardsPage";
+import { checkQuizResults } from "./pages/Quiz/TestPage";
+import { resultsLoader } from "./pages/Quiz/QuizResultsPage";
+import { attemptHistoryLoader } from "./pages/Quiz/AttemptHistoryPage";
+import { homeDataLoader } from "./pages/HomePage";
+
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const CreateQuizPage = lazy(() => import("./pages/Quiz/CreateQuizPage"));
+const EditQuizPage = lazy(() => import("./pages/Quiz/EditQuizPage"));
+const QuizDetailPage = lazy(() => import("./pages/Quiz/QuizDetailPage"));
+const EditQuestionPage = lazy(() => import("./pages/Quiz/EditQuestionPage"));
+const FlashcardsPage = lazy(() => import("./pages/Quiz/FlashcardsPage"));
+const TestPage = lazy(() => import("./pages/Quiz/TestPage"));
+const QuizResultsPage = lazy(() => import("./pages/Quiz/QuizResultsPage"));
+const AttemptHistoryPage = lazy(() =>
+    import("./pages/Quiz/AttemptHistoryPage")
+);
 
 const router = createBrowserRouter([
     {
@@ -40,12 +48,20 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                element: <AuthPage />,
+                element: (
+                    <Suspense fallback={<Spinner />}>
+                        <AuthPage />
+                    </Suspense>
+                ),
                 action: authAction,
             },
             {
                 path: "/signup",
-                element: <AuthPage />,
+                element: (
+                    <Suspense fallback={<Spinner />}>
+                        <AuthPage />
+                    </Suspense>
+                ),
                 action: authAction,
             },
             {
@@ -55,52 +71,88 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "create_quiz",
-                        element: <CreateQuizPage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <CreateQuizPage />
+                            </Suspense>
+                        ),
                         action: createQuizAction,
                     },
                     {
                         index: true,
                         path: "/home",
-                        element: <HomePage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <HomePage />
+                            </Suspense>
+                        ),
                         loader: homeDataLoader,
                     },
                     {
                         path: "quiz/:displayId",
-                        element: <QuizDetailPage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <QuizDetailPage />
+                            </Suspense>
+                        ),
                         loader: quizDetailLoader,
                     },
                     {
                         path: "quiz/:displayId/edit",
-                        element: <EditQuizPage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <EditQuizPage />
+                            </Suspense>
+                        ),
                         loader: quizDetailLoader,
                         action: editQuizAction,
                     },
                     {
                         path: "quiz/:displayId/question/:questionId/edit",
-                        element: <EditQuestionPage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <EditQuestionPage />
+                            </Suspense>
+                        ),
                         loader: questionLoader,
                     },
                     {
                         path: "quiz/:displayId/attempt_history",
-                        element: <AttemptHistoryPage />,
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <AttemptHistoryPage />
+                            </Suspense>
+                        ),
                         loader: attemptHistoryLoader,
                     },
                 ],
             },
             {
                 path: "quiz/:displayId/flashcards",
-                element: <FlashCardsPage />,
+                element: (
+                    <Suspense fallback={<Spinner />}>
+                        <FlashcardsPage />
+                    </Suspense>
+                ),
                 loader: publicQuizDetailLoader,
             },
             {
                 path: "quiz/:displayId/test",
-                element: <TestPage />,
+                element: (
+                    <Suspense fallback={<Spinner />}>
+                        <TestPage />
+                    </Suspense>
+                ),
                 loader: publicQuizDetailLoader,
                 action: checkQuizResults,
             },
             {
                 path: "quiz/result/:attemptId",
-                element: <QuizResultsPage />,
+                element: (
+                    <Suspense fallback={<Spinner />}>
+                        <QuizResultsPage />
+                    </Suspense>
+                ),
                 loader: resultsLoader,
             },
         ],
