@@ -55,7 +55,7 @@ export const resultsLoader = async ({ params }) => {
     const token = getAuthToken();
 
     const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_APIL}get_attempt_details/${attemptId}`,
+        `${process.env.REACT_APP_BACKEND_API}get_attempt_details/${attemptId}`,
         {
             method: "GET",
             headers: { Authorization: "Bearer " + token },

@@ -11,6 +11,7 @@ const Footer = () => {
                         <a
                             href="https://github.com/alliyah95"
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="hover:text-yellow"
                         >
                             Alliyah

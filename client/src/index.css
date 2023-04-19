@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-    p,
-    span,
-    div,
     h1,
     h2,
     h3,
@@ -95,7 +92,7 @@
 
     .flip-card-front,
     .flip-card-back {
-        @apply absolute text-center p-5;
+        @apply absolute text-center p-5 md:p-8 xl:p-12;
         backface-visibility: hidden;
     }
 
