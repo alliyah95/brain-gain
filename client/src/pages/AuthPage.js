@@ -6,12 +6,10 @@ import {
     useActionData,
     json,
     redirect,
-    useNavigation,
 } from "react-router-dom";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
 import { customToast } from "../util/customToast";
-import Spinner from "../components/UI/Spinner";
 
 const AuthPage = () => {
     const location = useLocation();
@@ -19,7 +17,6 @@ const AuthPage = () => {
     const navigate = useNavigate();
     const [render, setRender] = useState(false);
     const error = useActionData();
-    const navigation = useNavigation();
 
     useEffect(() => {
         if (token) {
@@ -54,8 +51,6 @@ const AuthPage = () => {
 
     return (
         <>
-            {navigation.state === "submitting" && <Spinner />}
-            {navigation.state === "loading" && <Spinner />}
             <div className="auth-container">
                 <div className="auth-form-container">
                     <div className="text-start mb-9">

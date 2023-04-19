@@ -2,14 +2,16 @@ import React, { useEffect } from "react";
 import ParticlesBackground from "../components/UI/ParticlesBackground";
 import NavBar from "../components/UI/NavBar";
 import Footer from "../components/UI/Footer";
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getTokenDuration } from "../util/auth";
 import { logoutUser } from "../util/auth";
+import Spinner from "../components/UI/Spinner";
 
 const Root = () => {
     const token = useLoaderData();
+    const navigation = useNavigation();
 
     useEffect(() => {
         if (!token) {
@@ -33,6 +35,8 @@ const Root = () => {
                 <NavBar />
             </header>
             <main>
+                {navigation.state === "submitting" && <Spinner />}
+                {navigation.state === "loading" && <Spinner />}
                 <Outlet />
                 <ToastContainer
                     hideProgressBar={true}
