@@ -7,7 +7,7 @@ const Footer = () => {
                 <h2 className="font-bold text-2xl md:text-3xl">brain gain</h2>
                 <div className="flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-2">
                     <p className="text-sm md:text-base">
-                        Built with <span className="text-yellow">♥</span> by{" "}
+                        Built with 💛 by{" "}
                         <a
                             href="https://github.com/alliyah95"
                             target="_blank"
@@ -20,6 +20,8 @@ const Footer = () => {
                     <a
                         className="hover:text-yellow"
                         href="https://github.com/alliyah95/brain-gain"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

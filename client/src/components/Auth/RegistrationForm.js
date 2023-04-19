@@ -7,7 +7,7 @@ const RegistrationForm = () => {
                 <input
                     type="text"
                     className="line-input"
-                    placeholder="Alliyah joyce"
+                    placeholder="Alliyah Joyce"
                     name="name"
                     required
                 />
