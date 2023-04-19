@@ -1,10 +1,17 @@
-import { LinkIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import { LinkIcon, CheckIcon } from "@heroicons/react/24/solid";
 import { customToast } from "../../util/customToast";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const ShareQuiz = ({ link, title }) => {
-    const copyHandler = () => {
-        navigator.clipboard.writeText(link);
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleCopy = () => {
+        setIsCopied(true);
         customToast("success", `${title} link copied to clipboard!`);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 1500);
     };
 
     return (
@@ -17,9 +24,15 @@ const ShareQuiz = ({ link, title }) => {
                     readOnly
                     className="w-full bg-brown bg-opacity-10 text-brown rounded-md p-2 text-sm outline-none"
                 />
-                <button className="btn px-3 lg:px-4" onClick={copyHandler}>
-                    <LinkIcon className="h-4 w-4" />
-                </button>
+                <CopyToClipboard text={link} onCopy={handleCopy}>
+                    <button className="btn px-3 lg:px-4">
+                        {isCopied ? (
+                            <CheckIcon className="h-4 w-4" />
+                        ) : (
+                            <LinkIcon className="h-4 w-4" />
+                        )}
+                    </button>
+                </CopyToClipboard>
             </div>
         </div>
     );
