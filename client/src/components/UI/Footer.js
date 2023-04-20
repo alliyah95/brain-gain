@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="flex justify-center md:justify-end md:w-[90%] md:mx-auto">
                 <div className="flex flex-col items-center space-y-1 md:flex-row md:space-y-0 md:space-x-2">
                     <p className="text-sm md:text-base">
-                        Built with 💛 by{" "}
+                        Made with 💛 by{" "}
                         <a
                             href="https://github.com/alliyah95"
                             target="_blank"
