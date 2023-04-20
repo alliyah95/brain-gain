@@ -6,6 +6,7 @@ import QuestionWithOptions from "./QuestionWithOptions";
 import Modal from "../UI/Modal";
 import { getOptionsInitialState } from "../../util/question";
 import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import Spinner from "../../components/UI/Spinner";
 
 const QuestionForm = (props) => {
     const {
@@ -17,7 +18,7 @@ const QuestionForm = (props) => {
     const [questionDescription, setQuestionDescription] = useState(description);
     const [questionType, setQuestionType] = useState(type);
     const [correctAnswer, setCorrectAnswer] = useState(answer.toString());
-
+    const [isEditingQuestion, setIsEditingQuestion] = useState(false);
     const [choices, setChoices] = useState(() => {
         return getOptionsInitialState(props);
     });
@@ -171,6 +172,7 @@ const QuestionForm = (props) => {
                 }
             }
         }
+        setIsEditingQuestion(true);
         questionData.answer = correctAnswer;
 
         const api =
@@ -208,6 +210,7 @@ const QuestionForm = (props) => {
             props.onToggleForm();
             props.onAddQuestion();
         }
+        setIsEditingQuestion(false);
     };
 
     const deleteModalVisibilityHandler = (visibility) => {
@@ -216,6 +219,7 @@ const QuestionForm = (props) => {
 
     const deleteQuestionHandler = async () => {
         setShowDeleteModal(false);
+        setIsEditingQuestion(true);
 
         const response = await fetch(
             `http://localhost:8080/api/delete_question/${props.displayId}/${props.questionData._id}`,
@@ -246,6 +250,7 @@ const QuestionForm = (props) => {
 
         customToast("success", "Question successfully deleted");
         navigate(`/quiz/${props.displayId}`);
+        setIsEditingQuestion(false);
     };
 
     const cancelAddHandler = () => {
@@ -258,6 +263,7 @@ const QuestionForm = (props) => {
 
     return (
         <>
+            {isEditingQuestion && <Spinner />}
             {showDeleteModal && (
                 <Modal
                     onAction={deleteQuestionHandler}

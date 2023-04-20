@@ -32,11 +32,9 @@ const QuizDetailPage = () => {
     const { displayId } = useParams();
 
     const fetchQuizData = useCallback(async () => {
-        setIsAddingQuestion(true);
         const quizData = await loadQuizDetail(displayId, token);
         setQuizData(quizData);
         setNewQuestionAdded(false);
-        setIsAddingQuestion(false);
     }, [displayId, token]);
 
     useEffect(() => {
