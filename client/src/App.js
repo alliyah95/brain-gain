@@ -79,7 +79,6 @@ const router = createBrowserRouter([
                         action: createQuizAction,
                     },
                     {
-                        index: true,
                         path: "/home",
                         element: (
                             <Suspense fallback={<Spinner />}>
