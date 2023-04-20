@@ -21,7 +21,7 @@
         @apply max-w-full;
     }
     header {
-        @apply pb-4 md:py-6 lg:py-8;
+        @apply pb-8 md:py-6 lg:py-8;
     }
     nav {
         @apply flex justify-between items-center;

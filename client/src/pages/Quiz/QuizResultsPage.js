@@ -12,7 +12,7 @@ const QuizResultsPage = () => {
         <div className="max-w-[1200px] mx-auto text-center">
             <p className="font-bold text-2xl">{details.quizSet.title}</p>
             <p className="text-yellow mb-8">
-                Attempt made on {formattedDatetime} by user{" "}
+                Attempt made on {formattedDatetime} by{" "}
                 <span className="font-bold">{details.user}</span>
             </p>
 
