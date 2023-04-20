@@ -11,7 +11,7 @@ app.use(express.json());
 const allowedOrigins =
     process.env.NODE_ENV === "production"
         ? ["https://braingain.vercel.app"]
-        : ["http://localhost"];
+        : ["http://localhost:3000"];
 
 app.use(
     cors({

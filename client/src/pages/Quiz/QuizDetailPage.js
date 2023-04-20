@@ -18,7 +18,6 @@ import {
     ShareIcon,
 } from "@heroicons/react/24/solid";
 import QuestionsList from "../../components/Question/QuestionsList";
-import Spinner from "../../components/UI/Spinner";
 
 const QuizDetailPage = () => {
     const data = useLoaderData();
@@ -26,7 +25,6 @@ const QuizDetailPage = () => {
     const token = useRouteLoaderData("root");
     const [newQuestionAdded, setNewQuestionAdded] = useState(false);
     const [showAddQuestionBtn, setShowAddQuestionBtn] = useState(true);
-    const [isAddingQuestion, setIsAddingQuestion] = useState(false);
     const [newQuestion, setNewQuestion] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
     const { displayId } = useParams();
@@ -68,7 +66,6 @@ const QuizDetailPage = () => {
 
     return (
         <>
-            {isAddingQuestion && <Spinner />}
             <div className="md:px-5 xl:px-8">
                 {showShareModal && (
                     <Modal
