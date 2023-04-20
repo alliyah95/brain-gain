@@ -202,6 +202,7 @@ const QuestionForm = (props) => {
             );
         }
 
+        setIsEditingQuestion(false);
         if (props.method === "PATCH") {
             customToast("success", "Question successfully updated!");
             navigate(`/quiz/${props.displayId}`);
@@ -210,7 +211,6 @@ const QuestionForm = (props) => {
             props.onToggleForm();
             props.onAddQuestion();
         }
-        setIsEditingQuestion(false);
     };
 
     const deleteModalVisibilityHandler = (visibility) => {
@@ -222,7 +222,7 @@ const QuestionForm = (props) => {
         setIsEditingQuestion(true);
 
         const response = await fetch(
-            `http://localhost:8080/api/delete_question/${props.displayId}/${props.questionData._id}`,
+            `${process.env.REACT_APP_BACKEND_API}delete_question/${props.displayId}/${props.questionData._id}`,
             {
                 method: "DELETE",
                 headers: {
@@ -248,9 +248,9 @@ const QuestionForm = (props) => {
             );
         }
 
+        setIsEditingQuestion(false);
         customToast("success", "Question successfully deleted");
         navigate(`/quiz/${props.displayId}`);
-        setIsEditingQuestion(false);
     };
 
     const cancelAddHandler = () => {
