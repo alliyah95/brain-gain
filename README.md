@@ -2,9 +2,11 @@
 
 <div align="center"><img src="https://res.cloudinary.com/dl2vomrrr/image/upload/v1682009661/brain-gain-preview_pprkco.gif"/></div>
 
+**_Note:_** _Brain Gain's server is deployed as a free web service on [Render](https://render.com/docs/free) and may experience delays when starting up due to automatic timeout after 15 minutes of inactivity. Please be patient when starting the app._
+
 ## About
 
-Brain Gain is a study tool that I developed to learn and apply my knowledge of the MERN stack. I used [Quizlet](https://quizlet.com/) as a reference to build the app and implement similar functionalities. Brain Gain allows users to create and share flashcards and tests. It also provides a simple user interface for a seamless study experience.
+[Brain Gain](https://braingain.vercel.app/) is a study tool that I developed to learn and apply my knowledge of the MERN stack. I used [Quizlet](https://quizlet.com/) as a reference to build the app and implement similar functionalities. Brain Gain allows users to create and share flashcards and tests. It also provides a simple user interface for a seamless study experience.
 
 ## Technologies Used
 
@@ -60,4 +62,4 @@ DB_URI=mongodb://127.0.0.1:27017/brain-gain
 
 ## License
 
-**Brain Gain** is licensed under the [MIT](https://github.com/ajmsjy/brain-gain/blob/main/LICENSE) license.
+**Brain Gain** is licensed under the [GPL-3.0](https://github.com/ajmsjy/brain-gain/blob/main/LICENSE) license.
