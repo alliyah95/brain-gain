@@ -1,7 +1,7 @@
-import EditQuizForm from "../../components/Quiz/EditQuizForm";
 import { getAuthToken } from "../../util/auth";
 import { json, redirect, useActionData } from "react-router-dom";
 import { customToast } from "../../util/customToast";
+import EditQuizForm from "../../components/Quiz/EditQuizForm";
 
 const EditQuizPage = () => {
     const error = useActionData();

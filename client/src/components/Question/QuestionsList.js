@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import useMedia from "../../hooks/useMedia";
+import { getNumCards } from "../../util/quiz";
 import Card from "../UI/Card";
 import PaginationContainer from "../Pagination/PaginationContainer";
 import PaginationNav from "../Pagination/PaginationNav";
-import useMedia from "../../hooks/useMedia";
-import { getNumCards } from "../../util/quiz";
 
 const QuestionsList = ({ questions, displayId }) => {
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();

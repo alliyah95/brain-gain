@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useRouteLoaderData, json, useNavigate } from "react-router-dom";
 import { customToast } from "../../util/customToast";
+import { getOptionsInitialState } from "../../util/question";
+import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import TrueOrFalse from "./TrueOrFalse";
 import QuestionWithOptions from "./QuestionWithOptions";
 import Modal from "../UI/Modal";
-import { getOptionsInitialState } from "../../util/question";
-import { TrashIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import Spinner from "../../components/UI/Spinner";
 
 const QuestionForm = (props) => {

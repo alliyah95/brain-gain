@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData, Link } from "react-router-dom";
 import { formatDateTime } from "../../util/quiz";
+import { getNumCards } from "../../util/quiz";
 import Card from "../../components/UI/Card";
+import useMedia from "../../hooks/useMedia";
 import PaginationContainer from "../../components/Pagination/PaginationContainer";
 import PaginationNav from "../../components/Pagination/PaginationNav";
-import useMedia from "../../hooks/useMedia";
-import { getNumCards } from "../../util/quiz";
 
 const AttemptHistoryPage = () => {
     const { attemptHistory, quizName, quizDisplayId } = useLoaderData();
@@ -75,7 +75,7 @@ const AttemptHistoryPage = () => {
 
 export default AttemptHistoryPage;
 
-export const attemptHistoryLoader = async ({ request, params }) => {
+export const attemptHistoryLoader = async ({ params }) => {
     const token = getAuthToken();
     const quizDisplayId = params.displayId;
 

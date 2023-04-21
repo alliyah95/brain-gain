@@ -1,7 +1,7 @@
 import { useLoaderData, json } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import QuestionCard from "../../components/Question/QuestionCard";
 import { formatDateTime } from "../../util/quiz";
+import QuestionCard from "../../components/Question/QuestionCard";
 
 const QuizResultsPage = () => {
     const details = useLoaderData();

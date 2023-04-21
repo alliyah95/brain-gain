@@ -6,10 +6,10 @@ import {
     useRouteLoaderData,
     useParams,
 } from "react-router-dom";
-import Flashcard from "../../components/Question/Flashcard";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import Flashcard from "../../components/Question/Flashcard";
 import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
 
 const FlashcardsPage = () => {

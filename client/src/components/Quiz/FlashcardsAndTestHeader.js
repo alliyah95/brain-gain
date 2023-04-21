@@ -1,5 +1,5 @@
-import { ClockIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 const QuizTitleAndDescription = ({
     title,

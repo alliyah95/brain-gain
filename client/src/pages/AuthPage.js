@@ -7,9 +7,9 @@ import {
     json,
     redirect,
 } from "react-router-dom";
+import { customToast } from "../util/customToast";
 import LoginForm from "../components/Auth/LoginForm";
 import RegistrationForm from "../components/Auth/RegistrationForm";
-import { customToast } from "../util/customToast";
 
 const AuthPage = () => {
     const location = useLocation();

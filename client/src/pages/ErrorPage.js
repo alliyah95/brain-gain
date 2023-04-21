@@ -1,8 +1,8 @@
 import { useRouteError, Link } from "react-router-dom";
+import { getAuthToken } from "../util/auth";
 import ParticlesBackground from "../components/UI/ParticlesBackground";
 import NavBar from "../components/UI/NavBar";
 import Footer from "../components/UI/Footer";
-import { getAuthToken } from "../util/auth";
 
 const ErrorPage = ({ noNavBar }) => {
     const error = useRouteError();

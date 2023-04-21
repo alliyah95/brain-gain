@@ -165,7 +165,7 @@ const QuizDetailPage = () => {
 
 export default QuizDetailPage;
 
-export const quizDetailLoader = async ({ request, params }) => {
+export const quizDetailLoader = async ({ params }) => {
     const token = getAuthToken();
     const quizDisplayId = params.displayId;
     const quizData = await loadQuizDetail(quizDisplayId, token);

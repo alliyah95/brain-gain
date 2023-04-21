@@ -1,4 +1,3 @@
-import React from "react";
 import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData } from "react-router-dom";
 import QuestionForm from "../../components/Question/QuestionForm";
@@ -19,7 +18,7 @@ const EditQuestionPage = () => {
 
 export default EditQuestionPage;
 
-export const questionLoader = async ({ request, params }) => {
+export const questionLoader = async ({ params }) => {
     const quizDisplayId = params.displayId;
     const questionId = params.questionId;
     const token = getAuthToken();

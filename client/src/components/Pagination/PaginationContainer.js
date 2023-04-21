@@ -1,5 +1,3 @@
-import React from "react";
-
 const PaginationContainer = ({ cards, smHeight, lgHeight, xlHeight }) => {
     return (
         <div

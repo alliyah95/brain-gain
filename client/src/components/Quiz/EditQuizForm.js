@@ -6,9 +6,9 @@ import {
     json,
     useNavigate,
 } from "react-router-dom";
+import { customToast } from "../../util/customToast";
 import QuizDescriptionForm from "./QuizDescriptionForm";
 import Modal from "../UI/Modal";
-import { customToast } from "../../util/customToast";
 
 const EditQuizForm = () => {
     const quizData = useLoaderData();

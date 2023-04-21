@@ -4,20 +4,16 @@ import {
     redirect,
     RouterProvider,
 } from "react-router-dom";
+
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Spinner from "./components/UI/Spinner";
-import { action as authAction } from "./pages/AuthPage";
+
 import { tokenLoader, authChecker } from "./util/auth";
+import { action as authAction } from "./pages/AuthPage";
 import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
-import { quizDetailLoader } from "./pages/Quiz/QuizDetailPage";
 import { editQuizAction } from "./pages/Quiz/EditQuizPage";
-import { questionLoader } from "./pages/Quiz/EditQuestionPage";
-import { publicQuizDetailLoader } from "./pages/Quiz/FlashcardsPage";
 import { checkQuizResults } from "./pages/Quiz/TestPage";
-import { resultsLoader } from "./pages/Quiz/QuizResultsPage";
-import { attemptHistoryLoader } from "./pages/Quiz/AttemptHistoryPage";
-import { homeDataLoader } from "./pages/HomePage";
 
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -85,7 +81,10 @@ const router = createBrowserRouter([
                                 <HomePage />
                             </Suspense>
                         ),
-                        loader: homeDataLoader,
+                        loader: ({ request }) =>
+                            import("./pages/HomePage").then((module) =>
+                                module.homeDataLoader({ request })
+                            ),
                     },
                     {
                         path: "quiz/:displayId",
@@ -94,7 +93,10 @@ const router = createBrowserRouter([
                                 <QuizDetailPage />
                             </Suspense>
                         ),
-                        loader: quizDetailLoader,
+                        loader: ({ params }) =>
+                            import("./pages/Quiz/QuizDetailPage").then(
+                                (module) => module.quizDetailLoader({ params })
+                            ),
                     },
                     {
                         path: "quiz/:displayId/edit",
@@ -103,7 +105,10 @@ const router = createBrowserRouter([
                                 <EditQuizPage />
                             </Suspense>
                         ),
-                        loader: quizDetailLoader,
+                        loader: ({ params }) =>
+                            import("./pages/Quiz/QuizDetailPage").then(
+                                (module) => module.quizDetailLoader({ params })
+                            ),
                         action: editQuizAction,
                     },
                     {
@@ -113,7 +118,10 @@ const router = createBrowserRouter([
                                 <EditQuestionPage />
                             </Suspense>
                         ),
-                        loader: questionLoader,
+                        loader: ({ params }) =>
+                            import("./pages/Quiz/EditQuestionPage").then(
+                                (module) => module.questionLoader({ params })
+                            ),
                     },
                     {
                         path: "quiz/:displayId/attempt_history",
@@ -122,7 +130,11 @@ const router = createBrowserRouter([
                                 <AttemptHistoryPage />
                             </Suspense>
                         ),
-                        loader: attemptHistoryLoader,
+                        loader: ({ params }) =>
+                            import("./pages/Quiz/AttemptHistoryPage").then(
+                                (module) =>
+                                    module.attemptHistoryLoader({ params })
+                            ),
                     },
                 ],
             },
@@ -133,7 +145,10 @@ const router = createBrowserRouter([
                         <FlashcardsPage />
                     </Suspense>
                 ),
-                loader: publicQuizDetailLoader,
+                loader: ({ params }) =>
+                    import("./pages/Quiz/FlashcardsPage").then((module) =>
+                        module.publicQuizDetailLoader({ params })
+                    ),
             },
             {
                 path: "quiz/:displayId/test",
@@ -142,7 +157,10 @@ const router = createBrowserRouter([
                         <TestPage />
                     </Suspense>
                 ),
-                loader: publicQuizDetailLoader,
+                loader: ({ params }) =>
+                    import("./pages/Quiz/FlashcardsPage").then((module) =>
+                        module.publicQuizDetailLoader({ params })
+                    ),
                 action: checkQuizResults,
             },
             {
@@ -152,7 +170,10 @@ const router = createBrowserRouter([
                         <QuizResultsPage />
                     </Suspense>
                 ),
-                loader: resultsLoader,
+                loader: ({ params }) =>
+                    import("./pages/Quiz/QuizResultsPage").then((module) =>
+                        module.resultsLoader({ params })
+                    ),
             },
         ],
     },
