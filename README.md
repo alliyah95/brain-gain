@@ -1,6 +1,6 @@
 ## <h1 align="center">brain gain 📝</h1>
 
-<div align="center"><img src="https://res.cloudinary.com/dl2vomrrr/image/upload/v1682009661/brain-gain-preview_pprkco.gif"/></div>
+<div align="center"><img src="https://github.com/alliyah95/readme-assets/blob/main/brain-gain/brain-gain-preview.gif?raw=true"/></div>
 
 **_Note:_** _Brain Gain's server is deployed as a free web service on [Render](https://render.com/docs/free) and may experience delays when starting up due to automatic timeout after 15 minutes of inactivity. Please be patient when starting the app._
 
