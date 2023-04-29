@@ -15,16 +15,23 @@ const Card = ({
     }
 
     return (
-        <Link to={path}>
-            <div className="preview-card">
-                {hasTag && <p className={tagClass}>{tagContent}</p>}
-                <p className="font-semibold">{title}</p>
-                {description && <p>{description}</p>}
-                {!description && !noDescPrompt && (
-                    <p className="text-opacity-50">No description provided</p>
-                )}
-            </div>
-        </Link>
+        <div className="preview-card">
+            {hasTag && <p className={tagClass}>{tagContent}</p>}
+            <p>
+                {" "}
+                <Link
+                    to={path}
+                    className="font-semibold inline-block hover:underline"
+                >
+                    {title}
+                </Link>
+            </p>
+
+            {description && <p>{description}</p>}
+            {!description && !noDescPrompt && (
+                <p className="text-opacity-50">No description provided</p>
+            )}
+        </div>
     );
 };
 
