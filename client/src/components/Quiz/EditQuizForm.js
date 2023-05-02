@@ -9,10 +9,12 @@ import {
 import { customToast } from "../../util/customToast";
 import QuizDescriptionForm from "./QuizDescriptionForm";
 import Modal from "../UI/Modal";
+import Spinner from "../../components/UI/Spinner";
 
 const EditQuizForm = () => {
     const quizData = useLoaderData();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeletingQuiz, setIsDeletingQuiz] = useState(false);
     const token = useRouteLoaderData("root");
     const { displayId } = useParams();
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ const EditQuizForm = () => {
     };
 
     const deleteQuizHandler = async () => {
+        setIsDeletingQuiz(true);
         setShowDeleteModal(false);
 
         const response = await fetch(
@@ -44,12 +47,14 @@ const EditQuizForm = () => {
             throw json({ message: "Failed to delete quiz." }, { status: 500 });
         }
 
+        setIsDeletingQuiz(false);
         customToast("success", "Quiz successully deleted");
         navigate("/home");
     };
 
     return (
         <>
+            {isDeletingQuiz && <Spinner />}
             {showDeleteModal && (
                 <Modal
                     onAction={deleteQuizHandler}
