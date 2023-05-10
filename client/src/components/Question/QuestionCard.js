@@ -104,7 +104,7 @@ const QuestionCard = ({
                 Question {index + 1}
             </p>
 
-            <p className="mb-2">{data.description}</p>
+            <p className="mb-2 text-center">{data.description}</p>
             {type === "viewing" && (
                 <p className="text-xs md:text-sm italic text-yellow mb-2">
                     {REMARKS[remark]}
