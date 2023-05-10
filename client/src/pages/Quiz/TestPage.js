@@ -8,9 +8,8 @@ import {
     useNavigate,
     useParams,
 } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { getAuthToken } from "../../util/auth";
-import UserContext from "../../store/user";
 import QuestionCard from "../../components/Question/QuestionCard";
 import Modal from "../../components/UI/Modal";
 import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
@@ -20,7 +19,6 @@ const TestPage = () => {
     const token = useRouteLoaderData("root");
     const [showConfirmationModal, setConfirmationModal] = useState(true);
     const navigate = useNavigate();
-    const userCtx = useContext(UserContext);
     const { displayId } = useParams();
 
     const modalVisibilityHandler = () => {
@@ -28,14 +26,7 @@ const TestPage = () => {
     };
 
     const cancelHandler = () => {
-        if (
-            userCtx.user &&
-            userCtx.user.username === quizData.creatorUsername
-        ) {
-            navigate(-1);
-        } else {
-            navigate(`/`);
-        }
+        navigate("/home");
     };
 
     return (
