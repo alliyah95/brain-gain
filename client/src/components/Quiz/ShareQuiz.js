@@ -8,7 +8,7 @@ const ShareQuiz = ({ link, title }) => {
 
     const handleCopy = () => {
         setIsCopied(true);
-        customToast("success", `${title} link copied to clipboard!`);
+        customToast("success", "Link copied to clipboard!");
         setTimeout(() => {
             setIsCopied(false);
         }, 1500);

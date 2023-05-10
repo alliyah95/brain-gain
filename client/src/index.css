@@ -207,3 +207,17 @@
         opacity: 1;
     }
 }
+
+.fade-out {
+    animation-name: fadeOut;
+    animation-duration: 0.15s;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
