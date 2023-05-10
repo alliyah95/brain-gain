@@ -14,6 +14,7 @@ module.exports = withMT({
                 "muted-brown": "#6E675F",
                 "light-brown": "#EDEBD7",
                 "light-brown-h": "#eae8d1",
+                "yellow-darker": "#d4a637",
             },
         },
     },

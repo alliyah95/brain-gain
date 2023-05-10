@@ -1,9 +1,5 @@
 import { lazy, Suspense } from "react";
-import {
-    createBrowserRouter,
-    redirect,
-    RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
@@ -15,6 +11,7 @@ import { createQuizAction } from "./pages/Quiz/CreateQuizPage";
 import { editQuizAction } from "./pages/Quiz/EditQuizPage";
 import { checkQuizResults } from "./pages/Quiz/TestPage";
 
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const HomePage = lazy(() => import("./pages/HomePage"));
 const CreateQuizPage = lazy(() => import("./pages/Quiz/CreateQuizPage"));
@@ -38,9 +35,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader: () => {
-                    return redirect("/home");
-                },
+                element: <LandingPage />,
             },
             {
                 path: "/login",
