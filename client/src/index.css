@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply scroll-smooth;
+    }
     h3,
     h4,
     h5,

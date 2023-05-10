@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import {
     DocumentPlusIcon,
     ClipboardDocumentIcon,
@@ -9,6 +9,8 @@ import {
 import FeatureCard from "../components/UI/FeatureCard";
 
 const LandingPage = () => {
+    const token = useRouteLoaderData("root");
+
     return (
         <>
             <section className="lg:p-5 mx-auto text-center min-h-[60vh] xl:min-h-[80vh]">
@@ -27,15 +29,15 @@ const LandingPage = () => {
                     </a>
                     <Link
                         className="btn md:py-4 bg-yellow hover:bg-yellow-darker text-white"
-                        to="/login"
+                        to={token ? "/home" : "/signup"}
                     >
-                        Get Started
+                        {token ? "Go Home" : "Get Started"}
                     </Link>
                 </div>
             </section>
 
             <section
-                className="mx-auto max-w-5xl m-10 md:pb-10 lg:pb-24 pt-10"
+                className="mx-auto max-w-5xl m-10 md:pb-10 lg:pb-24 pt-10 lg:pt-32"
                 id="features"
             >
                 <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black text-center mb-4 lg:mb-8">

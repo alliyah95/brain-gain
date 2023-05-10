@@ -21,7 +21,7 @@ const AuthPage = () => {
     useEffect(() => {
         if (token) {
             setRender(false);
-            navigate("/");
+            navigate("/home");
         } else {
             setRender(true);
         }
@@ -117,5 +117,5 @@ export const action = async ({ request }) => {
     expiration.setHours(expiration.getHours() + 168);
     localStorage.setItem("expiration", expiration.toISOString());
 
-    return redirect("/");
+    return redirect("/home");
 };

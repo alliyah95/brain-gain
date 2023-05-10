@@ -58,7 +58,6 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 loader: authChecker,
-                errorElement: <ErrorPage noNavBar={true} />,
                 children: [
                     {
                         path: "create_quiz",
