@@ -165,3 +165,45 @@
 .Toastify__close-button {
     color: white !important;
 }
+
+.slide-in-down {
+    animation: slideInDown 0.5s ease;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-30%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.slide-in-up {
+    animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(40%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

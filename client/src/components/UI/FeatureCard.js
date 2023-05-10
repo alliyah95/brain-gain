@@ -1,8 +1,16 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 
 const FeatureCard = ({ title, description, illustration }) => {
+    const { ref, inView } = useInView({ triggerOnce: true });
+
     return (
-        <div className="border border-brown p-5 rounded-md">
+        <div
+            ref={ref}
+            className={`border border-brown p-5 rounded-md ${
+                inView ? "slide-in-up" : ""
+            }`}
+        >
             <div className=" h-10 w-10 mb-5 lg:mb-6 mt-2 text-yellow">
                 {illustration}
             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import { Link, useRouteLoaderData } from "react-router-dom";
 import {
     DocumentPlusIcon,
@@ -10,20 +11,21 @@ import FeatureCard from "../components/UI/FeatureCard";
 
 const LandingPage = () => {
     const token = useRouteLoaderData("root");
+    const { ref, inView } = useInView({ triggerOnce: true });
 
     return (
         <>
             <section className="lg:p-5 mx-auto text-center min-h-[60vh] xl:min-h-[80vh]">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl pt-24 xl:pt-36 pb-8 lg:pb-12 font-extrabold text-brown">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl pt-24 xl:pt-36 pb-8 lg:pb-12 font-extrabold text-brown slide-in-down">
                     Train your <span className="text-yellow">brain</span> and
                     level up your knowledge!
                 </h1>
-                <p className="mx-auto px-2 max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16">
+                <p className="mx-auto px-2 max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16 slide-in-up fade-in">
                     Brain Gain is a study tool that allows you to create
                     flashcards and take quizzes to improve your memory and
                     knowledge retention.
                 </p>
-                <div className="space-x-4 lg:space-x-8">
+                <div className="space-x-4 lg:space-x-8 slide-in-up">
                     <a className="btn md:py-4 text-white" href="#features">
                         Learn More
                     </a>
@@ -40,14 +42,18 @@ const LandingPage = () => {
                 className="mx-auto max-w-5xl m-10 md:pb-10 lg:pb-24 pt-10 lg:pt-32"
                 id="features"
             >
-                <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black text-center mb-4 lg:mb-8">
-                    Study <span className="text-yellow">smarter</span> with
-                    Brain Gain
-                </h2>
-                <p className="mx-auto px-2 max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16 text-center">
-                    Discover how Brain Gain's features, designed to enhance your
-                    learning experience, can help you achieve your study goals.
-                </p>
+                <div ref={ref} className={`${inView ? "slide-in-up" : ""}`}>
+                    <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black text-center mb-4 lg:mb-8">
+                        Study <span className="text-yellow">smarter</span> with
+                        Brain Gain
+                    </h2>
+                    <p className="mx-auto px-2 max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16 text-center">
+                        Discover how Brain Gain's features, designed to enhance
+                        your learning experience, can help you achieve your
+                        study goals.
+                    </p>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-4 lg:gap-8 ">
                     <FeatureCard
                         title="Create a quiz"
