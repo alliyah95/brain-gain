@@ -195,7 +195,7 @@
 .fade-in {
     opacity: 0;
     animation-name: fade-in;
-    animation-duration: 1s;
+    animation-duration: 1.5s;
     animation-fill-mode: forwards;
 }
 
