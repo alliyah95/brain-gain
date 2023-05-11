@@ -24,7 +24,7 @@ const MyActivityTab = ({ attemptHistory, currentUser }) => {
     const cards = attemptHistory.map((attempt) => {
         return (
             <Card
-                path={`/quiz/result/${attempt.id}`}
+                path={`/result/${attempt.id}`}
                 title={attempt.quizTitle}
                 description={`Score: ${attempt.score}/${attempt.totalScore}`}
                 hasTag={true}

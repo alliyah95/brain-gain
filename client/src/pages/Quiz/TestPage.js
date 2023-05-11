@@ -130,5 +130,5 @@ export const checkQuizResults = async ({ request, params }) => {
     }
 
     const resData = await response.json();
-    return redirect(`/quiz/result/${resData.attemptHistory._id}`);
+    return redirect(`/result/${resData.attemptHistory._id}`);
 };

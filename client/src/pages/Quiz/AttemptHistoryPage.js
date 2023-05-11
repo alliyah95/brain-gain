@@ -24,7 +24,7 @@ const AttemptHistoryPage = () => {
     const cards = attemptHistory.map((attempt) => {
         return (
             <Card
-                path={`/quiz/result/${attempt.id}`}
+                path={`/result/${attempt.id}`}
                 title={`Attempt made on ${formatDateTime(attempt.attemptDate)}`}
                 description={`Score: ${attempt.score}/${attempt.totalScore}`}
                 hasTag={false}

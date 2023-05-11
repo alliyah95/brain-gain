@@ -158,7 +158,7 @@ const router = createBrowserRouter([
                 action: checkQuizResults,
             },
             {
-                path: "quiz/result/:attemptId",
+                path: "result/:attemptId",
                 element: (
                     <Suspense fallback={<Spinner />}>
                         <QuizResultsPage />
