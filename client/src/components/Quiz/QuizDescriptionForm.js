@@ -43,13 +43,14 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                 <label htmlFor="description">Description</label>
             </div>
 
-            <div className="space-x-2 mb-10 xl:mb-16 text-brown">
+            <div className="space-x-2 mb-10 xl:mb-16 text-brown flex items-center">
                 <input
+                    id="access"
                     type="checkbox"
                     name="quizAccess"
                     defaultChecked={quizData && quizData.isPublic}
                 />
-                <label className="text-base font-normal">
+                <label className="text-base font-normal" htmlFor="access">
                     Make the quiz public
                 </label>
             </div>

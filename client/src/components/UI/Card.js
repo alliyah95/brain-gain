@@ -17,16 +17,9 @@ const Card = ({
     return (
         <div className="preview-card">
             {hasTag && <p className={tagClass}>{tagContent}</p>}
-            <p>
-                {" "}
-                <Link
-                    to={path}
-                    className="font-semibold inline-block hover:underline"
-                >
-                    {title}
-                </Link>
-            </p>
-
+            <Link to={path} className="font-semibold hover:underline">
+                <p className="truncate">{title}</p>
+            </Link>
             {description && <p>{description}</p>}
             {!description && !noDescPrompt && (
                 <p className="text-opacity-50">No description provided</p>

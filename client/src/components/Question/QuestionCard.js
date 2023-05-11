@@ -47,6 +47,7 @@ const QuestionCard = ({
                     return (
                         <li className="flex items-center space-x-1" key={index}>
                             <input
+                                id={index}
                                 type="radio"
                                 className="radio-btn"
                                 value={option}
@@ -60,6 +61,7 @@ const QuestionCard = ({
                                         ? "capitalize"
                                         : ""
                                 }`}
+                                htmlFor={index}
                             >
                                 {option}
                             </label>

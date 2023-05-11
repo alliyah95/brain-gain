@@ -3,8 +3,9 @@ const TrueOrFalse = ({ answerHandler, correctAnswer }) => {
         <div className="space-y-3">
             <p className="font-semibold mt-4">Correct Answer</p>
             <ul className="space-y-1 ">
-                <li>
+                <li className="flex items-center">
                     <input
+                        id="true"
                         type="radio"
                         className="radio-btn"
                         value="true"
@@ -16,8 +17,9 @@ const TrueOrFalse = ({ answerHandler, correctAnswer }) => {
                         True
                     </label>
                 </li>
-                <li>
+                <li className="flex items-center">
                     <input
+                        id="false"
                         type="radio"
                         value="false"
                         className="radio-btn"
