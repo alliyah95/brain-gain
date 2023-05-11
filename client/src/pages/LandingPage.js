@@ -13,7 +13,7 @@ const LandingPage = () => {
 
     return (
         <>
-            <section className="mx-auto text-center min-h-[65vh] lg:h-[80vh] pb-20 lg:pb-0 lg:p-5 ">
+            <section className="mx-auto text-center min-h-[65vh] lg:h-[80vh] pb-20 lg:pb-0 lg:p-5 fade-in">
                 <div className="pt-24 xl:pt-28 mb-5 lg:mb-8">
                     <img
                         src="assets/landing.png"
@@ -22,15 +22,15 @@ const LandingPage = () => {
                     />
                 </div>
 
-                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl pb-8  font-extrabold text-brown">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl mb-4 lg:mb-8 font-black font-title text-brown">
                     Train your brain and level up your mind!
                 </h1>
-                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12">
+                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-8 px-2">
                     Brain Gain is a study tool that allows you to create
                     flashcards and take quizzes to improve your memory and
                     knowledge retention.
                 </p>
-                <div className="space-x-4 lg:space-x-8">
+                <div className="space-x-4 xl:space-x-6">
                     <a className="btn md:py-4 text-white" href="#features">
                         Learn More
                     </a>
@@ -44,19 +44,19 @@ const LandingPage = () => {
             </section>
 
             <section
-                className="mx-auto max-w-5xl m-10 md:pb-10 lg:pb-24 pt-10 lg:pt-32"
+                className="mx-auto max-w-5xl m-10 md:pb-10 lg:pb-24 pt-10 lg:pt-32 fade-in"
                 id="features"
             >
-                <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black text-center mb-4 lg:mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black font-title text-center mb-4 lg:mb-6">
                     Study <span className="text-yellow">smarter</span> with
                     Brain Gain
                 </h2>
-                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16 text-center">
+                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-12 text-center">
                     Discover how Brain Gain's features, designed to enhance your
                     learning experience, can help you achieve your study goals.
                 </p>
 
-                <div className="grid md:grid-cols-2 gap-6 lg:gap-8 px-2 md:px-0 ">
+                <div className="grid md:grid-cols-2 gap-6 lg:gap-8 px-2 mx-auto">
                     <FeatureCard
                         title="Create a quiz"
                         description="Easily create custom quizzes tailored to your

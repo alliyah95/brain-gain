@@ -5,6 +5,7 @@ module.exports = withMT({
     theme: {
         fontFamily: {
             sans: ["Inter", "sans-serif"],
+            title: ["Roboto", "sans-serif"],
         },
         extend: {
             colors: {

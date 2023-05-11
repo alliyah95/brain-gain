@@ -95,6 +95,8 @@
     .flip-card-back {
         @apply absolute text-center p-5 md:p-8 xl:p-12;
         backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform-style: preserve-3d;
     }
 
     .flip-card-front {
