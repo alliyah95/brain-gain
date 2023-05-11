@@ -38,9 +38,6 @@ const HomePage = () => {
                 <li className={tabValue !== "my_activity" ? "opacity-50" : ""}>
                     <Link to="/home?tab=my_activity">My Activity</Link>
                 </li>
-                <li className={tabValue !== "library" ? "opacity-50" : ""}>
-                    <Link to="/home">Library</Link>
-                </li>
             </ul>
 
             {tabContent}

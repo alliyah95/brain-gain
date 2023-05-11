@@ -1,4 +1,4 @@
-import { useLoaderData, json } from "react-router-dom";
+import { Link, useLoaderData, json } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { formatDateTime } from "../../util/quiz";
 import QuestionCard from "../../components/Question/QuestionCard";
@@ -10,7 +10,13 @@ const QuizResultsPage = () => {
 
     return (
         <div className="max-w-[1200px] mx-auto text-center">
-            <p className="font-bold text-2xl">{details.quizSet.title}</p>
+            <Link
+                to={`/quiz/${details.quizSet.displayId}/flashcards`}
+                className="link"
+            >
+                <p className="font-bold text-2xl">{details.quizSet.title}</p>
+            </Link>
+
             <p className="text-yellow mb-8">
                 Attempt made on {formattedDatetime} by{" "}
                 <span className="font-bold">{details.user}</span>
@@ -20,10 +26,16 @@ const QuizResultsPage = () => {
                 Score: {details.score} / {questions.length}
             </p>
 
-            <p className="italic mt-12">
-                Any edits made to the questions of this quiz will not affect the
-                results of this attempt.
-            </p>
+            <Link
+                to={`/quiz/${details.quizSet.displayId}/test`}
+                className="link"
+                target="_blank"
+            >
+                <p className="mt-6 text-sm animate-pulse">
+                    Take the quiz again &rarr;
+                </p>
+            </Link>
+
             {questions && (
                 <ul className="mt-8 space-y-5 md:space-y-8">
                     {questions.map((question, index) => {
@@ -44,6 +56,11 @@ const QuizResultsPage = () => {
                     })}
                 </ul>
             )}
+
+            <p className="italic mt-8">
+                Any edits made to the questions of this quiz will not affect the
+                results of this attempt.
+            </p>
         </div>
     );
 };
