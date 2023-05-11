@@ -1,8 +1,9 @@
-## <h1 align="center">brain gain 📝</h1>
+## <h1 align="center">brain gain 🤯</h1>
 
-<div align="center"><img src="https://github.com/alliyah95/readme-assets/blob/main/brain-gain/brain-gain-preview.gif?raw=true"/></div>
+https://github.com/alliyah95/brain-gain/assets/74038500/f1f3dace-3089-4980-a33f-d3fbf8666c31
 
-**_Note:_** _Brain Gain's server is deployed as a free web service on [Render](https://render.com/docs/free) and may experience delays when starting up due to automatic timeout after 15 minutes of inactivity. Please be patient when starting the app._
+
+**_Note:_** _Brain Gain's server is currently deployed as a free web service and may experience delays when starting up due to automatic timeout after 15 minutes of inactivity. Please be patient when starting the app._
 
 ## About
 
@@ -18,20 +19,32 @@
 
 ## Setup and Installation
 
-1. Clone the project to your local machine using `git clone`.
+1. Clone the project to your local machine.
+
+    ``` bash
+    git clone https://github.com/alliyah95/brain-gain.git
+    ```
+    
 2. Install dependencies for both the client and server by running the following command in the `client` and `server` directories:
+
     ```bash
     npm install
     ```
+    
 3. Setup the [environment variables](#environment-variables) for both the client and server.
-4. Start the backend by navigating to the `server` directory and running the following command:
+
+5. Start the server by navigating to the `server` directory and running the following command:
+
     ```bash
     npm run dev
     ```
+   
 5. Start the client by navigating to the `client` directory and running the following command:
+
     ```bash
     npm run start
     ```
+    
 6. Access the app by navigating to `http://localhost:3000` in your web browser.
 
 ## Environment Variables
