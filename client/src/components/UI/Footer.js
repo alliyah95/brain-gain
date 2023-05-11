@@ -11,7 +11,7 @@ const Footer = () => {
                             rel="noopener noreferrer"
                             className="hover:text-yellow"
                         >
-                            Alliyah
+                            Alliyah Joyce Sarip
                         </a>
                     </p>
                     <a
