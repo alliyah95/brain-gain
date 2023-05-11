@@ -179,21 +179,8 @@
     transform: rotateY(180deg);
 }
 
-.slide-in-down {
-    animation: slideInDown 0.5s ease;
-}
-
-@keyframes slideInDown {
-    0% {
-        transform: translateY(-30%);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
 .slide-in-up {
-    animation: slideInUp 0.5s ease;
+    animation: slideInUp 0.3s ease;
 }
 
 @keyframes slideInUp {

@@ -30,12 +30,12 @@ const ConfirmModal = ({
                 }`}
             >
                 <button
-                    className="absolute top-0 right-0 p-3"
+                    className="absolute top-0 right-0 p-4"
                     onClick={generalCancelHandler}
                 >
                     <XMarkIcon className="h-6 w-6 text-brown" />
                 </button>
-                <div>{message}</div>
+                <div className="mt-4">{message}</div>
 
                 {addtlMsg && (
                     <p className="mt-4 italic opacity-50 text-sm">{addtlMsg}</p>
