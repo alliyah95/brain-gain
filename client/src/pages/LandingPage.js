@@ -25,7 +25,7 @@ const LandingPage = () => {
                 <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl mb-4 lg:mb-8 font-black font-title text-brown">
                     Train your brain and level up your mind!
                 </h1>
-                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-8 px-2">
+                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-8">
                     Brain Gain is a study tool that allows you to create
                     flashcards and take quizzes to improve your memory and
                     knowledge retention.
