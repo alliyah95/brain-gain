@@ -13,12 +13,19 @@ const LandingPage = () => {
 
     return (
         <>
-            <section className="lg:p-5 mx-auto text-center min-h-[60vh] xl:min-h-[80vh]">
-                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl pt-24 xl:pt-36 pb-8 lg:pb-12 font-extrabold text-brown">
-                    Train your <span className="text-yellow">brain</span> and
-                    level up your mind!
+            <section className="mx-auto text-center min-h-[65vh] lg:h-[80vh] pb-20 lg:pb-0 lg:p-5 ">
+                <div className="pt-24 xl:pt-28 mb-5 lg:mb-8">
+                    <img
+                        src="assets/landing.png"
+                        className="h-36 mx-auto"
+                        alt="Brain"
+                    />
+                </div>
+
+                <h1 className="text-3xl md:text-5xl lg:text-6xl mx-auto max-w-3xl pb-8  font-extrabold text-brown">
+                    Train your brain and level up your mind!
                 </h1>
-                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-16">
+                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12">
                     Brain Gain is a study tool that allows you to create
                     flashcards and take quizzes to improve your memory and
                     knowledge retention.

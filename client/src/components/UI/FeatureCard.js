@@ -11,7 +11,7 @@ const FeatureCard = ({ title, description, illustration }) => {
                 inView ? "slide-in-up" : ""
             }`}
         >
-            <div className=" h-10 w-10 mb-5 lg:mb-6 mt-2 text-yellow">
+            <div className=" h-10 w-10 mb-4 lg:mb-6 mt-2 text-yellow">
                 {illustration}
             </div>
 
