@@ -1,11 +1,5 @@
 import React from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
-import {
-    DocumentPlusIcon,
-    ClipboardDocumentIcon,
-    AcademicCapIcon,
-    UserGroupIcon,
-} from "@heroicons/react/24/solid";
 import FeatureCard from "../components/UI/FeatureCard";
 
 const LandingPage = () => {
@@ -61,22 +55,26 @@ const LandingPage = () => {
                         title="Create a quiz"
                         description="Easily create custom quizzes tailored to your
                             specific learning needs."
-                        illustration={<DocumentPlusIcon />}
+                        src="assets/create-quiz.png"
+                        alt="document"
                     />
                     <FeatureCard
                         title="Take a quiz"
                         description="Test your knowledge and track your progress with our user-friendly quiz interface."
-                        illustration={<ClipboardDocumentIcon />}
+                        src="assets/take-quiz.png"
+                        alt="quiz"
                     />
                     <FeatureCard
                         title="Flashcards"
                         description="Use our flashcards to study on-the-go and improve your memory retention."
-                        illustration={<AcademicCapIcon />}
+                        src="assets/flashcard.png"
+                        alt="flashcards"
                     />
                     <FeatureCard
                         title="Study with others"
                         description="Share your quizzes and flashcards with friends and classmates to collaborate and study together."
-                        illustration={<UserGroupIcon />}
+                        src="assets/study-with-others.png"
+                        alt="people"
                     />
                 </div>
             </section>
