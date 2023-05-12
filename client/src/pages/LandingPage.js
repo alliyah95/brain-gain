@@ -78,6 +78,28 @@ const LandingPage = () => {
                     />
                 </div>
             </section>
+
+            <section
+                className="mx-auto max-w-5xl m-10 md:pb-16 lg:pb-24 pt-16 lg:pt-32 fade-in"
+                id="features"
+            >
+                <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black font-title text-center mb-4 lg:mb-6">
+                    Take a Look: <span className="text-yellow">Brain Gain</span>{" "}
+                    Preview Video!
+                </h2>
+                <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-12 text-center">
+                    Get a glimpse of the app's functionality and user experience
+                    by watching this video.
+                </p>
+                <div className="px-2">
+                    <iframe
+                        className="w-full h-72 md:h-96 lg:h-[500px] rounded-md"
+                        src="https://www.youtube.com/embed/G_jjX6Bs3eM"
+                        title="YouTube video player"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+            </section>
         </>
     );
 };
