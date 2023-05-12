@@ -4,12 +4,14 @@ const validateName = (name) => {
 };
 
 const validatePassword = (password) => {
-    // min 8 chars, alphanumeric, one special character
-    return /^(?=.*[0-9])(?=.*[!_@#$%^&*])(?=.*[a-zA-Z]).{8,}$/.test(password);
+    // min 8 chars
+    return /^(.{8,})$/.test(password);
 };
 
 const validateUsername = (username) => {
-    return /^[A-Za-z][A-Za-z0-9_]{5,29}$/.test(username);
+    return /^(?=.{3,30}$)(?=.*[a-zA-Z])[a-zA-Z0-9_]*[a-zA-Z0-9]$/.test(
+        username
+    );
 };
 
 const validateUser = async ({
@@ -32,7 +34,7 @@ const validateUser = async ({
     }
 
     if (!validatePassword(password.trim())) {
-        return "Invalid password";
+        return "Password must be 8+ characters.";
     }
 
     if (!validateName(name.trim())) {

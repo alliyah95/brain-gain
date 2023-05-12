@@ -9,7 +9,7 @@ const userSchema = new Schema(
             required: [true, "Please enter a username"],
             unique: true,
             trim: true,
-            minlength: 6,
+            minlength: 3,
             validate: [validator.validateUsername, "Invalid username"],
         },
         password: {
