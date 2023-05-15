@@ -67,9 +67,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const correctPassword = await bcrypt.compare(password, user.password);
     if (!correctPassword) {
-        return res
-            .status(401)
-            .json({ message: "Incorrect username or password" });
+        return res.status(401).json({ message: "Incorrect password" });
     }
 
     const token = authUtilities.generateJsonToken(user.id);
