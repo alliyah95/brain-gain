@@ -7,8 +7,8 @@ const LandingPage = () => {
 
     return (
         <>
-            <section className="mx-auto text-center min-h-[65vh] lg:h-[80vh] pb-20 lg:pb-0 lg:p-5 fade-in">
-                <div className="pt-24 xl:pt-28 mb-5 lg:mb-8">
+            <section className="mx-auto text-center min-h-[80vh] lg:p-5 flex flex-col justify-center items-center fade-in">
+                <div className="mb-5 lg:mb-8">
                     <img
                         src="assets/landing.png"
                         className="h-36 mx-auto"
