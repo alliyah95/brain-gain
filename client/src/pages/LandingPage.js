@@ -52,20 +52,20 @@ const LandingPage = () => {
 
                 <div className="grid md:grid-cols-2 gap-6 lg:gap-8 px-2 mx-auto">
                     <FeatureCard
-                        title="Create a quiz"
+                        title="Create quizzes"
                         description="Easily create custom quizzes tailored to your
                             specific learning needs."
                         src="assets/create-quiz.png"
                         alt="document"
                     />
                     <FeatureCard
-                        title="Take a quiz"
+                        title="Test your brain"
                         description="Test your knowledge and track your progress with our user-friendly quiz interface."
                         src="assets/take-quiz.png"
                         alt="quiz"
                     />
                     <FeatureCard
-                        title="Flashcards"
+                        title="Boost your memory"
                         description="Use our flashcards to study on-the-go and improve your memory retention."
                         src="assets/flashcard.png"
                         alt="flashcards"
@@ -84,8 +84,8 @@ const LandingPage = () => {
                 id="features"
             >
                 <h2 className="text-2xl md:text-3xl lg:text-5xl text-brown font-black font-title text-center mb-4 lg:mb-6">
-                    Take a Look: <span className="text-yellow">Brain Gain</span>{" "}
-                    Preview Video!
+                    Take a look: <span className="text-yellow">Brain Gain</span>{" "}
+                    preview video!
                 </h2>
                 <p className="mx-auto max-w-3xl md:text-lg lg:text-xl mb-12 lg:mb-12 text-center">
                     Get a glimpse of the app's functionality and user experience
