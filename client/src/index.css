@@ -81,13 +81,13 @@
         z-index: -1;
     }
     ::-webkit-scrollbar {
-        @apply w-1 h-1;
+        @apply w-2 h-1;
     }
     ::-webkit-scrollbar-track {
-        @apply bg-brown bg-opacity-10 rounded-md;
+        @apply bg-brown bg-opacity-10;
     }
     ::-webkit-scrollbar-thumb {
-        @apply bg-brown rounded-md;
+        @apply bg-brown;
     }
 }
 
