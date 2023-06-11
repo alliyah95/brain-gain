@@ -44,6 +44,10 @@ app.use("/api", userRoutes);
 app.use("/api", quizRoutes);
 app.use("/api", questionRoutes);
 
+app.head("/ping", (req, res) => {
+    res.status(200).end();
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
