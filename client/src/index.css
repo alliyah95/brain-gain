@@ -34,6 +34,9 @@
     main {
         @apply w-[90%] mx-auto min-h-[80vh];
     }
+    input {
+        @apply rounded-none;
+    }
     input[type="checkbox"],
     input[type="radio"] {
         @apply appearance-none cursor-pointer w-3 h-3 lg:w-4 lg:h-4 bg-transparent border border-brown-darker checked:bg-brown-darker mr-1;
