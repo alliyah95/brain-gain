@@ -4,10 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getTokenDuration } from "../util/auth";
 import { logoutUser } from "../util/auth";
-import Spinner from "../components/UI/Spinner";
-import ParticlesBackground from "../components/UI/ParticlesBackground";
-import NavBar from "../components/UI/NavBar";
-import Footer from "../components/UI/Footer";
+import { Spinner, ParticlesBackground, NavBar, Footer } from "../components";
 
 const Root = () => {
     const token = useLoaderData();

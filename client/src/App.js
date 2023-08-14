@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./pages/Root";
 import ErrorPage from "./pages/ErrorPage";
-import Spinner from "./components/UI/Spinner";
+import { Spinner } from "./components";
 
 import { tokenLoader, authChecker } from "./util/auth";
 import { action as authAction } from "./pages/AuthPage";

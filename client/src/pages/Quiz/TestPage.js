@@ -10,9 +10,7 @@ import {
 } from "react-router-dom";
 import { useState } from "react";
 import { getAuthToken } from "../../util/auth";
-import QuestionCard from "../../components/Question/QuestionCard";
-import Modal from "../../components/UI/Modal";
-import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
+import { QuestionCard, Modal, FlashcardsAndTestHeader } from "../../components";
 
 const TestPage = () => {
     const quizData = useLoaderData();

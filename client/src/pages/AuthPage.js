@@ -8,8 +8,7 @@ import {
     redirect,
 } from "react-router-dom";
 import { customToast } from "../util/customToast";
-import LoginForm from "../components/Auth/LoginForm";
-import RegistrationForm from "../components/Auth/RegistrationForm";
+import { LoginForm, RegistrationForm } from "../components";
 
 const AuthPage = () => {
     const location = useLocation();

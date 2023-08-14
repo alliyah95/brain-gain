@@ -9,8 +9,7 @@ import {
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-import Flashcard from "../../components/Question/Flashcard";
-import FlashcardsAndTestHeader from "../../components/Quiz/FlashcardsAndTestHeader";
+import { Flashcard, FlashcardsAndTestHeader } from "../../components";
 
 const FlashcardsPage = () => {
     const quizData = useLoaderData();

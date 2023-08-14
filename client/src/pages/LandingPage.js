@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouteLoaderData } from "react-router-dom";
-import FeatureCard from "../components/UI/FeatureCard";
+import { FeatureCard } from "../components";
 
 const LandingPage = () => {
     const token = useRouteLoaderData("root");

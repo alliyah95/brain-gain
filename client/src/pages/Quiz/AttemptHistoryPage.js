@@ -3,10 +3,8 @@ import { getAuthToken } from "../../util/auth";
 import { json, useLoaderData, Link } from "react-router-dom";
 import { formatDateTime } from "../../util/quiz";
 import { getNumCards } from "../../util/quiz";
-import Card from "../../components/UI/Card";
+import { Card, PaginationContainer, PaginationNav } from "../../components";
 import useMedia from "../../hooks/useMedia";
-import PaginationContainer from "../../components/Pagination/PaginationContainer";
-import PaginationNav from "../../components/Pagination/PaginationNav";
 
 const AttemptHistoryPage = () => {
     const { attemptHistory, quizName, quizDisplayId } = useLoaderData();

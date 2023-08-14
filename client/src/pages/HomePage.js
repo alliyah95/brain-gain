@@ -2,8 +2,7 @@ import { Link, json, useLoaderData, useLocation } from "react-router-dom";
 import { getAuthToken } from "../util/auth";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import useMedia from "../hooks/useMedia";
-import QuizzesTab from "./Quiz/QuizzesTab";
-import MyActivityTab from "./Quiz/MyActivityTab";
+import { QuizzesTab, MyActivityTab } from "./Quiz";
 
 const HomePage = () => {
     const location = useLocation();

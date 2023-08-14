@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import useMedia from "../../hooks/useMedia";
 import { getNumCards } from "../../util/quiz";
-import Card from "../../components/UI/Card";
-import PaginationContainer from "../../components/Pagination/PaginationContainer";
-import PaginationNav from "../../components/Pagination/PaginationNav";
+import { Card, PaginationContainer, PaginationNav } from "../../components";
 
 const MyActivityTab = ({ attemptHistory, currentUser }) => {
     const { isSmallScreen, isLargeScreen, isExtraLargeScreen } = useMedia();

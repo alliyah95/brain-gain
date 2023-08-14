@@ -8,8 +8,7 @@ import {
 } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { loadQuizDetail } from "../../util/quiz";
-import Modal from "../../components/UI/Modal";
-import ShareQuiz from "../../components/Quiz/ShareQuiz";
+import { Modal, ShareQuiz, QuestionsList } from "../../components";
 import {
     ClockIcon,
     ListBulletIcon,
@@ -17,7 +16,6 @@ import {
     PlusIcon,
     ShareIcon,
 } from "@heroicons/react/24/solid";
-import QuestionsList from "../../components/Question/QuestionsList";
 
 const QuizDetailPage = () => {
     const data = useLoaderData();
