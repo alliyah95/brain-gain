@@ -1,4 +1,4 @@
-## <h1 align="center">brain gain</h1>
+## <h1 align="center">Brain Gain</h1>
 
 https://github.com/alliyah95/brain-gain/assets/74038500/f1f3dace-3089-4980-a33f-d3fbf8666c31
 
