@@ -71,7 +71,7 @@
         @apply text-yellow;
     }
     .test-option {
-        @apply font-normal text-base;
+        @apply font-normal text-base cursor-pointer;
     }
     #tsparticles {
         position: fixed;

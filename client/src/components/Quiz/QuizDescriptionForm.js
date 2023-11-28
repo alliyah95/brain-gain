@@ -50,7 +50,10 @@ const QuizDescriptionForm = ({ title, method, onDelete, quizData }) => {
                     name="quizAccess"
                     defaultChecked={quizData && quizData.isPublic}
                 />
-                <label className="text-base font-normal" htmlFor="access">
+                <label
+                    className="text-base font-normal cursor-pointer"
+                    htmlFor="access"
+                >
                     Make the quiz public
                 </label>
             </div>

@@ -13,7 +13,10 @@ const TrueOrFalse = ({ answerHandler, correctAnswer }) => {
                         defaultChecked={correctAnswer === true}
                         name="true or false"
                     />
-                    <label htmlFor="true" className="font-normal">
+                    <label
+                        htmlFor="true"
+                        className="font-normal cursor-pointer"
+                    >
                         True
                     </label>
                 </li>
@@ -27,7 +30,10 @@ const TrueOrFalse = ({ answerHandler, correctAnswer }) => {
                         defaultChecked={correctAnswer === false}
                         name="true or false"
                     />
-                    <label htmlFor="false" className="font-normal">
+                    <label
+                        htmlFor="false"
+                        className="font-normal cursor-pointer"
+                    >
                         False
                     </label>
                 </li>

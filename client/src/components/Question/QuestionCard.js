@@ -42,7 +42,7 @@ const QuestionCard = ({
         }
 
         cardContent = (
-            <ul className="grid lg:grid-cols-2 gap-1 lg:gap-y-2 lg:gap-x-4">
+            <ul className="mt-2 lg:mt-4 space-y-1 lg:space-y-2">
                 {finalOptions.map((option, index) => {
                     return (
                         <li className="flex items-center space-x-1" key={index}>
@@ -53,8 +53,10 @@ const QuestionCard = ({
                                 name={name}
                                 defaultChecked={userAnswer === option}
                                 disabled={disabled}
+                                id={`q${index}`}
                             />
                             <label
+                                htmlFor={`q${index}`}
                                 className={`test-option ${
                                     data.type === "true or false"
                                         ? "capitalize"
